@@ -95,7 +95,8 @@ button, input, select { font: inherit; color: inherit; }
 .year-picker select { font-weight: 600; min-width: 96px; }
 
 /* ---------- Statistics ---------- */
-.stats { display: grid; grid-template-columns: 0.8fr 1.1fr 1.1fr 1.1fr; gap: 16px; }
+.stats { display: grid; grid-template-columns: 0.8fr 1.1fr 1.1fr 1.1fr; gap: 16px;
+  grid-auto-flow: row dense; }   /* "dense" lets a card fill a gap left by the wide Top 10 */
 .year-part { display: contents; }   /* children join the parent grid */
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; min-width: 0; }
 .card-title { font-size: 18px; margin-bottom: 10px; }
