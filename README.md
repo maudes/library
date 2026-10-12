@@ -34,18 +34,23 @@ Notion ──► src/notion_source.py ──► src/enrich.py ──► src/stat
 
 ---
 
-## 1. Create a Notion integration
+## 1. Create a Notion internal connection
 
-1. Go to <https://www.notion.so/profile/integrations> → **New integration**.
-2. Name it (e.g. "Maude's Library"), choose your workspace, type **Internal**.
-3. Under **Capabilities**, only **Read content** is needed.
-4. Save, then copy the **Internal Integration Secret** (starts with `ntn_`).
-   This is your `NOTION_TOKEN`. Treat it like a password.
+Use an **internal connection** (formerly called an "integration"), not a personal
+access token: it can only see the pages you share with it, can be read-only, and
+doesn't expire. A personal access token can read *and edit* your whole workspace
+and expires within a year, which would silently stop the daily build.
 
-## 2. Connect the database to the integration
+1. Open the Notion Developer portal (<https://www.notion.so/developers>) and create
+   a new **internal connection** in your workspace (e.g. "Maude's Library").
+2. Under **Capabilities**, only **Read content** is needed.
+3. Save, then copy its secret. This is your `NOTION_TOKEN`.
+   Treat it like a password.
+
+## 2. Connect the database to the internal connection
 
 1. Open the reading-list database in Notion as a full page.
-2. Click **•••** (top right) → **Connections** → find your integration → **Confirm**.
+2. Click **•••** (top right) → **Connections** → find your connection → **Confirm**.
 3. Copy the database id from the page URL:
    `https://www.notion.so/<workspace>/`**`1f33d1f4a99a80c2b396e2e1adc75cf0`**`?v=…`
    This is your `NOTION_DATABASE_ID`.
@@ -124,9 +129,11 @@ build itself doesn't fail.
 
 ### Fixing a wrong cover or ISBN
 
-Automatic matches are occasionally the wrong edition. Fill in **ISBN** and/or
-**Cover URL** in Notion for that book; those always win. Titles matched without
-an author check are listed as warnings in the build log ("Matched … by title only").
+A lookup only counts when **both** the title and the author match, so a book
+whose author is written differently (e.g. 石黑一雄 in Notion, "Kazuo Ishiguro"
+in the English edition) may not be found and shows the placeholder. Automatic
+matches can also occasionally be a different edition. In either case, fill in
+**ISBN** and/or **Cover URL** in Notion for that book; those always win.
 
 ### Adding a new column
 

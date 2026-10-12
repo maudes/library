@@ -54,7 +54,13 @@ def make_book(page_id: str, raw: dict) -> Book | None:
     title = _clean_text(raw.get("title"))
     label = title or f"(untitled row {page_id})"
 
-    notion_genre = _clean_text(raw.get("genre"))
+    # Genre may come from a multi-select column: a book should have exactly one.
+    genre_value = raw.get("genre")
+    if isinstance(genre_value, list):
+        if len(genre_value) > 1:
+            log.warning("%r has several genres %s — using %r", label, genre_value, genre_value[0])
+        genre_value = genre_value[0] if genre_value else None
+    notion_genre = _clean_text(genre_value)
     genre = config.GENRE_MAP.get(notion_genre)
     values = {
         "title": title,
@@ -118,6 +124,9 @@ def _property_value(prop: dict, percent: bool = False):
         return value
     if kind == "select":
         return prop["select"]["name"] if prop["select"] else None
+    if kind == "multi_select":
+        # Returned as a list; make_book decides what to do with several values.
+        return [o["name"] for o in prop["multi_select"]]
     if kind == "date":
         return prop["date"]["start"] if prop["date"] else None
     if kind == "url":

@@ -42,15 +42,20 @@ def test_titles_match_ignores_subtitles():
     assert not enrich.titles_match("Sapiens", "Summary of Sapiens: a Brief History of Humankind")
 
 
-def test_search_plans_try_chinese_first_then_english():
-    plans = enrich.search_plans(book())
-    assert plans[0] == ("無聲告白", "伍綺詩", False)
-    assert ("Everything I Never Told You", "", True) in plans
+def test_search_plans_try_main_title_first_then_english_second_title():
+    assert enrich.search_plans(book()) == ["無聲告白", "Everything I Never Told You"]
+    assert enrich.search_plans(book(title="Vanish", second_title="")) == ["Vanish"]
+    assert enrich.search_plans(book(second_title="鐵湖疑案")) == ["無聲告白"]   # non-English second title skipped
 
 
-def test_search_plans_for_english_author_never_allow_title_only():
-    plans = enrich.search_plans(book(title="Vanish", second_title="", author="Tess Gerritsen"))
-    assert plans == [("Vanish", "Tess Gerritsen", False)]
+def test_title_only_match_is_rejected(monkeypatch):
+    """Same title, different author (J.J. McAvoy vs 石黑一雄) must not match."""
+    wrong = [{"title": "Never Let Me Go", "authors": ["J.J. McAvoy"], "isbn": "9781641970549",
+              "cover": "x", "source": "google"}]
+    monkeypatch.setattr(enrich, "search_google", lambda t, a, k="": wrong)
+    monkeypatch.setattr(enrich, "search_open_library", lambda t, a: wrong)
+    b = book(title="別讓我走", second_title="Never Let Me Go", author="石黑一雄")
+    assert enrich.find_match(b) is None
 
 
 # --- Cache behaviour ----------------------------------------------------------

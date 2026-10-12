@@ -14,6 +14,18 @@ def test_genre_values_are_mapped_to_site_labels():
     assert make_book("1", raw(genre="Fast-food type")).genre == "Fast-food"
 
 
+def test_multi_select_genre(caplog):
+    assert make_book("1", raw(genre=["Tool books"])).genre == "Tool"
+    assert make_book("1", raw(genre=[])) is None                 # no genre -> skipped
+    with caplog.at_level(logging.WARNING):
+        assert make_book("1", raw(genre=["Fiction", "Tool books"])).genre == "Fiction"
+    assert "several genres" in caplog.text
+
+
+def test_year_stored_as_text():
+    assert make_book("1", raw(year=" 2024 ")).year == 2024
+
+
 def test_missing_required_field_skips_row_with_warning(caplog):
     with caplog.at_level(logging.WARNING):
         assert make_book("1", raw(author="  ")) is None

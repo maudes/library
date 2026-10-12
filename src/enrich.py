@@ -124,8 +124,10 @@ def _pick_isbn13(isbns: list[str]) -> str:
 
 
 def search_google(title: str, author: str, api_key: str = "") -> list[dict]:
-    q = f'intitle:"{title}"' + (f' inauthor:"{author}"' if author else "")
-    params = {"q": q, "maxResults": 5, "printType": "books"}
+    # Plain keywords: Google's intitle:/inauthor: operators currently return
+    # nothing. Results are checked by title and author in find_match anyway.
+    q = f"{title} {author}".strip()
+    params = {"q": q, "maxResults": 10, "printType": "books"}
     if api_key:
         params["key"] = api_key
     data = _get_json("https://www.googleapis.com/books/v1/volumes", params)
@@ -170,32 +172,21 @@ def search_open_library(title: str, author: str) -> list[dict]:
 # Choosing the right result
 # ---------------------------------------------------------------------------
 
-def search_plans(book: Book) -> list[tuple[str, str, bool]]:
-    """(title, author, title_only_ok) queries to try, in order.
+def search_plans(book: Book) -> list[str]:
+    """Titles to search for, in order (always together with the author).
 
-    Chinese title + author first (finds the edition you actually read).
-    Then the English title, where Notion's author may be a Chinese
-    transliteration — so a close title match alone is accepted (and logged).
+    The Main Title first (for Chinese titles this finds the edition you
+    actually read), then the second title if it's in English.
+
+    A result must match BOTH title and author. Title-only matches were tried
+    and rejected: common titles (e.g. "Never Let Me Go") collide with other
+    books, and a wrong cover is worse than the placeholder. For books that
+    aren't found, fill in ISBN / Cover URL in Notion.
     """
-    plans = []
-    if not is_english(book.title):
-        plans.append((book.title, book.author, False))
-    # Title-only matches are only allowed when the author is written in
-    # Chinese/Japanese/etc. An English author name that doesn't match means
-    # it's a different book (e.g. a "Summary of ..." knock-off).
-    author_is_latin = is_english(book.author)
-    for t in (book.title, book.second_title):
-        if t and is_english(t):
-            plans.append((t, book.author, False))
-            if not author_is_latin:
-                plans.append((t, "", True))
-    # de-duplicate, keep order
-    seen, unique = set(), []
-    for p in plans:
-        if p not in seen:
-            seen.add(p)
-            unique.append(p)
-    return unique
+    titles = [book.title]
+    if book.second_title and is_english(book.second_title) and book.second_title != book.title:
+        titles.append(book.second_title)
+    return titles
 
 
 def find_match(book: Book, api_key: str = "") -> dict | None:
@@ -206,21 +197,15 @@ def find_match(book: Book, api_key: str = "") -> dict | None:
     """
     failed = False
     for search in (lambda t, a: search_google(t, a, api_key), search_open_library):
-        for title, author, title_only_ok in search_plans(book):
+        for title in search_plans(book):
             try:
-                results = search(title, author)
+                results = search(title, book.author)
             except LookupError_ as exc:
                 log.info("Lookup failed for %r: %s", book.title, exc)
                 failed = True
                 break  # this source is down; try the next source
             for r in results:
-                if not titles_match(title, r["title"]):
-                    continue
-                if authors_match(book.author, r["authors"]):
-                    return r
-                if title_only_ok and (r["isbn"] or r["cover"]):
-                    log.warning("Matched %r by title only (author %r vs %r) — check it",
-                                book.title, book.author, ", ".join(r["authors"]))
+                if titles_match(title, r["title"]) and authors_match(book.author, r["authors"]):
                     return r
     if failed:
         raise LookupError_("one or more sources unavailable")
@@ -312,6 +297,9 @@ def enrich(books: list[Book], api_key: str = "", today: date | None = None,
             entry = _lookup(book, api_key, sig, today, stats)
             if entry is not None:
                 cache[book.id] = entry
+            # Save progress regularly so an interrupted build keeps its work.
+            if stats["looked_up"] % 10 == 0:
+                save_cache(cache)
         elif fresh:
             stats["cached"] += 1
 
