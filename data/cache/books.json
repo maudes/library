@@ -504,9 +504,10 @@
     "status": "found"
   },
   "1f33d1f4-a99a-8067-a0fb-cd72d3763edf": {
-    "checked": "2026-10-13",
+    "checked": "2026-10-12",
     "cover": "",
     "isbn": "",
+    "published_year": null,
     "signature": "無聲告白|Everything I Never Told You|伍綺詩||",
     "source": "",
     "status": "not_found"
