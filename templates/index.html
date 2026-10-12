@@ -190,7 +190,6 @@
         <span role="columnheader">Rating</span>
         <span role="columnheader">Author</span>
         <span role="columnheader">Read</span>
-        <span role="columnheader">Published</span>
         <span role="columnheader">Genre</span>
         <span role="columnheader">Summary</span>
         <span role="columnheader">ISBN</span>
@@ -209,7 +208,6 @@
           <div role="cell" class="c-rating"><span class="m-label">Rating</span>{{ b.rating | pct }}</div>
           <div role="cell" class="c-author"><span class="m-label">Author</span><span class="clamp clamp-1">{{ b.author }}</span></div>
           <div role="cell" class="c-read"><span class="m-label">Read</span>{{ b.year }}</div>
-          <div role="cell" class="c-pub"><span class="m-label">Published</span>{{ b.published_year | dash }}</div>
           <div role="cell" class="c-genre"><span class="m-label">Genre</span>{{ genre_pill(b.genre) }}</div>
           <div role="cell" class="c-summary"><span class="m-label">Summary</span><span class="clamp clamp-2">{{ b.summary | dash }}</span></div>
           <div role="cell" class="c-isbn"><span class="m-label">ISBN</span>{{ b.isbn | dash }}</div>
@@ -236,7 +234,6 @@
           <div><dt>Genre</dt><dd>{{ genre_pill(b.genre) }}</dd></div>
           <div><dt>Rating</dt><dd>{{ b.rating | pct }}</dd></div>
           <div><dt>Read</dt><dd>{{ b.year }}</dd></div>
-          <div><dt>Published</dt><dd>{{ b.published_year | dash }}</dd></div>
         </dl>
         <p class="eyebrow">Summary</p>
         <p class="clamp clamp-4">{{ b.summary | dash }}</p>

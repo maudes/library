@@ -13,7 +13,6 @@ PROPERTIES = {
     "rating": "Rating",
     "genre": "Genre",
     "year": "Year",                      # the year you FINISHED the book
-    "published_year": "Published Year",  # optional column
     "summary": "Summary | 朕．批閱",
     "isbn": "ISBN",                      # optional; overrides automatic lookup
     "cover_url": "Cover URL",            # optional; overrides automatic lookup

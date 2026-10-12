@@ -43,9 +43,8 @@
     <dl class="detail-grid">
       <div><dt>Rating</dt><dd>{{ book.rating | pct }}</dd></div>
       <div><dt>Read year</dt><dd>{{ book.year }}</dd></div>
-      <div><dt>Published</dt><dd>{{ book.published_year | dash }}</dd></div>
       <div><dt>Genre</dt><dd>{{ genre_pill(book.genre) }}</dd></div>
-      <div class="span-2"><dt>ISBN</dt><dd>{{ book.isbn | dash }}</dd></div>
+      <div><dt>ISBN</dt><dd>{{ book.isbn | dash }}</dd></div>
     </dl>
     <p class="eyebrow">Summary</p>
     <p class="detail-summary">{{ book.summary | dash }}</p>

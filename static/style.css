@@ -185,7 +185,7 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
 .table-head, .book-row {
   display: grid;
   grid-template-columns:
-    2.2rem minmax(0, 1.5fr) minmax(0, 1.3fr) 4rem minmax(0, 1.1fr) 3.4rem 4.6rem 6.4rem minmax(0, 2.2fr) 7.6rem 3.6rem;
+    2.2rem minmax(0, 1.5fr) minmax(0, 1.3fr) 4rem minmax(0, 1.1fr) 3.4rem 6.4rem minmax(0, 2.2fr) 7.6rem 3.6rem;
   gap: 14px; align-items: start; padding: 12px 16px;
 }
 .table-head { background: #efe8da; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-block: 10px; }
@@ -210,7 +210,7 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
 .bc-head-text { min-width: 0; flex: 1; }
 .bc-title { font-size: 19px; margin-top: 2px; }
 .bc-author { color: var(--muted); font-size: 12.5px; margin-top: 4px; }
-.bc-meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 10px 0 0; padding: 10px 0; border-block: 1px solid var(--line-soft); }
+.bc-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 10px 0 0; padding: 10px 0; border-block: 1px solid var(--line-soft); }
 .bc-meta dt, .detail-grid dt { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .bc-meta dd, .detail-grid dd { margin: 2px 0 0; font-size: 13px; }
 .bc-foot { display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; padding-top: 10px; font-size: 12.5px; }
@@ -243,7 +243,6 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
 .detail-second { color: var(--muted); margin-top: 6px; overflow-wrap: anywhere; }
 .detail-author { margin-top: 10px; }
 .detail-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 0 0 20px; padding: 14px 0; border-block: 1px solid var(--line-soft); }
-.detail-grid .span-2 { grid-column: span 2; }
 .detail-summary { margin-top: 4px; white-space: pre-line; overflow-wrap: anywhere; line-height: 1.6; }
 
 /* ---------- Responsive ---------- */
@@ -261,7 +260,7 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
       "title  title  title  title"
       "author author author author"
       "second second second second"
-      "rating read   pub    genre"
+      "rating read   genre  genre"
       "summary summary summary summary"
       "isbn   isbn   isbn   more";
     gap: 8px 12px; padding: 16px;
@@ -269,7 +268,7 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
   .book-row { position: relative; }
   .book-row .c-num { position: absolute; top: 14px; right: 16px; }
   .c-title { grid-area: title; padding-right: 2.5rem; } .c-author { grid-area: author; } .c-second { grid-area: second; }
-  .c-rating { grid-area: rating; } .c-read { grid-area: read; } .c-pub { grid-area: pub; } .c-genre { grid-area: genre; }
+  .c-rating { grid-area: rating; } .c-read { grid-area: read; } .c-genre { grid-area: genre; }
   .c-summary { grid-area: summary; } .c-isbn { grid-area: isbn; } .c-more { grid-area: more; justify-self: end; align-self: end; }
   .m-label { display: block; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
   .c-title .m-label, .c-author .m-label { display: none; }

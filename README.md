@@ -120,7 +120,6 @@ you rename a column in Notion.
 | Genre | Select | ✅ | `Fiction` / `Non-fiction` / `Tool books` / `Fast-food type` |
 | Year | Number | ✅ | Year you finished the book |
 | Summary \| 朕．批閱 | Text | | **Public** |
-| Published Year | Number | | Optional — add it if you want it shown |
 | ISBN | Text | | Optional — overrides automatic lookup |
 | Cover URL | URL | | Optional — overrides automatic lookup |
 

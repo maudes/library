@@ -92,7 +92,6 @@ def make_book(page_id: str, raw: dict) -> Book | None:
         rating=rating,
         genre=genre,
         year=values["year"],
-        published_year=_to_int(raw.get("published_year")),
         summary=_clean_text(raw.get("summary")),
         finished_date=_to_date(raw.get("finished_date")),
         isbn=re.sub(r"[^0-9Xx]", "", _clean_text(raw.get("isbn"))),

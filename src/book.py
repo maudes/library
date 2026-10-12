@@ -13,7 +13,6 @@ class Book:
     year: int                    # year finished
     second_title: str = ""
     rating: int | None = None    # 0–100, None = not rated
-    published_year: int | None = None
     summary: str = ""
     finished_date: date | None = None
     isbn: str = ""               # from Notion, or filled in by enrich.py
