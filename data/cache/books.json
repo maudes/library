@@ -333,12 +333,13 @@
     "status": "not_found"
   },
   "1f33d1f4-a99a-804d-8bdf-ea673fb9fb89": {
-    "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "checked": "2026-10-12",
+    "cover": "covers/1f33d1f4-a99a-804d-8bdf-ea673fb9fb89.jpg",
+    "isbn": "9781784873639",
+    "published_year": 2019,
     "signature": "槍砲病菌與鋼鐵|Guns, Germs, and Steel: The Fates of Human Societies|Jared Diamond||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found"
   },
   "1f33d1f4-a99a-804d-b428-cb5da10646dd": {
     "checked": "2026-10-13",
@@ -799,12 +800,13 @@
     "status": "found"
   },
   "1f33d1f4-a99a-8093-8864-c836539ee456": {
-    "checked": "2026-10-13",
+    "checked": "2026-10-12",
     "cover": "",
-    "isbn": "",
+    "isbn": "9789579609951",
+    "published_year": 2018,
     "signature": "長夜難明||紫金陳||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found"
   },
   "1f33d1f4-a99a-8093-bfef-e8f4ac541d61": {
     "checked": "2026-10-13",
