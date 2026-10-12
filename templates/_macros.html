@@ -1,0 +1,53 @@
+{# Small reusable pieces of HTML. #}
+
+{# Book cover, or the beige/green placeholder when there's no cover. #}
+{% macro cover(book, size="md") %}
+  {% if book.cover %}
+    <img class="cover cover-{{ size }}" src="static/{{ book.cover }}" alt="Cover of {{ book.title }}" loading="lazy">
+  {% else %}
+    <span class="cover cover-{{ size }} cover-empty" role="img" aria-label="No cover available">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v15H5.5A1.5 1.5 0 0 1 4 17.5v-12Z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v15h5.5c.8 0 1.5-.7 1.5-1.5v-12Z"/></svg>
+    </span>
+  {% endif %}
+{% endmacro %}
+
+{% macro genre_pill(genre) %}
+  <span class="pill pill-{{ genre | lower | replace(' ', '-') }}">{{ genre }}</span>
+{% endmacro %}
+
+{# One row in a Top 3 card. Titles are clamped to one line, no "More". #}
+{% macro top_row(book, rank, show_year=false) %}
+  <li class="top-row">
+    <span class="top-rank">{{ rank }}</span>
+    {{ cover(book, "xs") }}
+    <span class="top-text">
+      <span class="top-title clamp-1">{{ book.title }}</span>
+      <span class="top-meta clamp-1">{{ book.author }}{% if show_year %} · {{ book.year }}{% endif %}</span>
+    </span>
+    <span class="top-rating">{{ book.rating | pct }}</span>
+  </li>
+{% endmacro %}
+
+{# Full details, shown inside the "More" pop-up. #}
+{% macro details(book) %}
+  <div class="detail">
+    <div class="detail-head">
+      {{ cover(book, "lg") }}
+      <div>
+        <p class="eyebrow">Main title</p>
+        <h2 class="detail-title" id="modal-title">{{ book.title }}</h2>
+        {% if book.second_title %}<p class="detail-second">{{ book.second_title }}</p>{% endif %}
+        <p class="detail-author">{{ book.author }}</p>
+      </div>
+    </div>
+    <dl class="detail-grid">
+      <div><dt>Rating</dt><dd>{{ book.rating | pct }}</dd></div>
+      <div><dt>Read year</dt><dd>{{ book.year }}</dd></div>
+      <div><dt>Published</dt><dd>{{ book.published_year | dash }}</dd></div>
+      <div><dt>Genre</dt><dd>{{ genre_pill(book.genre) }}</dd></div>
+      <div class="span-2"><dt>ISBN</dt><dd>{{ book.isbn | dash }}</dd></div>
+    </dl>
+    <p class="eyebrow">Summary</p>
+    <p class="detail-summary">{{ book.summary | dash }}</p>
+  </div>
+{% endmacro %}

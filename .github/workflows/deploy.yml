@@ -1,0 +1,71 @@
+name: Build and deploy
+
+on:
+  schedule:
+    - cron: "0 20 * * *"     # every day at 20:00 UTC = 04:00 Taipei
+  workflow_dispatch:          # "Run workflow" button on GitHub
+  push:
+    branches: [main]
+
+permissions:
+  contents: write             # to save newly found covers/ISBNs back to the repo
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Build site
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
+        run: python build.py
+
+      # Commit the cover/ISBN cache only when something new was found,
+      # so the next run doesn't look the same books up again.
+      - name: Save cover/ISBN cache
+        run: |
+          git add data/cache static/covers
+          if git diff --cached --quiet; then
+            echo "Cache unchanged."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Update cover/ISBN cache"
+            git push
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

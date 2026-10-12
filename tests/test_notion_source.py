@@ -1,0 +1,68 @@
+import logging
+
+from src.notion_source import _property_value, load_from_csv, make_book
+
+
+def raw(**overrides):
+    base = {"title": "Book", "author": "Someone", "genre": "Fiction", "year": 2026}
+    base.update(overrides)
+    return base
+
+
+def test_genre_values_are_mapped_to_site_labels():
+    assert make_book("1", raw(genre="Tool books")).genre == "Tool"
+    assert make_book("1", raw(genre="Fast-food type")).genre == "Fast-food"
+
+
+def test_missing_required_field_skips_row_with_warning(caplog):
+    with caplog.at_level(logging.WARNING):
+        assert make_book("1", raw(author="  ")) is None
+        assert make_book("1", raw(year=None)) is None
+    assert "missing author" in caplog.text
+
+
+def test_unknown_genre_is_skipped(caplog):
+    with caplog.at_level(logging.WARNING):
+        assert make_book("1", raw(genre="Poetry")) is None
+    assert "unknown genre" in caplog.text
+
+
+def test_text_is_trimmed():
+    b = make_book("1", raw(title="  設計心理學  ", second_title=" The  Design "))
+    assert b.title == "設計心理學"
+    assert b.second_title == "The Design"
+
+
+def test_csv_percent_rating_and_blank_rating():
+    assert make_book("1", raw(rating="60%")).rating == 60
+    assert make_book("1", raw(rating="")).rating is None
+
+
+def test_isbn_hyphens_removed():
+    assert make_book("1", raw(isbn="978-0-14-312755-0")).isbn == "9780143127550"
+
+
+def test_notion_percent_number_is_scaled():
+    prop = {"type": "number", "number": 0.6}
+    assert _property_value(prop, percent=True) == 60
+    assert _property_value(prop, percent=False) == 0.6
+
+
+def test_notion_text_select_and_title():
+    assert _property_value({"type": "title", "title": [{"plain_text": "A"}, {"plain_text": "B"}]}) == "AB"
+    assert _property_value({"type": "select", "select": {"name": "Fiction"}}) == "Fiction"
+    assert _property_value({"type": "select", "select": None}) is None
+
+
+def test_load_from_csv(tmp_path):
+    path = tmp_path / "export.csv"
+    path.write_text(
+        "﻿Main Title,/2nd Title,朕已閱,Rating,作者 | Arthur,Year,Genre,Summary | 朕．批閱\n"
+        "菊花與刀,The Chrysanthemum and the Sword,Done,80%,Ruth Benedict,2018,Non-fiction,日本\n"
+        "No author,,Done,,,2018,Fiction,\n",
+        encoding="utf-8",
+    )
+    books = load_from_csv(str(path))
+    assert len(books) == 1
+    assert books[0].rating == 80
+    assert books[0].genre == "Non-fiction"

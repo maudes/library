@@ -1,0 +1,266 @@
+{% from "_macros.html" import cover, genre_pill, top_row, details %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maude's Library</title>
+  <meta name="description" content="A personal record of the books I've read.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H11v16H4.5A1.5 1.5 0 0 1 3 18.5v-13ZM21 5.5c0-.8-.7-1.5-1.5-1.5H13v16h6.5c.8 0 1.5-.7 1.5-1.5v-13Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      Maude's Library
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#library" aria-current="page">My library</a>
+      <a href="#about">About this shelf</a>
+    </nav>
+    <span class="avatar" aria-hidden="true">M</span>
+  </div>
+</header>
+
+<main id="top" class="wrap">
+
+  {# ---------------- Hero + year switcher ---------------- #}
+  <section class="hero">
+    <div>
+      <p class="eyebrow">The personal reading journal</p>
+      <h1>A life, in books.</h1>
+      <p class="lede">The stories that stay. The ideas that grow. A shelf of my own.</p>
+    </div>
+    {% if stats.years %}
+    <label class="year-picker">
+      <span>Reading year</span>
+      <select id="year-select">
+        {% for y in stats.years %}
+        <option value="{{ y }}" {% if y == stats.default_year %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    {% endif %}
+  </section>
+
+  {% if not stats.years %}
+    <p class="empty">No books yet — add some in Notion and rebuild.</p>
+  {% else %}
+
+  {# ---------------- Statistics ----------------
+     Every year's cards are rendered here; the year switcher shows one set
+     and hides the rest. "year-part" elements belong to a single year. #}
+  <section class="stats" aria-label="Reading statistics">
+    {% for y in stats.years %}
+    {% set s = stats.by_year[y] %}
+    <div class="year-part" data-year="{{ y }}" {% if y != stats.default_year %}hidden{% endif %}>
+      <article class="card card-total">
+        <p class="card-label">Total read in {{ y }}</p>
+        <p class="total-number"><span>{{ "%02d" | format(s.total) }}</span> books</p>
+        <div class="total-foot">
+          <p>Average rating · {{ s.avg_rating | pct }}</p>
+          {% set ff = s.count_all - s.total %}
+          {% if ff %}<p>{{ ff }} fast-food read{{ "s" if ff > 1 }} not counted</p>{% endif %}
+        </div>
+      </article>
+
+      <article class="card">
+        <h2 class="card-title">Top 3 books in {{ y }}</h2>
+        {% if s.top3 %}
+          <ol class="top-list">
+            {% for b in s.top3 %}{{ top_row(b, loop.index) }}{% endfor %}
+          </ol>
+        {% else %}
+          <p class="empty-small">No rated books in {{ y }} yet.</p>
+        {% endif %}
+      </article>
+    </div>
+    {% endfor %}
+
+    <article class="card">
+      <h2 class="card-title">Top 3 of all time</h2>
+      {% if stats.all_time.top3 %}
+        <ol class="top-list">
+          {% for b in stats.all_time.top3 %}{{ top_row(b, loop.index, show_year=true) }}{% endfor %}
+        </ol>
+      {% else %}
+        <p class="empty-small">No rated books yet.</p>
+      {% endif %}
+    </article>
+
+    {% for y in stats.years %}
+    {% set s = stats.by_year[y] %}
+    <div class="year-part" data-year="{{ y }}" {% if y != stats.default_year %}hidden{% endif %}>
+      <article class="card">
+        <h2 class="card-title">Reading by genre</h2>
+        <div class="genre-body">
+          {# Pie chart: a CSS conic-gradient; slice boundaries come from stats.py #}
+          {% set r = s.genre_ratio %}
+          <div class="pie" role="img"
+               aria-label="{% for g in r %}{{ g.genre }} {{ g.pct }}%{{ ', ' if not loop.last }}{% endfor %}"
+               style="--a: {{ r[0].end }}%; --b: {{ r[1].end }}%;{% if not s.total %} --empty: 1;{% endif %}"
+               {% if not s.total %}data-empty{% endif %}></div>
+          <ul class="legend">
+            {% for g in r %}
+            <li><span class="dot dot-{{ loop.index }}"></span>{{ g.genre }}<span class="legend-pct">{{ g.pct }}%</span></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <p class="card-foot">Of {{ s.total }} finished book{{ "s" if s.total != 1 }} · {{ y }}</p>
+      </article>
+    </div>
+    {% endfor %}
+  </section>
+
+  {# ---------------- Reading list ---------------- #}
+  <section id="library" class="library">
+    <div class="library-head">
+      <p class="eyebrow">The collection</p>
+      <h2 class="section-title">My reading list</h2>
+      <p class="muted"><span data-year-label>{{ stats.default_year }}</span> · <span id="shelf-count"></span> on the shelf</p>
+    </div>
+
+    <div class="toolbar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span class="sr-only">Search</span>
+        <input id="search" type="search" placeholder="Find a title, author or ISBN" autocomplete="off">
+      </label>
+      <label class="select">
+        <span class="sr-only">Genre</span>
+        <select id="genre-filter">
+          <option value="">All genres</option>
+          {% for g in genres %}<option value="{{ g }}">{{ g }}</option>{% endfor %}
+        </select>
+      </label>
+      <label class="select">
+        <span class="sr-only">Sort by</span>
+        <select id="sort">
+          {% for value, label in sort_options %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+        </select>
+      </label>
+      <div class="view-toggle" role="group" aria-label="View">
+        <button type="button" data-view="list" aria-pressed="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" stroke="currentColor" stroke-width="1.6"/></svg>List</button>
+        <button type="button" data-view="cards" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="4" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="4" y="13" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="13" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Cards</button>
+      </div>
+    </div>
+
+    {# Each book is rendered twice — once as a list row, once as a card.
+       data-* attributes carry what the JavaScript needs to filter and sort. #}
+    {% macro book_attrs(b) -%}
+      data-id="{{ b.id }}" data-year="{{ b.year }}" data-genre="{{ b.genre }}"
+      data-search="{{ b | search_text }}"
+      {% for key, rank in stats.ranks[b.id].items() %} data-rank-{{ key }}="{{ rank }}"{% endfor %}
+    {%- endmacro %}
+
+    <div id="view-list" class="view book-table" role="table" aria-label="Books">
+      <div class="table-head" role="row">
+        <span role="columnheader">Main title</span>
+        <span role="columnheader">Second title</span>
+        <span role="columnheader">Rating</span>
+        <span role="columnheader">Author</span>
+        <span role="columnheader">Read</span>
+        <span role="columnheader">Published</span>
+        <span role="columnheader">Genre</span>
+        <span role="columnheader">Summary</span>
+        <span role="columnheader">ISBN</span>
+        <span role="columnheader"><span class="sr-only">Details</span></span>
+      </div>
+      <div class="table-body">
+        {% for b in books %}
+        <div class="book-row book-item" role="row" {{ book_attrs(b) }}>
+          <div role="cell" class="c-title">
+            <span class="m-label">Main title</span>
+            <span class="row-title-wrap">{{ cover(b, "xs") }}<span class="clamp clamp-2 title">{{ b.title }}</span></span>
+          </div>
+          <div role="cell" class="c-second"><span class="m-label">Second title</span><span class="clamp clamp-2">{{ b.second_title | dash }}</span></div>
+          <div role="cell" class="c-rating"><span class="m-label">Rating</span>{{ b.rating | pct }}</div>
+          <div role="cell" class="c-author"><span class="m-label">Author</span><span class="clamp clamp-1">{{ b.author }}</span></div>
+          <div role="cell" class="c-read"><span class="m-label">Read</span>{{ b.year }}</div>
+          <div role="cell" class="c-pub"><span class="m-label">Published</span>{{ b.published_year | dash }}</div>
+          <div role="cell" class="c-genre"><span class="m-label">Genre</span>{{ genre_pill(b.genre) }}</div>
+          <div role="cell" class="c-summary"><span class="m-label">Summary</span><span class="clamp clamp-2">{{ b.summary | dash }}</span></div>
+          <div role="cell" class="c-isbn"><span class="m-label">ISBN</span>{{ b.isbn | dash }}</div>
+          <div role="cell" class="c-more"><button type="button" class="more" data-more="{{ b.id }}" hidden>More</button></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div id="view-cards" class="view card-grid" hidden>
+      {% for b in books %}
+      <article class="book-card book-item" {{ book_attrs(b) }}>
+        <div class="bc-head">
+          {{ cover(b, "md") }}
+          <div class="bc-head-text">
+            <p class="eyebrow">Main title</p>
+            <h3 class="clamp clamp-2 bc-title">{{ b.title }}</h3>
+            <p class="clamp clamp-1 bc-author">{{ b.author }}</p>
+          </div>
+        </div>
+        <p class="eyebrow">Second title</p>
+        <p class="clamp clamp-2">{{ b.second_title | dash }}</p>
+        <dl class="bc-meta">
+          <div><dt>Genre</dt><dd>{{ genre_pill(b.genre) }}</dd></div>
+          <div><dt>Rating</dt><dd>{{ b.rating | pct }}</dd></div>
+          <div><dt>Read</dt><dd>{{ b.year }}</dd></div>
+          <div><dt>Published</dt><dd>{{ b.published_year | dash }}</dd></div>
+        </dl>
+        <p class="eyebrow">Summary</p>
+        <p class="clamp clamp-4">{{ b.summary | dash }}</p>
+        <div class="bc-foot">
+          <div><p class="eyebrow">ISBN</p><p>{{ b.isbn | dash }}</p></div>
+          <button type="button" class="more" data-more="{{ b.id }}" hidden>More</button>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <p id="no-results" class="empty" hidden>No books match your search or filter.</p>
+
+    <div class="list-foot">
+      <p id="showing"></p>
+      <p>Ratings shown as percent · Fast-food reads are listed but not counted</p>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ---------------- About (edit this text freely) ---------------- #}
+  <section id="about" class="about">
+    <p class="eyebrow">About this shelf</p>
+    <h2 class="section-title">About this shelf</h2>
+    <p>A personal record of the books I've finished, kept in Notion and rebuilt here every day.
+       Ratings are out of 100. “Fast-food” books are light, quick reads — they're on the list,
+       but left out of the yearly numbers.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-quote">A little record of worlds visited.</p>
+    <p>Updated {{ built_on }} · Data from Notion · Covers from Google Books &amp; Open Library</p>
+  </div>
+</footer>
+
+{# Pop-up with a book's full details. JavaScript copies the matching
+   <template> below into it when "More" is clicked. #}
+<dialog id="book-modal" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-panel">
+    <button type="button" class="modal-close" aria-label="Close">×</button>
+    <div class="modal-body"></div>
+  </div>
+</dialog>
+{% for b in books %}
+<template id="detail-{{ b.id }}">{{ details(b) }}</template>
+{% endfor %}
+
+<script src="static/app.js"></script>
+</body>
+</html>
