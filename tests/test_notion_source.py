@@ -1,12 +1,30 @@
 import logging
 
-from src.notion_source import _property_value, load_from_csv, make_book
+import pytest
+
+from src.notion_source import _property_value, capitalize_words, load_from_csv, make_book
 
 
 def raw(**overrides):
     base = {"title": "Book", "author": "Someone", "genre": "Fiction", "year": 2026}
     base.update(overrides)
     return base
+
+
+@pytest.mark.parametrize("before,after", [
+    ("My sister, the serial killer", "My Sister, The Serial Killer"),
+    ("The bay at midnight", "The Bay At Midnight"),
+    ("1Q84（1）", "1Q84（1）"),
+    ("McAvoy's book", "McAvoy's Book"),            # only first letters change
+    ("Howl’s Moving Castle", "Howl’s Moving Castle"),
+    ("Pipi Caca Popo──Histoire anecdotique de la scatologie",
+     "Pipi Caca Popo──Histoire Anecdotique De La Scatologie"),
+    ("Y 的悲劇", "Y 的悲劇"),                        # mostly Chinese: untouched
+    ("거짓말이다", "거짓말이다"),
+    ("", ""),
+])
+def test_capitalize_words(before, after):
+    assert capitalize_words(before) == after
 
 
 def test_genre_values_are_mapped_to_site_labels():

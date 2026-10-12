@@ -111,6 +111,26 @@ def test_all_time_top3_spans_years():
     assert titles(stats["all_time"]["top3"]) == ["Mid", "Old", "New"]
 
 
+def test_all_years_stats_and_top10():
+    books = [book(f"B{i:02}", rating=50 + i, year=2018 + i % 5) for i in range(12)]
+    books += [book("Snack", 100, genre="Fast-food", year=2020), book("Unrated", year=2021)]
+    stats = build_stats(books, today=date(2026, 1, 1))
+    all_time = stats["all_time"]
+    assert all_time["total"] == 13                 # 12 rated + Unrated; Snack excluded
+    assert all_time["count_all"] == 14
+    assert titles(all_time["top10"]) == [f"B{i:02}" for i in range(11, 1, -1)]
+    assert titles(all_time["top3"]) == ["B11", "B10", "B09"]
+    assert sum(r["count"] for r in all_time["genre_ratio"]) == 13
+
+
+def test_highly_rated_threshold():
+    from src.stats import is_highly_rated
+    assert is_highly_rated(book("a", 80))
+    assert not is_highly_rated(book("b", 79))
+    assert not is_highly_rated(book("c"))
+    assert is_highly_rated(book("d", 95, genre="Fast-food"))   # list filter includes Fast-food
+
+
 def test_default_year():
     assert default_year([2026, 2025], date(2026, 3, 1)) == 2026
     assert default_year([2025, 2024], date(2026, 3, 1)) == 2025   # no 2026 books yet

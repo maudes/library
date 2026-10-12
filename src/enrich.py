@@ -140,11 +140,14 @@ def search_google(title: str, author: str, api_key: str = "") -> list[dict]:
         if image:
             # https, and a larger rendition than the default thumbnail
             image = image.replace("http://", "https://").replace("&edge=curl", "")
+        # publishedDate is "2019", "2019-05" or "2019-05-01": the year of THIS edition.
+        year = (info.get("publishedDate") or "")[:4]
         results.append({
             "title": " ".join(filter(None, [info.get("title", ""), info.get("subtitle", "")])),
             "authors": info.get("authors", []),
             "isbn": _pick_isbn13(isbns),
             "cover": image,
+            "published": int(year) if year.isdigit() else None,
             "source": "google",
         })
     return results
@@ -163,6 +166,9 @@ def search_open_library(title: str, author: str) -> list[dict]:
             "authors": doc.get("author_name", []),
             "isbn": _pick_isbn13(doc.get("isbn", [])),
             "cover": cover,
+            # Open Library search only gives the ORIGINAL first-publication year,
+            # not the edition's, so it isn't used for Published Year.
+            "published": None,
             "source": "openlibrary",
         })
     return results
@@ -286,6 +292,8 @@ def enrich(books: list[Book], api_key: str = "", today: date | None = None,
         fresh = (
             entry is not None
             and entry.get("signature") == sig
+            # Entries cached before Published Year existed are looked up once more.
+            and "published_year" in entry
             and (entry.get("cover") == "" or _cover_exists(entry.get("cover", "")))
             and not (
                 entry.get("status") == "not_found"
@@ -306,6 +314,8 @@ def enrich(books: list[Book], api_key: str = "", today: date | None = None,
         if entry:
             book.isbn = book.isbn or entry.get("isbn", "")
             book.cover = entry.get("cover", "") if _cover_exists(entry.get("cover", "")) else ""
+            # A year typed in Notion always wins over the looked-up one.
+            book.published_year = book.published_year or entry.get("published_year")
 
     if prune:
         # Drop cache entries and covers for books that no longer exist in Notion.
@@ -325,7 +335,8 @@ def enrich(books: list[Book], api_key: str = "", today: date | None = None,
 def _lookup(book: Book, api_key: str, sig: str, today: date, stats: dict) -> dict | None:
     """Look one book up. Returns a cache entry, or None if we should retry next build."""
     stats["looked_up"] += 1
-    entry = {"signature": sig, "checked": today.isoformat(), "isbn": "", "cover": "", "source": ""}
+    entry = {"signature": sig, "checked": today.isoformat(), "isbn": "", "cover": "",
+             "published_year": None, "source": ""}
 
     match = None
     # Only search when Notion didn't already give us both values.
@@ -349,6 +360,7 @@ def _lookup(book: Book, api_key: str, sig: str, today: date, stats: dict) -> dic
             break
 
     entry.update(isbn=isbn if not book.isbn else "", cover=cover,
+                 published_year=(match or {}).get("published"),
                  source=(match or {}).get("source", "notion" if book.isbn or book.cover_url else ""))
     entry["status"] = "found" if (isbn or cover) else "not_found"
     stats["found" if entry["status"] == "found" else "not_found"] += 1

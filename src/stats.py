@@ -86,9 +86,19 @@ def counts_in_stats(book: Book) -> bool:
     return book.genre != config.FAST_FOOD
 
 
-def top3(books: list[Book]) -> list[Book]:
+def top_n(books: list[Book], n: int) -> list[Book]:
+    """The n best rated books (Fast-food and unrated books excluded)."""
     rated = [b for b in books if counts_in_stats(b) and b.rating is not None]
-    return sorted(rated, key=rank_key)[:3]
+    return sorted(rated, key=rank_key)[:n]
+
+
+def top3(books: list[Book]) -> list[Book]:
+    return top_n(books, 3)
+
+
+def is_highly_rated(book: Book) -> bool:
+    """For the list's "80%+" filter. Like the other list filters, Fast-food counts."""
+    return book.rating is not None and book.rating >= config.HIGH_RATING
 
 
 def average_rating(books: list[Book]) -> int | None:
@@ -185,10 +195,13 @@ def list_ranks(books: list[Book]) -> dict[str, dict[str, int]]:
 def build_stats(books: list[Book], today: date | None = None) -> dict:
     years = sorted({b.year for b in books}, reverse=True)
     by_year = {y: year_stats([b for b in books if b.year == y]) for y in years}
+    # "All years" uses the same numbers over every book, plus a Top 10.
+    all_time = year_stats(books)
+    all_time["top10"] = top_n(books, 10)
     return {
         "years": years,
         "default_year": default_year(years, today),
         "by_year": by_year,
-        "all_time": {"top3": top3(books)},
+        "all_time": all_time,
         "ranks": list_ranks(books),
     }

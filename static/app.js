@@ -21,6 +21,7 @@
   const searchInput = $("#search");
   const genreSelect = $("#genre-filter");
   const sortSelect = $("#sort");
+  const highButton = $("#high-only"); // "80%+" toggle
   const views = { list: $("#view-list"), cards: $("#view-cards") };
   const containers = { list: $("#view-list .table-body"), cards: $("#view-cards") };
 
@@ -43,15 +44,19 @@
   // Apply year + search + genre + sort to both views
   // ---------------------------------------------------------------------------
   function update() {
-    const year = yearSelect.value;
+    const year = yearSelect.value;                 // "2026" … or "all"
+    const allYears = year === "all";
+    const yearLabel = yearSelect.selectedOptions[0].dataset.label; // "2026" or "All years"
     const query = searchInput.value.trim().toLowerCase();
     const queryDigits = query.replace(/[-\s]/g, ""); // so "978-0-14..." finds an ISBN
     const genre = genreSelect.value;
+    const highOnly = highButton.getAttribute("aria-pressed") === "true";
     const sortKey = "rank" + sortSelect.value[0].toUpperCase() + sortSelect.value.slice(1); // "rankTitle"
 
-    // 1. Statistics cards: show only the chosen year's.
+    // 1. Statistics cards: show only the chosen period's.
     $$(".year-part").forEach((el) => { el.hidden = el.dataset.year !== year; });
-    $$("[data-year-label]").forEach((el) => { el.textContent = year; });
+    $$(".hide-on-all").forEach((el) => { el.hidden = allYears; });
+    $$("[data-year-label]").forEach((el) => { el.textContent = yearLabel; });
 
     // 2. Books: decide which are visible, in both views.
     let inYear = 0;
@@ -64,26 +69,31 @@
       items.forEach((el) => containers[view].appendChild(el));
 
       for (const el of items) {
-        const matchesYear = el.dataset.year === year;
+        const matchesYear = allYears || el.dataset.year === year;
         const matchesGenre = !genre || el.dataset.genre === genre;
+        const matchesHigh = !highOnly || el.dataset.high === "1"; // flag set by Python
         const text = el.dataset.search;
         const matchesSearch = !query || text.includes(query) ||
           (queryDigits.length > 3 && text.replace(/[-\s]/g, "").includes(queryDigits));
-        el.hidden = !(matchesYear && matchesGenre && matchesSearch);
+        el.hidden = !(matchesYear && matchesGenre && matchesHigh && matchesSearch);
 
         if (view === "list") {
           if (matchesYear) inYear += 1;
-          if (!el.hidden) shown += 1;
+          if (!el.hidden) {
+            shown += 1;
+            $(".c-num", el).textContent = shown; // row number: 1, 2, 3… in current order
+          }
         }
       }
     }
 
     // 3. Counters and the "no results" message.
     const plural = (n) => n + (n === 1 ? " book" : " books");
+    const forWhat = allYears ? " across all years" : " for " + year;
     $("#shelf-count").textContent = plural(inYear);
     $("#showing").textContent = shown === inYear
-      ? "Showing " + plural(inYear) + " for " + year
-      : "Showing " + shown + " of " + plural(inYear) + " for " + year;
+      ? "Showing " + plural(inYear) + forWhat
+      : "Showing " + shown + " of " + plural(inYear) + forWhat;
     $("#no-results").hidden = shown > 0;
 
     // 4. Show the chosen view.
@@ -177,6 +187,11 @@
   genreSelect.addEventListener("change", update);
   sortSelect.addEventListener("change", update);
   searchInput.addEventListener("input", update);
+  highButton.addEventListener("click", () => {
+    const on = highButton.getAttribute("aria-pressed") === "true";
+    highButton.setAttribute("aria-pressed", String(!on));
+    update();
+  });
   $$(".view-toggle button").forEach((b) => b.addEventListener("click", () => {
     currentView = b.dataset.view;
     saveView(currentView);

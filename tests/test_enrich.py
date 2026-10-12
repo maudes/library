@@ -150,6 +150,31 @@ def test_deleted_books_are_pruned_unless_disabled(sandbox, tmp_path):
     assert (tmp_path / "covers" / "keep.jpg").exists()
 
 
+def test_published_year_from_match_and_notion_wins(sandbox):
+    calls, mp = sandbox
+    mp.setattr(enrich, "find_match", fake_find(calls, {"isbn": "9789864894529", "cover": "x",
+                                                       "published": 2019, "source": "google"}))
+    b = book()
+    enrich.enrich([b], today=date(2026, 1, 1))
+    assert b.published_year == 2019
+
+    typed = book(published_year=2007)                  # typed in Notion
+    enrich.enrich([typed], today=date(2026, 1, 2))
+    assert typed.published_year == 2007
+
+
+def test_old_cache_entries_without_published_year_are_refreshed(sandbox):
+    calls, mp = sandbox
+    enrich.save_cache({"p1": {"signature": enrich._signature(book()), "checked": "2026-01-01",
+                              "isbn": "9789864894529", "cover": "", "source": "google",
+                              "status": "found"}})
+    mp.setattr(enrich, "find_match", fake_find(calls, {"isbn": "9789864894529", "cover": "",
+                                                       "published": 2019, "source": "google"}))
+    b = book()
+    enrich.enrich([b], today=date(2026, 1, 2))
+    assert calls["find"] == 1 and b.published_year == 2019
+
+
 def test_offline_mode_never_looks_up(sandbox):
     calls, mp = sandbox
     mp.setattr(enrich, "find_match", fake_find(calls, None))

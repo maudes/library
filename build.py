@@ -14,7 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from src.enrich import enrich
-from src.notion_source import load_from_csv, load_from_notion
+from src.notion_source import capitalize_titles, load_from_csv, load_from_notion
 from src.render import render
 from src.stats import build_stats
 
@@ -51,6 +51,7 @@ def main() -> int:
     # (Notion-keyed) cache during a CSV build.
     enrich(books, api_key=os.environ.get("GOOGLE_BOOKS_API_KEY", ""),
            offline=args.offline, prune=not args.csv)
+    capitalize_titles(books)  # display only; must run after enrich (see its docstring)
     stats = build_stats(books)
     render(books, stats, Path(args.out))
     log.info("Site written to %s", args.out)

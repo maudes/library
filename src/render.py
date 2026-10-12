@@ -8,6 +8,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import config
 from src.book import Book
+from src.stats import is_highly_rated
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -42,9 +43,21 @@ def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = N
     if config.DATE_PROPERTY:
         sort_options.append(("date", "Date"))
 
+    # Every choice in the year switcher: "All years" first, then each year.
+    # `key` matches the <option value> and the data-year attributes in the HTML.
+    periods = [{"key": "all", "label": "All years", "in_label": "across all years",
+                "stats": stats["all_time"], "is_all": True}]
+    for y in stats["years"]:
+        periods.append({"key": str(y), "label": str(y), "in_label": f"in {y}",
+                        "stats": stats["by_year"][y], "is_all": False})
+
     html = env.get_template("index.html").render(
         books=books,
         stats=stats,
+        periods=periods,
+        default_period=str(stats["default_year"]),
+        high_rating=config.HIGH_RATING,
+        is_high=is_highly_rated,
         genres=config.ALL_GENRES,
         stat_genres=config.STAT_GENRES,
         fast_food=config.FAST_FOOD,

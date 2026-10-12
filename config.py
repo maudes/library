@@ -41,6 +41,9 @@ STAT_GENRES = ["Fiction", "Non-fiction", "Tool"]
 # All genres, in the order they appear in the list filter.
 ALL_GENRES = STAT_GENRES + [FAST_FOOD]
 
+# The reading list's "80%+" filter shows books rated at least this much.
+HIGH_RATING = 80
+
 # --- Cover / ISBN lookup -----------------------------------------------------
 # "Not found" results are cached; retry them after this many days.
 RETRY_NOT_FOUND_DAYS = 30

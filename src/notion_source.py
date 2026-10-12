@@ -8,6 +8,7 @@ import csv
 import hashlib
 import logging
 import re
+import unicodedata
 from datetime import date
 
 import config
@@ -97,6 +98,35 @@ def make_book(page_id: str, raw: dict) -> Book | None:
         isbn=re.sub(r"[^0-9Xx]", "", _clean_text(raw.get("isbn"))),
         cover_url=_clean_text(raw.get("cover_url")),
     )
+
+
+def capitalize_words(text: str) -> str:
+    """"My sister, the serial killer" -> "My Sister, The Serial Killer".
+
+    Only the first letter of each word changes; the rest stays as typed, so
+    "1Q84" and "McAvoy" are untouched. Titles that are mostly Chinese are
+    left alone.
+    """
+    if not _is_mostly_latin(text):
+        return text
+    return re.sub(r"(^|[\s(\"“‘])([a-zà-ÿ])", lambda m: m.group(1) + m.group(2).upper(), text)
+
+
+def _is_mostly_latin(text: str) -> bool:
+    letters = [c for c in text if c.isalpha()]
+    latin = sum(1 for c in letters if unicodedata.normalize("NFD", c)[0].isascii())
+    return bool(letters) and latin / len(letters) > 0.5
+
+
+def capitalize_titles(books: list[Book]) -> None:
+    """Apply capitalize_words to every English Main / Second Title (display only).
+
+    Run this AFTER enrich(): the cover cache is keyed on the titles as typed in
+    Notion, so changing them earlier would trigger a full re-lookup.
+    """
+    for b in books:
+        b.title = capitalize_words(b.title)
+        b.second_title = capitalize_words(b.second_title)
 
 
 def _field_names() -> dict[str, str]:

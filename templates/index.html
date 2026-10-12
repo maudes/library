@@ -40,8 +40,8 @@
     <label class="year-picker">
       <span>Reading year</span>
       <select id="year-select">
-        {% for y in stats.years %}
-        <option value="{{ y }}" {% if y == stats.default_year %}selected{% endif %}>{{ y }}</option>
+        {% for p in periods %}
+        <option value="{{ p.key }}" data-label="{{ p.label }}" {% if p.key == default_period %}selected{% endif %}>{{ p.label }}</option>
         {% endfor %}
       </select>
     </label>
@@ -53,14 +53,15 @@
   {% else %}
 
   {# ---------------- Statistics ----------------
-     Every year's cards are rendered here; the year switcher shows one set
-     and hides the rest. "year-part" elements belong to a single year. #}
+     Cards for every period (each year, plus "all") are rendered here; the
+     year switcher shows one set and hides the rest. "year-part" elements
+     belong to a single period (data-year = "2026" or "all"). #}
   <section class="stats" aria-label="Reading statistics">
-    {% for y in stats.years %}
-    {% set s = stats.by_year[y] %}
-    <div class="year-part" data-year="{{ y }}" {% if y != stats.default_year %}hidden{% endif %}>
+    {% for p in periods %}
+    {% set s = p.stats %}
+    <div class="year-part" data-year="{{ p.key }}" {% if p.key != default_period %}hidden{% endif %}>
       <article class="card card-total">
-        <p class="card-label">Total read in {{ y }}</p>
+        <p class="card-label">Total read {{ p.in_label }}</p>
         <p class="total-number"><span>{{ "%02d" | format(s.total) }}</span> books</p>
         <div class="total-foot">
           <p>Average rating · {{ s.avg_rating | pct }}</p>
@@ -69,20 +70,35 @@
         </div>
       </article>
 
+      {% if p.is_all %}
+      {# "All years": a Top 10 replaces the yearly Top 3 (and the all-time Top 3 is hidden). #}
+      <article class="card card-wide">
+        <h2 class="card-title">Top 10 of all time</h2>
+        {% if s.top10 %}
+          <ol class="top-list top-list-columns">
+            {% for b in s.top10 %}{{ top_row(b, loop.index, show_year=true) }}{% endfor %}
+          </ol>
+        {% else %}
+          <p class="empty-small">No rated books yet.</p>
+        {% endif %}
+      </article>
+      {% else %}
       <article class="card">
-        <h2 class="card-title">Top 3 books in {{ y }}</h2>
+        <h2 class="card-title">Top 3 books in {{ p.label }}</h2>
         {% if s.top3 %}
           <ol class="top-list">
             {% for b in s.top3 %}{{ top_row(b, loop.index) }}{% endfor %}
           </ol>
         {% else %}
-          <p class="empty-small">No rated books in {{ y }} yet.</p>
+          <p class="empty-small">No rated books in {{ p.label }} yet.</p>
         {% endif %}
       </article>
+      {% endif %}
     </div>
     {% endfor %}
 
-    <article class="card">
+    {# Shown for single years only; hidden when "All years" is chosen. #}
+    <article class="card hide-on-all" {% if default_period == "all" %}hidden{% endif %}>
       <h2 class="card-title">Top 3 of all time</h2>
       {% if stats.all_time.top3 %}
         <ol class="top-list">
@@ -93,25 +109,28 @@
       {% endif %}
     </article>
 
-    {% for y in stats.years %}
-    {% set s = stats.by_year[y] %}
-    <div class="year-part" data-year="{{ y }}" {% if y != stats.default_year %}hidden{% endif %}>
+    {% for p in periods %}
+    {% set s = p.stats %}
+    <div class="year-part" data-year="{{ p.key }}" {% if p.key != default_period %}hidden{% endif %}>
       <article class="card">
         <h2 class="card-title">Reading by genre</h2>
         <div class="genre-body">
           {# Pie chart: a CSS conic-gradient; slice boundaries come from stats.py #}
           {% set r = s.genre_ratio %}
           <div class="pie" role="img"
-               aria-label="{% for g in r %}{{ g.genre }} {{ g.pct }}%{{ ', ' if not loop.last }}{% endfor %}"
-               style="--a: {{ r[0].end }}%; --b: {{ r[1].end }}%;{% if not s.total %} --empty: 1;{% endif %}"
+               aria-label="{% for g in r %}{{ g.genre }} {{ g.pct }}% ({{ g.count }}){{ ', ' if not loop.last }}{% endfor %}"
+               style="--a: {{ r[0].end }}%; --b: {{ r[1].end }}%;"
                {% if not s.total %}data-empty{% endif %}></div>
           <ul class="legend">
             {% for g in r %}
-            <li><span class="dot dot-{{ loop.index }}"></span>{{ g.genre }}<span class="legend-pct">{{ g.pct }}%</span></li>
+            <li>
+              <span class="dot dot-{{ loop.index }}"></span>{{ g.genre }}
+              <span class="legend-pct">{{ g.pct }}% <span class="legend-count">({{ g.count }} book{{ "s" if g.count != 1 }})</span></span>
+            </li>
             {% endfor %}
           </ul>
         </div>
-        <p class="card-foot">Of {{ s.total }} finished book{{ "s" if s.total != 1 }} · {{ y }}</p>
+        <p class="card-foot">Of {{ s.total }} finished book{{ "s" if s.total != 1 }} · {{ p.label }}</p>
       </article>
     </div>
     {% endfor %}
@@ -122,7 +141,7 @@
     <div class="library-head">
       <p class="eyebrow">The collection</p>
       <h2 class="section-title">My reading list</h2>
-      <p class="muted"><span data-year-label>{{ stats.default_year }}</span> · <span id="shelf-count"></span> on the shelf</p>
+      <p class="muted"><span data-year-label>{{ default_period }}</span> · <span id="shelf-count"></span> on the shelf</p>
     </div>
 
     <div class="toolbar">
@@ -144,6 +163,8 @@
           {% for value, label in sort_options %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
         </select>
       </label>
+      <button type="button" id="high-only" class="chip" aria-pressed="false"
+              title="Show only books rated {{ high_rating }}% or higher">★ {{ high_rating }}%+</button>
       <div class="view-toggle" role="group" aria-label="View">
         <button type="button" data-view="list" aria-pressed="true">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" stroke="currentColor" stroke-width="1.6"/></svg>List</button>
@@ -156,12 +177,14 @@
        data-* attributes carry what the JavaScript needs to filter and sort. #}
     {% macro book_attrs(b) -%}
       data-id="{{ b.id }}" data-year="{{ b.year }}" data-genre="{{ b.genre }}"
+      data-high="{{ 1 if is_high(b) else 0 }}"
       data-search="{{ b | search_text }}"
       {% for key, rank in stats.ranks[b.id].items() %} data-rank-{{ key }}="{{ rank }}"{% endfor %}
     {%- endmacro %}
 
     <div id="view-list" class="view book-table" role="table" aria-label="Books">
       <div class="table-head" role="row">
+        <span role="columnheader" class="c-num">#</span>
         <span role="columnheader">Main title</span>
         <span role="columnheader">Second title</span>
         <span role="columnheader">Rating</span>
@@ -176,6 +199,8 @@
       <div class="table-body">
         {% for b in books %}
         <div class="book-row book-item" role="row" {{ book_attrs(b) }}>
+          {# Row number in the current order; filled in by app.js after filtering/sorting. #}
+          <div role="cell" class="c-num"></div>
           <div role="cell" class="c-title">
             <span class="m-label">Main title</span>
             <span class="row-title-wrap">{{ cover(b, "xs") }}<span class="clamp clamp-2 title">{{ b.title }}</span></span>
