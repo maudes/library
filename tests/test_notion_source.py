@@ -96,3 +96,12 @@ def test_load_from_csv(tmp_path):
     assert len(books) == 1
     assert books[0].rating == 80
     assert books[0].genre == "Non-fiction"
+
+
+def test_notion_created_time_keeps_time_of_day():
+    from datetime import datetime
+    from src.notion_source import _to_datetime
+    value = _property_value({"type": "created_time", "created_time": "2025-05-14T09:05:00.000Z"})
+    assert _to_datetime(value) == datetime(2025, 5, 14, 9, 5)
+    assert _to_datetime("2025-05-14") == datetime(2025, 5, 14)
+    assert _to_datetime("") is None

@@ -9,7 +9,7 @@ import hashlib
 import logging
 import re
 import unicodedata
-from datetime import date
+from datetime import datetime
 
 import config
 from src.book import Book
@@ -37,13 +37,16 @@ def _to_int(value) -> int | None:
         return None
 
 
-def _to_date(value) -> date | None:
+def _to_datetime(value) -> datetime | None:
+    """"2025-05-14T03:21:00.000Z" or "2025-05-14" -> datetime (time kept, so
+    books entered on the same day stay in order)."""
     if not value:
         return None
     try:
-        return date.fromisoformat(str(value)[:10])
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
     except ValueError:
         return None
+    return parsed.replace(tzinfo=None)  # all values are UTC; drop tz so they compare simply
 
 
 def make_book(page_id: str, raw: dict) -> Book | None:
@@ -93,7 +96,7 @@ def make_book(page_id: str, raw: dict) -> Book | None:
         genre=genre,
         year=values["year"],
         summary=_clean_text(raw.get("summary")),
-        finished_date=_to_date(raw.get("finished_date")),
+        read_at=_to_datetime(raw.get("read_at")),
         isbn=re.sub(r"[^0-9Xx]", "", _clean_text(raw.get("isbn"))),
         cover_url=_clean_text(raw.get("cover_url")),
     )
@@ -132,7 +135,7 @@ def _field_names() -> dict[str, str]:
     """Internal field -> Notion column name, including the optional date column."""
     names = {k: v for k, v in config.PROPERTIES.items() if v}
     if config.DATE_PROPERTY:
-        names["finished_date"] = config.DATE_PROPERTY
+        names["read_at"] = config.DATE_PROPERTY
     return names
 
 
@@ -158,6 +161,8 @@ def _property_value(prop: dict, percent: bool = False):
         return [o["name"] for o in prop["multi_select"]]
     if kind == "date":
         return prop["date"]["start"] if prop["date"] else None
+    if kind == "created_time":
+        return prop["created_time"]
     if kind == "url":
         return prop["url"]
     return None

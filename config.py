@@ -18,10 +18,11 @@ PROPERTIES = {
     "cover_url": "Cover URL",            # optional; overrides automatic lookup
 }
 
-# Optional date column used to break rating ties (earlier date ranks higher).
-# Your database has no such column, so ties go straight to title order.
-# If you add one later, put its column name here, e.g. "Finished Date".
-DATE_PROPERTY = None
+# Column giving the order you read the books in (a Date or "Created time"
+# column). Used to break rating ties (read earlier ranks higher) and for the
+# list's "Reading order" sorts. It is NOT shown on the site: for books entered
+# later, its year can differ from the Year column. Set to None to turn off.
+DATE_PROPERTY = "Date"
 
 # Fields a row must have. Rows missing any of these are skipped with a warning.
 REQUIRED = ["title", "author", "genre", "year"]

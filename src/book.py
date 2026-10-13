@@ -1,7 +1,7 @@
 """The Book record shared by every module."""
 
 from dataclasses import dataclass
-from datetime import date
+from datetime import datetime
 
 
 @dataclass
@@ -14,7 +14,7 @@ class Book:
     second_title: str = ""
     rating: int | None = None    # 0–100, None = not rated
     summary: str = ""
-    finished_date: date | None = None
+    read_at: datetime | None = None   # reading-order timestamp (config.DATE_PROPERTY)
     isbn: str = ""               # from Notion, or filled in by enrich.py
     cover_url: str = ""          # from Notion (remote URL to download)
     cover: str = ""              # local path under static/, e.g. "covers/abc.jpg"

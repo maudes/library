@@ -51,7 +51,8 @@ def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = N
 
     sort_options = [("title", "Title A–Z"), ("rating", "Rating")]
     if config.DATE_PROPERTY:
-        sort_options.append(("date", "Date"))
+        sort_options.append(("date", "Reading order: first → last"))
+        sort_options.append(("latest", "Reading order: latest first"))
 
     # Every choice in the year switcher: "All years" first, then each year.
     # `key` matches the <option value> and the data-year attributes in the HTML.

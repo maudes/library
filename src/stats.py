@@ -5,7 +5,7 @@ prepared and re-orders rows by the rank numbers produced here.
 """
 
 import unicodedata
-from datetime import date
+from datetime import date, datetime
 
 from pypinyin import Style, pinyin
 
@@ -77,7 +77,7 @@ def rank_key(book: Book) -> tuple:
     Unrated books sort after all rated books.
     """
     rating = book.rating if book.rating is not None else -1
-    date_part = (0, book.finished_date) if book.finished_date else (1, date.min)
+    date_part = (0, book.read_at) if book.read_at else (1, datetime.min)
     return (-rating, date_part, title_key(book.title))
 
 
@@ -178,17 +178,14 @@ def list_ranks(books: list[Book]) -> dict[str, dict[str, int]]:
     for i, b in enumerate(by_rating):
         ranks[b.id]["rating"] = i
     if config.DATE_PROPERTY:
-        # Newest first; books without a date go last (then title order).
-        by_date = sorted(
-            books,
-            key=lambda b: (
-                b.finished_date is None,
-                -(b.finished_date.toordinal()) if b.finished_date else 0,
-                title_key(b.title),
-            ),
-        )
-        for i, b in enumerate(by_date):
+        # "date" = reading order, first read first; "latest" = the reverse.
+        # Books without a date go last in both (in title order).
+        dated = sorted((b for b in books if b.read_at), key=lambda b: (b.read_at, title_key(b.title)))
+        undated = sorted((b for b in books if not b.read_at), key=lambda b: title_key(b.title))
+        for i, b in enumerate(dated + undated):
             ranks[b.id]["date"] = i
+        for i, b in enumerate(list(reversed(dated)) + undated):
+            ranks[b.id]["latest"] = i
     return ranks
 
 
