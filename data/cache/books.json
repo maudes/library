@@ -33,7 +33,7 @@
     "signature": "人皮手稿|Das Skript|Arno Strobl||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-8010-af71-eb3931278ca6": {
     "checked": "2026-10-13",
@@ -147,7 +147,7 @@
     "signature": "少女復仇記|霧之旗|松本清張||",
     "source": "google",
     "status": "found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-802c-a3e1-f7d9be4c8584": {
     "checked": "2026-10-13",
@@ -182,7 +182,7 @@
     "signature": "最後的信仰；新聞倫理十二講||區家麟||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-8035-a25d-d3e7974168ef": {
     "checked": "2026-10-13",
@@ -207,7 +207,7 @@
     "signature": "斜屋犯罪|斜め屋敷の犯罪|島田莊司||",
     "source": "google",
     "status": "found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-8039-a34a-c2080223d857": {
     "checked": "2026-10-13",
@@ -336,7 +336,7 @@
     "signature": "願你安息||Wiebke Lorenz||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-804f-880b-fa5de8903c4e": {
     "checked": "2026-10-13",
@@ -345,7 +345,7 @@
     "signature": "落日|落日|湊佳苗||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-8054-a14d-f696914995f5": {
     "checked": "2026-10-13",
@@ -408,12 +408,12 @@
   },
   "1f33d1f4-a99a-805b-b78d-f91f4ccff642": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-805b-b78d-f91f4ccff642.jpg",
+    "isbn": "9786264600514",
     "signature": "別讓我走|Never Let Me Go|石黑一雄||",
-    "source": "",
-    "status": "not_found",
-    "v": 2
+    "source": "google",
+    "status": "found",
+    "v": 3
   },
   "1f33d1f4-a99a-805d-84da-cde0326ff234": {
     "checked": "2026-10-13",
@@ -422,7 +422,7 @@
     "signature": "失樂園|Lost Paradise|阿部定||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-805d-8d43-d3125fa2d6ac": {
     "checked": "2026-10-13",
@@ -448,7 +448,7 @@
     "signature": "從零開始的女性主義|上野先生、フェミニズムについてゼロから教えてください!|上野千鶴子||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-8064-8411-de8b3ad69803": {
     "checked": "2026-10-13",
@@ -473,7 +473,7 @@
     "signature": "步履不停|歩いても 歩いても|是枝裕和||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-8066-a8d3-d8a4f2b560e8": {
     "checked": "2026-10-13",
@@ -485,12 +485,12 @@
   },
   "1f33d1f4-a99a-8067-a0fb-cd72d3763edf": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-8067-a0fb-cd72d3763edf.jpg",
+    "isbn": "9781101634615",
     "signature": "無聲告白|Everything I Never Told You|伍綺詩||",
-    "source": "",
-    "status": "not_found",
-    "v": 2
+    "source": "google",
+    "status": "found",
+    "v": 3
   },
   "1f33d1f4-a99a-8067-a524-e54e0eb4b136": {
     "checked": "2026-10-13",
@@ -499,7 +499,7 @@
     "signature": "巷仔內的社會學||王宏仁等35人||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-8068-807d-e73b0545a8cd": {
     "checked": "2026-10-13",
@@ -534,7 +534,7 @@
     "signature": "我們沒有秘密||吳曉樂||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-806f-a139-f0321dfe5e7b": {
     "checked": "2026-10-13",
@@ -706,7 +706,7 @@
     "signature": "死亡祭儀|Last Ritual|Yrsa Sigurdardottir||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-808e-b09a-e1a584b05454": {
     "checked": "2026-10-13",
@@ -720,20 +720,22 @@
   },
   "1f33d1f4-a99a-808e-bb51-c8d8e495ee9f": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-808e-bb51-c8d8e495ee9f.jpg",
+    "isbn": "9786267415993",
     "signature": "點與線|点と線|松本清張||",
-    "source": "",
-    "status": "not_found",
-    "v": 2
+    "source": "google",
+    "status": "found",
+    "v": 3
   },
   "1f33d1f4-a99a-808f-ada4-c48d1325fdb7": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-808f-ada4-c48d1325fdb7.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789863611516",
     "signature": "門徒|The Disciple|Michael Hjorth, Hans Rosenfeldt||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 3
   },
   "1f33d1f4-a99a-8090-88f1-f828c0f5c192": {
     "checked": "2026-10-13",
@@ -776,7 +778,7 @@
     "signature": "長夜難明||紫金陳||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-8093-bfef-e8f4ac541d61": {
     "checked": "2026-10-13",
@@ -793,7 +795,7 @@
     "signature": "砂之器|砂の器|松本清張||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-809b-ba60-d6132305bd3f": {
     "checked": "2026-10-13",
@@ -819,7 +821,7 @@
     "signature": "噓噓、嗯嗯、屁屁|Pipi Caca Popo──Histoire anecdotique de la scatologie|Jean Feixas||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-80a3-a78c-ed10181aa0fe": {
     "checked": "2026-10-13",
@@ -828,7 +830,7 @@
     "signature": "運動博弈與彩券莊家不說的遊戲規則||劉建志||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-80a5-9049-d7504d9172ab": {
     "checked": "2026-10-13",
@@ -879,7 +881,7 @@
     "signature": "寶藏疑雲|考える葉|松本清張||",
     "source": "google",
     "status": "found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-80ac-b5db-ffd4920128f4": {
     "checked": "2026-10-13",
@@ -1050,7 +1052,7 @@
     "signature": "草莓殺人夜|Strawberry Night|譽田哲也||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-80d4-b568-dd605d66457c": {
     "checked": "2026-10-13",
@@ -1156,7 +1158,7 @@
     "signature": "始於極限|往復書簡 限界から始まる|上野千鶴子||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-80e8-8ad2-d1d128c1bda4": {
     "checked": "2026-10-13",
@@ -1190,7 +1192,7 @@
     "signature": "鱷魚手記||邱妙津||",
     "source": "google",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-80f2-8443-ecc7140ab411": {
     "checked": "2026-10-13",
@@ -1199,7 +1201,7 @@
     "signature": "死亡綠皮書||內田康夫||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-80f3-800f-ff09d6f3ae94": {
     "checked": "2026-10-13",
@@ -1254,7 +1256,7 @@
     "signature": "折傘的女人|傘を折る女|島田莊司||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1f33d1f4-a99a-80fe-b0a4-eeccf5f8e00c": {
     "checked": "2026-10-13",
@@ -1274,12 +1276,13 @@
   },
   "1f43d1f4-a99a-8050-8a7b-f571cb2ccb07": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f43d1f4-a99a-8050-8a7b-f571cb2ccb07.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9786269589333",
     "signature": "沒有媽媽的超市|Crying in H Mart, A Memoir|Michelle Zauner||",
     "source": "google",
     "status": "found",
-    "v": 2
+    "v": 3
   },
   "1f63d1f4-a99a-8035-b3ce-d017df7b873b": {
     "checked": "2026-10-13",
@@ -1298,7 +1301,7 @@
     "signature": "被迫成名的小說家||青青綠蘿裙||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "1fb3d1f4-a99a-804a-acae-d179611de7cf": {
     "checked": "2026-10-13",
@@ -1307,7 +1310,7 @@
     "signature": "無限公路就業指南||居一木||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "2063d1f4-a99a-80cf-ad29-e2478ad10da8": {
     "checked": "2026-10-13",
@@ -1316,7 +1319,7 @@
     "signature": "當反派是會上癮的！[無限]||孤隅||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "20b3d1f4-a99a-8062-bdef-f14382ec3581": {
     "checked": "2026-10-13",
@@ -1325,7 +1328,7 @@
     "signature": "兇案現場直播||退戈||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "2123d1f4-a99a-8005-8bb1-e05f77ca4af3": {
     "checked": "2026-10-13",
@@ -1334,7 +1337,7 @@
     "signature": "歧路||退戈||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "2293d1f4-a99a-8082-acf9-e9d9b9028d24": {
     "checked": "2026-10-13",
@@ -1417,7 +1420,7 @@
     "signature": "The Overnight Guest|意外的訪客|Heather Gudenkauf||",
     "source": "openlibrary",
     "status": "found",
-    "v": 2
+    "v": 3
   },
   "2c93d1f4-a99a-80e5-9b7e-ee0d3cc52c3b": {
     "checked": "2026-10-13",
@@ -1450,7 +1453,7 @@
     "signature": "Black Water|黑水|Robert Bryndza||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "2cf3d1f4-a99a-808d-9996-c951cf38a605": {
     "checked": "2026-10-13",
@@ -1467,7 +1470,7 @@
     "signature": "成為怪物以前||蕭瑋萱||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "2d23d1f4-a99a-800b-8325-f3440ea47284": {
     "checked": "2026-10-13",
@@ -1565,7 +1568,7 @@
     "signature": "小碎肉末||李佳穎||",
     "source": "google",
     "status": "found",
-    "v": 2
+    "v": 3
   },
   "2f33d1f4-a99a-80c7-a75a-c1cfb356850e": {
     "checked": "2026-10-13",
@@ -1607,7 +1610,7 @@
     "signature": "等到青蟬墜落||丁墨||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "36c3d1f4-a99a-802e-9bc9-ddb8a88c105c": {
     "checked": "2026-10-13",
@@ -1633,7 +1636,7 @@
     "signature": "The Butcher and the wren|法醫與殺人魔|愛蓮娜．厄克特||",
     "source": "",
     "status": "not_found",
-    "v": 2
+    "v": 3
   },
   "37e3d1f4-a99a-8053-86a7-c46419ec0e4e": {
     "checked": "2026-10-13",

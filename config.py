@@ -50,6 +50,13 @@ PALETTES = ["current", "lemons", "idea", "autumn"]
 HIGH_RATING = 80
 
 # --- Cover / ISBN lookup -----------------------------------------------------
+# Other names for an author, used when matching books. Needed when Notion has
+# the Chinese name but the found editions only list the English one (or the
+# reverse). Most are learned automatically; add the rest here.
+AUTHOR_ALIASES = {
+    "伍綺詩": "Celeste Ng",
+}
+
 # "Not found" results are cached; retry them after this many days.
 RETRY_NOT_FOUND_DAYS = 30
 HTTP_TIMEOUT_SECONDS = 10

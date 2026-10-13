@@ -42,6 +42,41 @@ def test_titles_match_ignores_subtitles():
     assert not enrich.titles_match("Sapiens", "Summary of Sapiens: a Brief History of Humankind")
 
 
+def test_mixed_script_author_names():
+    assert enrich.authors_match("石黑一雄", ["石黑一雄(Kazuo Ishiguro)"])
+    assert enrich.authors_match("Kazuo Ishiguro", ["石黑一雄(Kazuo Ishiguro)"])
+    assert enrich.authors_match("韓江", ["韓江 (한강)"])
+    assert not enrich.authors_match("石黑一雄", ["Kazuo Ishiguro"])     # needs learning or an alias
+
+
+def test_author_alias_from_config(monkeypatch):
+    monkeypatch.setattr(enrich.config, "AUTHOR_ALIASES", {"伍綺詩": "Celeste Ng"})
+    assert enrich.authors_match(enrich._aliases("伍綺詩"), ["Celeste Ng"])
+
+
+def test_descriptor_suffix_ignored():
+    assert enrich.titles_match("Crying in H Mart, A Memoir", "Crying in H Mart")
+    assert enrich.titles_match("Vanish", "Vanish A Novel")
+    assert not enrich.titles_match("A Memoir of Grief", "Grief")
+
+
+def test_author_name_learned_from_chinese_edition(monkeypatch):
+    """The Chinese edition lists "石黑一雄(Kazuo Ishiguro)" without a cover; the
+    English edition (author "Kazuo Ishiguro" only) then supplies the cover."""
+    zh = {"title": "別讓我走（諾貝爾文學獎得主石黑一雄最受歡迎代表作）", "authors": ["石黑一雄(Kazuo Ishiguro)"],
+          "isbn": "9786264600514", "cover": "", "source": "google"}
+    en = {"title": "Never Let Me Go", "authors": ["Kazuo Ishiguro"], "isbn": "9781400044832",
+          "cover": "https://example.com/en.jpg", "source": "google"}
+    impostor = {"title": "Never Let Me Go", "authors": ["J.J. McAvoy"], "isbn": "9781641970549",
+                "cover": "https://example.com/wrong.jpg", "source": "google"}
+    monkeypatch.setattr(enrich, "search_google",
+                        lambda t, a, k="": [zh] if t == "別讓我走" else [impostor, en])
+    monkeypatch.setattr(enrich, "search_open_library", lambda t, a: [])
+    m = enrich.find_match(book(title="別讓我走", second_title="Never Let Me Go", author="石黑一雄"))
+    assert m["isbn"] == "9786264600514"
+    assert m["cover"] == "https://example.com/en.jpg"
+
+
 def test_titles_match_ignores_leading_article():
     assert enrich.titles_match("Black Book", "The Black Book")
     assert enrich.titles_match("The Silent Wife", "The Silent Wife")

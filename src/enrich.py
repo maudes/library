@@ -28,7 +28,7 @@ log = logging.getLogger(__name__)
 ROOT = Path(__file__).resolve().parent.parent
 CACHE_FILE = ROOT / "data" / "cache" / "books.json"
 # Bump when the matching rules improve, so books without a cover are retried.
-CACHE_VERSION = 2
+CACHE_VERSION = 3
 COVERS_DIR = ROOT / "static" / "covers"
 
 _session = requests.Session()
@@ -67,23 +67,29 @@ def _title_core(text: str) -> str:
     """Title without subtitle, series number or leading article:
     "Sapiens: A Brief…" -> "sapiens", "The Black Book" -> "blackbook"."""
     text = re.split(r"[:：(（—–]| - ", text)[0]
+    # Descriptors some editions add: "Crying in H Mart, A Memoir", "Vanish: A Novel"
+    text = re.sub(r",?\s+(a|an)\s+(novel|memoir|thriller|mystery|novella)\b.*$", "", text, flags=re.IGNORECASE)
     text = re.sub(r"^\s*(the|a|an)\s+", "", text, flags=re.IGNORECASE)
     return _norm(text)
 
 
 def _author_tokens(text: str) -> set[str]:
-    """Words of an author name; for Chinese/Japanese names, the characters themselves."""
-    tokens = set()
-    for part in re.split(r"[\s/,、&;.]+|等", text):
-        n = _norm(part)
-        if not n:
-            continue
-        if is_english(part):
-            if len(n) > 1:          # skip initials like "S."
-                tokens.add(n)
-        else:
-            tokens.update(n)        # each CJK character
-    return tokens
+    """Latin words (2+ letters) and individual CJK/Hangul characters of a name.
+
+    Handles mixed forms like "石黑一雄(Kazuo Ishiguro)" -> {石,黑,一,雄,kazuo,ishiguro}.
+    Single letters (initials like "S.") are skipped.
+    """
+    text = unicodedata.normalize("NFKC", text).replace("等", " ")
+    ascii_text = "".join(c for c in unicodedata.normalize("NFKD", text.lower()) if not unicodedata.combining(c))
+    words = {w for w in re.findall(r"[a-z]+", ascii_text) if len(w) > 1}
+    chars = set(re.findall(r"[\u3400-\u9fff\uac00-\ud7af]", text))
+    return words | chars
+
+
+def _aliases(author: str) -> str:
+    """The author plus any names listed for them in config.AUTHOR_ALIASES."""
+    extra = [alias for name, alias in config.AUTHOR_ALIASES.items() if name in author]
+    return " ".join([author] + extra)
 
 
 def authors_match(ours: str, theirs: list[str]) -> bool:
@@ -96,7 +102,7 @@ def authors_match(ours: str, theirs: list[str]) -> bool:
 
 
 def titles_match(ours: str, theirs: str) -> bool:
-    """Main titles (before any ":" subtitle) must be identical.
+    """Main titles (before any ":" subtitle, without "A Novel"/"A Memoir") must be identical.
 
     Substring matching is too loose: "Sapiens" would match "Summary of Sapiens".
     """
@@ -201,6 +207,10 @@ def find_match(book: Book, api_key: str = "") -> dict | None:
     """
     failed = False
     best = None   # first match found: its ISBN is the edition you read
+    # Names we accept for this author. Grows when a confirmed match lists the
+    # author in another script, e.g. "石黑一雄(Kazuo Ishiguro)", so the English
+    # edition can then be matched too.
+    known_author = _aliases(book.author)
     for search in (lambda t, a: search_google(t, a, api_key), search_open_library):
         for title in search_plans(book):
             try:
@@ -210,8 +220,9 @@ def find_match(book: Book, api_key: str = "") -> dict | None:
                 failed = True
                 break  # this source is down; try the next source
             for r in results:
-                if not (titles_match(title, r["title"]) and authors_match(book.author, r["authors"])):
+                if not (titles_match(title, r["title"]) and authors_match(known_author, r["authors"])):
                     continue
+                known_author += " " + " ".join(r["authors"])
                 if best is None:
                     best = dict(r)
                 if best.get("cover"):
