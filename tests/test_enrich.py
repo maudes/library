@@ -304,3 +304,10 @@ def test_alias_names_are_used_in_queries(monkeypatch):
     m = enrich.find_match(book(title="落日", second_title="落日", author="湊佳苗"))
     assert m["cover"] == "jp"
     assert queries[:2] == ["湊佳苗", "湊かなえ"]
+
+
+def test_image_extension_from_bytes():
+    assert enrich.image_extension(b"\xff\xd8\xff\xe0rest") == ".jpg"
+    assert enrich.image_extension(b"\x89PNG\r\n\x1a\nrest") == ".png"
+    assert enrich.image_extension(b"RIFF\x00\x00\x00\x00WEBPVP8 ") == ".webp"
+    assert enrich.image_extension(b"<html>not an image") == ""

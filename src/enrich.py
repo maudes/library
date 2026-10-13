@@ -283,11 +283,32 @@ def download_cover(url: str, book_id: str) -> str:
     # Tiny images are "no cover available" placeholders from the APIs.
     if resp.status_code != 200 or not kind.startswith("image/") or len(resp.content) < 2000:
         return ""
-    ext = {"image/png": ".png", "image/webp": ".webp", "image/gif": ".gif"}.get(kind.split(";")[0], ".jpg")
+    ext = image_extension(resp.content)
+    if not ext:
+        return ""  # not an image we recognise
     COVERS_DIR.mkdir(parents=True, exist_ok=True)
+    for old in COVERS_DIR.glob(_safe_name(book_id) + ".*"):
+        old.unlink()  # drop a previous cover saved under another extension
     name = _safe_name(book_id) + ext
     (COVERS_DIR / name).write_bytes(resp.content)
     return f"covers/{name}"
+
+
+def image_extension(data: bytes) -> str:
+    """File extension from the image's own bytes ("" if not an image).
+
+    Websites sometimes send the wrong Content-Type (e.g. WebP labelled as
+    JPEG), so the file's signature decides.
+    """
+    if data[:3] == b"\xff\xd8\xff":
+        return ".jpg"
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return ".png"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return ".webp"
+    if data[:6] in (b"GIF87a", b"GIF89a"):
+        return ".gif"
+    return ""
 
 
 def _openlibrary_cover_by_isbn(isbn: str) -> str:

@@ -76,6 +76,13 @@ COVER_OVERRIDES = {
     "成為怪物以前": "https://cdn.readmoo.com/cover/in/ckgfpko_460x580.jpg?v=1698216809",
     "最後的信仰；新聞倫理十二講": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1721398859i/216649178.jpg",
     "死亡祭儀": "https://cdn.readmoo.com/social/cover/pt/highuth_460x580.jpg",
+    "鱷魚手記": "https://cdn.readmoo.com/cover/64/232bg19_460x580.jpg?v=1751015973",
+    "我們沒有秘密": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1599446684i/55235942.jpg",
+    "願你安息": "https://cdn.readmoo.com/cover/bg/d6lekcg_460x580.jpg",
+    "運動博弈與彩券莊家不說的遊戲規則": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1525532987i/40041465.jpg",
+    "巷仔口的社會學": "https://cdn.readmoo.com/cover/64/bbbcg41_460x580.jpg?v=0",
+    "折傘的女人": "https://s2.eslite.com/unsafe/fit-in/x1200/filters:format(webp)/s.eslite.com/Upload/Product/201708/o/636390739856892500.jpg",
+    "橫山家之味": "https://s2.eslite.com/unsafe/fit-in/x1200/filters:format(webp)/s.eslite.com/upload/product/o/2680409905007/ec301404.jpg",
 }
 
 # "Not found" results are cached; retry them after this many days.
