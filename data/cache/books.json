@@ -115,7 +115,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "",
-    "signature": "沉默的妻子||A.S.A Harrison||",
+    "signature": "沉默的妻子|The Silent Wife|A.S.A Harrison||",
     "source": "",
     "status": "not_found"
   },
@@ -131,7 +131,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "9789575454173",
-    "signature": "少女復仇記||松本清張||",
+    "signature": "少女復仇記|霧之旗|松本清張||",
     "source": "google",
     "status": "found"
   },
@@ -139,7 +139,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "9789868883383",
-    "signature": "全都藏好了||Wiebke Lorenz||",
+    "signature": "全都藏好了|Alles muss versteckt sein|Wiebke Lorenz||",
     "source": "google",
     "status": "found"
   },
@@ -171,7 +171,7 @@
     "checked": "2026-10-13",
     "cover": "covers/1f33d1f4-a99a-8035-a25d-d3e7974168ef.jpg",
     "isbn": "9786263740365",
-    "signature": "告白||湊佳苗||",
+    "signature": "告白|告白|湊佳苗||",
     "source": "google",
     "status": "found"
   },
@@ -187,7 +187,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "9789573330431",
-    "signature": "斜屋犯罪||島田莊司||",
+    "signature": "斜屋犯罪|斜め屋敷の犯罪|島田莊司||",
     "source": "google",
     "status": "found"
   },
@@ -315,7 +315,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "",
-    "signature": "落日||湊佳苗||",
+    "signature": "落日|落日|湊佳苗||",
     "source": "",
     "status": "not_found"
   },
@@ -323,7 +323,7 @@
     "checked": "2026-10-13",
     "cover": "covers/1f33d1f4-a99a-8054-a14d-f696914995f5.jpg",
     "isbn": "9789573332824",
-    "signature": "反轉||湊佳苗||",
+    "signature": "反轉|リバース|湊佳苗||",
     "source": "google",
     "status": "found"
   },
@@ -411,7 +411,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "",
-    "signature": "從零開始的女性主義||上野千鶴子||",
+    "signature": "從零開始的女性主義|上野先生、フェミニズムについてゼロから教えてください!|上野千鶴子||",
     "source": "",
     "status": "not_found"
   },
@@ -435,7 +435,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "",
-    "signature": "步履不停||是枝裕和||",
+    "signature": "步履不停|歩いても 歩いても|是枝裕和||",
     "source": "",
     "status": "not_found"
   },
@@ -443,7 +443,7 @@
     "checked": "2026-10-13",
     "cover": "covers/1f33d1f4-a99a-8066-a8d3-d8a4f2b560e8.jpg",
     "isbn": "9789571354460",
-    "signature": "往復書簡||湊佳苗||",
+    "signature": "往復書簡|往復書簡|湊佳苗||",
     "source": "google",
     "status": "found"
   },
@@ -483,7 +483,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "9789866272844",
-    "signature": "雪人||Jo Nesbo||",
+    "signature": "雪人|Snømannen|Jo Nesbo||",
     "source": "google",
     "status": "found"
   },
@@ -523,7 +523,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "9789865956547",
-    "signature": "獵頭遊戲||Jo Nesbo||",
+    "signature": "獵頭遊戲|Hodejegerne|Jo Nesbo||",
     "source": "google",
     "status": "found"
   },
@@ -545,11 +545,11 @@
   },
   "1f33d1f4-a99a-8075-bfd6-e9341ba660a4": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-8075-bfd6-e9341ba660a4.jpg",
     "isbn": "",
-    "signature": "守門員的焦慮||Peter Handke||",
-    "source": "",
-    "status": "not_found"
+    "signature": "守門員的焦慮|Die Angst des Tormanns beim Elfmeter|Peter Handke||",
+    "source": "google",
+    "status": "found"
   },
   "1f33d1f4-a99a-8077-9226-c212cc39f05c": {
     "checked": "2026-10-13",
@@ -587,7 +587,7 @@
     "checked": "2026-10-13",
     "cover": "covers/1f33d1f4-a99a-807e-af39-c09e8e015b5e.jpg",
     "isbn": "9789571353654",
-    "signature": "夜行觀覽車||湊佳苗||",
+    "signature": "夜行觀覽車|夜行観覧車|湊佳苗||",
     "source": "google",
     "status": "found"
   },
@@ -625,11 +625,11 @@
   },
   "1f33d1f4-a99a-8085-9cf1-cfa3dd3995aa": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
-    "signature": "真相||Heather Gudenkauf||",
-    "source": "",
-    "status": "not_found"
+    "cover": "covers/1f33d1f4-a99a-8085-9cf1-cfa3dd3995aa.jpg",
+    "isbn": "9781426884337",
+    "signature": "真相|These Things Hidden|Heather Gudenkauf||",
+    "source": "google",
+    "status": "found"
   },
   "1f33d1f4-a99a-8087-9140-f94df28e3e33": {
     "checked": "2026-10-13",
@@ -667,7 +667,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "",
-    "signature": "點與線||松本清張||",
+    "signature": "點與線|点と線|松本清張||",
     "source": "",
     "status": "not_found"
   },
@@ -675,7 +675,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "9789863611516",
-    "signature": "門徒||Michael Hjorth, Hans Rosenfeldt||",
+    "signature": "門徒|The Disciple|Michael Hjorth, Hans Rosenfeldt||",
     "source": "google",
     "status": "found"
   },
@@ -722,8 +722,8 @@
   "1f33d1f4-a99a-8093-bfef-e8f4ac541d61": {
     "checked": "2026-10-13",
     "cover": "covers/1f33d1f4-a99a-8093-bfef-e8f4ac541d61.jpg",
-    "isbn": "9786267000625",
-    "signature": "銀河鐵道之夜||宮澤賢治||",
+    "isbn": "9789866283123",
+    "signature": "銀河鐵道之夜|銀河鉄道の夜|宮澤賢治||",
     "source": "google",
     "status": "found"
   },
@@ -731,7 +731,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "",
-    "signature": "砂之器||松本清張||",
+    "signature": "砂之器|砂の器|松本清張||",
     "source": "",
     "status": "not_found"
   },
@@ -811,7 +811,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "9789575454166",
-    "signature": "寶藏疑雲||松本清張||",
+    "signature": "寶藏疑雲|考える葉|松本清張||",
     "source": "google",
     "status": "found"
   },
@@ -913,11 +913,11 @@
   },
   "1f33d1f4-a99a-80c7-b817-dbcbda0d1017": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
-    "signature": "死神放長假||Jose Saramago||",
-    "source": "",
-    "status": "not_found"
+    "cover": "covers/1f33d1f4-a99a-80c7-b817-dbcbda0d1017.jpg",
+    "isbn": "9788580864878",
+    "signature": "死神放長假|As Intermitências da Morte|Jose Saramago||",
+    "source": "google",
+    "status": "found"
   },
   "1f33d1f4-a99a-80c9-b67c-d383f96e7519": {
     "checked": "2026-10-13",
@@ -963,7 +963,7 @@
     "checked": "2026-10-13",
     "cover": "covers/1f33d1f4-a99a-80d0-9ced-ca7924720a40.jpg",
     "isbn": "9789573333029",
-    "signature": "理想國||湊佳苗||",
+    "signature": "理想國|ユートピア|湊佳苗||",
     "source": "google",
     "status": "found"
   },
@@ -1067,7 +1067,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "",
-    "signature": "始於極限||上野千鶴子||",
+    "signature": "始於極限|往復書簡 限界から始まる|上野千鶴子||",
     "source": "",
     "status": "not_found"
   },
@@ -1075,25 +1075,25 @@
     "checked": "2026-10-13",
     "cover": "covers/1f33d1f4-a99a-80e8-8ad2-d1d128c1bda4.jpg",
     "isbn": "9789863610328",
-    "signature": "我不是兇手||Michael Hjorth, Hans Rosenfeldt||",
+    "signature": "我不是兇手|Dark Secrets|Michael Hjorth, Hans Rosenfeldt||",
     "source": "google",
     "status": "found"
   },
   "1f33d1f4-a99a-80ea-8bf5-f2c3b9cf679f": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
-    "signature": "被囚禁的音符||Heather Gudenkauf||",
-    "source": "",
-    "status": "not_found"
+    "cover": "covers/1f33d1f4-a99a-80ea-8bf5-f2c3b9cf679f.jpg",
+    "isbn": "9780778319375",
+    "signature": "被囚禁的音符|The Weight of Silence|Heather Gudenkauf||",
+    "source": "google",
+    "status": "found"
   },
   "1f33d1f4-a99a-80ec-ab1e-f98576c2f50c": {
     "checked": "2026-10-13",
     "cover": "",
-    "isbn": "9787573605726",
-    "signature": "舞姬||川端康成||",
+    "isbn": "",
+    "signature": "舞姬|舞姬|川端康成||",
     "source": "google",
-    "status": "found"
+    "status": "not_found"
   },
   "1f33d1f4-a99a-80f0-b4ff-de928084f1a9": {
     "checked": "2026-10-13",
@@ -1139,7 +1139,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "9789862270479",
-    "signature": "影之車||松本清張||",
+    "signature": "影之車|影の車|松本清張||",
     "source": "google",
     "status": "found"
   },
@@ -1155,7 +1155,7 @@
     "checked": "2026-10-13",
     "cover": "",
     "isbn": "",
-    "signature": "折傘的女人||島田莊司||",
+    "signature": "折傘的女人|傘を折る女|島田莊司||",
     "source": "",
     "status": "not_found"
   },
@@ -1291,7 +1291,7 @@
     "checked": "2026-10-13",
     "cover": "covers/2c53d1f4-a99a-80a5-a81e-fd2d155d00e8.jpg",
     "isbn": "9789577419347",
-    "signature": "交通警察之夜||東野圭吾||",
+    "signature": "交通警察之夜|交通警察の夜|東野圭吾||",
     "source": "google",
     "status": "found"
   },
@@ -1369,11 +1369,11 @@
   },
   "2d43d1f4-a99a-80ea-93ea-ecacbff2513b": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
-    "signature": "蒸發的男人||Maj Sjöwall, Per Wahlöö||",
-    "source": "",
-    "status": "not_found"
+    "cover": "covers/2d43d1f4-a99a-80ea-93ea-ecacbff2513b.jpg",
+    "isbn": "9780679745976",
+    "signature": "蒸發的男人|Mannen som gick upp i rök|Maj Sjöwall, Per Wahlöö||",
+    "source": "openlibrary",
+    "status": "found"
   },
   "2d63d1f4-a99a-8036-8ad7-c8549b1a04c9": {
     "checked": "2026-10-13",
@@ -1467,7 +1467,7 @@
     "checked": "2026-10-13",
     "cover": "covers/3013d1f4-a99a-8081-8f3c-c5811700f3e2.jpg",
     "isbn": "9789577417572",
-    "signature": "假面同學會||雫井脩介||",
+    "signature": "假面同學會|仮面同窓會|雫井脩介||",
     "source": "google",
     "status": "found"
   },
@@ -1475,17 +1475,17 @@
     "checked": "2026-10-13",
     "cover": "covers/31c3d1f4-a99a-807e-b24a-f7ef27f96bec.jpg",
     "isbn": "9789864894529",
-    "signature": "素食者||韓江||",
+    "signature": "素食者|채식주의자|韓江||",
     "source": "google",
     "status": "found"
   },
   "3323d1f4-a99a-8017-bc02-e230500223bd": {
     "checked": "2026-10-13",
-    "cover": "covers/3323d1f4-a99a-8017-bc02-e230500223bd.jpg",
-    "isbn": "9786267639009",
-    "signature": "小梅，好想詛咒||藤崎翔||",
-    "source": "google",
-    "status": "found"
+    "cover": "",
+    "isbn": "",
+    "signature": "小梅，好想詛咒|お梅は呪いたい|藤崎翔||",
+    "source": "",
+    "status": "not_found"
   },
   "3473d1f4-a99a-8078-b505-c0d694d5b56f": {
     "checked": "2026-10-13",
@@ -1539,7 +1539,7 @@
     "checked": "2026-10-13",
     "cover": "covers/3f53d1f4-a99a-80b2-b581-c92e61308ad0.jpg",
     "isbn": "9780385547772",
-    "signature": "Stay True||Hua Hsu||",
+    "signature": "Stay True|保持真誠|Hua Hsu||",
     "source": "openlibrary",
     "status": "found"
   }
