@@ -28,7 +28,7 @@ log = logging.getLogger(__name__)
 ROOT = Path(__file__).resolve().parent.parent
 CACHE_FILE = ROOT / "data" / "cache" / "books.json"
 # Bump when the matching rules improve, so books without a cover are retried.
-CACHE_VERSION = 5
+CACHE_VERSION = 6
 COVERS_DIR = ROOT / "static" / "covers"
 
 _session = requests.Session()
@@ -86,10 +86,18 @@ def _author_tokens(text: str) -> set[str]:
     return words | chars
 
 
+def _alias_list(author: str) -> list[str]:
+    """Other names for this author from config.AUTHOR_ALIASES."""
+    names = []
+    for name, aliases in config.AUTHOR_ALIASES.items():
+        if name in author:
+            names += [aliases] if isinstance(aliases, str) else list(aliases)
+    return names
+
+
 def _aliases(author: str) -> str:
-    """The author plus any names listed for them in config.AUTHOR_ALIASES."""
-    extra = [alias for name, alias in config.AUTHOR_ALIASES.items() if name in author]
-    return " ".join([author] + extra)
+    """The author plus all their alias names, as one string for authors_match."""
+    return " ".join([author] + _alias_list(author))
 
 
 def authors_match(ours: str, theirs: list[str]) -> bool:
@@ -220,7 +228,7 @@ def find_match(book: Book, api_key: str = "") -> dict | None:
             # Query with the author first. If that finds nothing usable, query
             # the title alone: a Chinese author name in the query can bury the
             # Japanese/English edition. Every result is still checked below.
-            for query_author in (book.author, ""):
+            for query_author in (book.author, *_alias_list(book.author), ""):
                 try:
                     results = search(title, query_author)
                 except LookupError_ as exc:
@@ -275,11 +283,32 @@ def download_cover(url: str, book_id: str) -> str:
     # Tiny images are "no cover available" placeholders from the APIs.
     if resp.status_code != 200 or not kind.startswith("image/") or len(resp.content) < 2000:
         return ""
-    ext = {"image/png": ".png", "image/webp": ".webp", "image/gif": ".gif"}.get(kind.split(";")[0], ".jpg")
+    ext = image_extension(resp.content)
+    if not ext:
+        return ""  # not an image we recognise
     COVERS_DIR.mkdir(parents=True, exist_ok=True)
+    for old in COVERS_DIR.glob(_safe_name(book_id) + ".*"):
+        old.unlink()  # drop a previous cover saved under another extension
     name = _safe_name(book_id) + ext
     (COVERS_DIR / name).write_bytes(resp.content)
     return f"covers/{name}"
+
+
+def image_extension(data: bytes) -> str:
+    """File extension from the image's own bytes ("" if not an image).
+
+    Websites sometimes send the wrong Content-Type (e.g. WebP labelled as
+    JPEG), so the file's signature decides.
+    """
+    if data[:3] == b"\xff\xd8\xff":
+        return ".jpg"
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return ".png"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return ".webp"
+    if data[:6] in (b"GIF87a", b"GIF89a"):
+        return ".gif"
+    return ""
 
 
 def _openlibrary_cover_by_isbn(isbn: str) -> str:
@@ -323,6 +352,16 @@ def enrich(books: list[Book], api_key: str = "", today: date | None = None,
     today = today or date.today()
     cache = load_cache()
     stats = {"cached": 0, "looked_up": 0, "found": 0, "not_found": 0, "errors": 0}
+
+    # Hand-picked covers from config.py act like a "Cover URL" typed in Notion.
+    # (Part of the cache signature, so changing a link re-downloads the image.)
+    titles = {b.title for b in books}
+    for title in config.COVER_OVERRIDES:
+        if title not in titles:
+            log.warning("COVER_OVERRIDES: no book titled %r (check the title in Notion)", title)
+    for book in books:
+        if not book.cover_url and book.title in config.COVER_OVERRIDES:
+            book.cover_url = config.COVER_OVERRIDES[book.title]
 
     for book in books:
         entry = cache.get(book.id)
