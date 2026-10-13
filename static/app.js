@@ -15,6 +15,26 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+  // ---------------------------------------------------------------------------
+  // Colour palette shuffle (header button). The list comes from config.py;
+  // the colours themselves are in style.css. The choice is remembered per
+  // visitor in localStorage (the <head> script applies it on load).
+  // ---------------------------------------------------------------------------
+  const PALETTE_KEY = "maudes-library:palette";
+  const paletteButton = $("#palette-shuffle");
+  if (paletteButton) {
+    const palettes = paletteButton.dataset.palettes.split(" ");
+    paletteButton.addEventListener("click", () => {
+      const current = document.documentElement.dataset.palette || "current";
+      // Pick a random palette that's different from the one on screen.
+      const others = palettes.filter((p) => p !== current);
+      const next = others[Math.floor(Math.random() * others.length)];
+      if (next === "current") delete document.documentElement.dataset.palette;
+      else document.documentElement.dataset.palette = next;
+      try { localStorage.setItem(PALETTE_KEY, next); } catch (e) { /* ignore */ }
+    });
+  }
+
   const yearSelect = $("#year-select");
   if (!yearSelect) return; // no books at all
 

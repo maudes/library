@@ -1,5 +1,6 @@
 """Turn books + statistics into the static site in site/."""
 
+import hashlib
 import shutil
 from datetime import date
 from pathlib import Path
@@ -21,6 +22,15 @@ def pct(rating: int | None) -> str:
 def dash(value) -> str:
     """Empty values show as an em dash."""
     return "—" if value in (None, "") else str(value)
+
+
+def asset_version(name: str) -> str:
+    """Short fingerprint of a static file, e.g. "a1b2c3d4".
+
+    Used as style.css?v=... so browsers load the new file after each change
+    instead of an old cached copy.
+    """
+    return hashlib.sha1((ROOT / "static" / name).read_bytes()).hexdigest()[:8]
 
 
 def search_text(book: Book) -> str:
@@ -57,6 +67,9 @@ def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = N
         periods=periods,
         default_period=str(stats["default_year"]),
         high_rating=config.HIGH_RATING,
+        palettes=config.PALETTES,
+        css_version=asset_version("style.css"),
+        js_version=asset_version("app.js"),
         is_high=is_highly_rated,
         genres=config.ALL_GENRES,
         stat_genres=config.STAT_GENRES,

@@ -40,6 +40,11 @@ STAT_GENRES = ["Fiction", "Non-fiction", "Tool"]
 # All genres, in the order they appear in the list filter.
 ALL_GENRES = STAT_GENRES + [FAST_FOOD]
 
+# Colour palettes visitors can shuffle between (the header button).
+# "current" is the default; each other name needs a matching
+# :root[data-palette="..."] block in static/style.css.
+PALETTES = ["current", "lemons", "idea", "autumn"]
+
 # The reading list's "80%+" filter shows books rated at least this much.
 HIGH_RATING = 80
 

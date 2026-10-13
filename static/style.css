@@ -7,15 +7,79 @@
   --line-soft: #ece5d7;
   --ink: #2a2924;
   --muted: #7b7566;
-  --green: #3d5a45;
-  --green-dark: #2f4737;
-  --tan: #c8a26a;
-  --sage: #a8b49a;
   --pill: #e9e3d4;
+  --table-head: #efe8da;
+
+  /* Accent: the big "Total read" card, active buttons, focus rings */
+  --accent: #3d5a45;
+  --accent-strong: #2f4737;
+  --on-accent: #eef0e6;          /* text on the accent colour */
+  --total-number: #eef0e6;       /* the big number in the Total card */
+
+  /* Genre chart slices + legend dots: Fiction, Non-fiction, Tool */
+  --chart-1: #3d5a45;
+  --chart-2: #c8a26a;
+  --chart-3: #a8b49a;
+
+  /* Cover placeholder */
+  --cover-bg: #e7dfcc;
+  --cover-border: #d9cfb8;
+  --cover-icon: #a8b49a;
+
+  /* Genre pills: background / text */
+  --pill-fiction-bg: #dfe6d9;     --pill-fiction-fg: #2f4737;
+  --pill-nonfiction-bg: #efe2c9;  --pill-nonfiction-fg: #7a5a26;
+  --pill-tool-bg: #e3e6dc;        --pill-tool-fg: #55624a;
+  --pill-fastfood-bg: #ece6dc;    --pill-fastfood-fg: #7b7566;
 
   --serif: "Newsreader", "Songti TC", "Noto Serif TC", Georgia, serif;
   --sans: "Inter", "PingFang TC", "Noto Sans TC", system-ui, sans-serif;
   --radius: 12px;
+}
+
+/* ---------- Colour palettes ----------
+   Visitors can shuffle between these with the button in the header
+   (app.js sets <html data-palette="...">). "current" = the :root colours
+   above. To add a palette: copy a block, change the colours, and add its
+   name to PALETTES in config.py. */
+
+/* Lemons: #464f42 olive · #fbde44 lemon · #ede5d1 cream */
+:root[data-palette="lemons"] {
+  --bg: #ede5d1; --surface: #f8f3e7; --line: #dbd1b6; --line-soft: #e7dfca;
+  --ink: #2b2f28; --muted: #6d7164; --pill: #e3dac2; --table-head: #e5dcc5;
+  --accent: #464f42; --accent-strong: #353c32; --on-accent: #f3eedf; --total-number: #fbde44;
+  --chart-1: #464f42; --chart-2: #fbde44; --chart-3: #b4b49a;
+  --cover-bg: #e3dac2; --cover-border: #d3c8ab; --cover-icon: #9ba08d;
+  --pill-fiction-bg: #dfe2d6;    --pill-fiction-fg: #464f42;
+  --pill-nonfiction-bg: #fcefa5; --pill-nonfiction-fg: #5e5000;
+  --pill-tool-bg: #e7e4d3;       --pill-tool-fg: #575e4f;
+  --pill-fastfood-bg: #e9e2d1;   --pill-fastfood-fg: #6d7164;
+}
+
+/* IDEA: #204e93 blue · #d83e7f pink · #edebdc paper */
+:root[data-palette="idea"] {
+  --bg: #edebdc; --surface: #f8f7ef; --line: #d9d6c3; --line-soft: #e5e3d3;
+  --ink: #1b2233; --muted: #686d77; --pill: #e2e0cf; --table-head: #e3e1d0;
+  --accent: #204e93; --accent-strong: #183c72; --on-accent: #eef2fa; --total-number: #ffffff;
+  --chart-1: #204e93; --chart-2: #d83e7f; --chart-3: #a9b6cf;
+  --cover-bg: #e2e0cf; --cover-border: #d1ceb9; --cover-icon: #9badcb;
+  --pill-fiction-bg: #dde5f3;    --pill-fiction-fg: #204e93;
+  --pill-nonfiction-bg: #f8dbe8; --pill-nonfiction-fg: #a3265b;
+  --pill-tool-bg: #e5e8ee;       --pill-tool-fg: #475367;
+  --pill-fastfood-bg: #e8e6d8;   --pill-fastfood-fg: #686d77;
+}
+
+/* Autumn: #9f483e rust · #f09c41 amber · #f5e3bf wheat */
+:root[data-palette="autumn"] {
+  --bg: #f5e7cb; --surface: #fcf5e6; --line: #e7d1a8; --line-soft: #efdfbf;
+  --ink: #3a1f1a; --muted: #84655a; --pill: #efdcb8; --table-head: #f0dfbd;
+  --accent: #9f483e; --accent-strong: #7e372f; --on-accent: #fbeedd; --total-number: #f5e3bf;
+  --chart-1: #9f483e; --chart-2: #f09c41; --chart-3: #e2c898;
+  --cover-bg: #f5e3bf; --cover-border: #e6cd9c; --cover-icon: #d3a46d;
+  --pill-fiction-bg: #f2dad4;    --pill-fiction-fg: #8a3a31;
+  --pill-nonfiction-bg: #fde3c3; --pill-nonfiction-fg: #93501a;
+  --pill-tool-bg: #efe1c6;       --pill-tool-fg: #775838;
+  --pill-fastfood-bg: #f0e6d4;   --pill-fastfood-fg: #84655a;
 }
 
 * { box-sizing: border-box; }
@@ -74,10 +138,22 @@ button, input, select { font: inherit; color: inherit; }
 .brand svg { width: 20px; height: 20px; }
 .nav { display: flex; gap: 28px; margin-left: auto; margin-right: auto; font-size: 13px; }
 .nav a { text-decoration: none; color: var(--muted); padding: 19px 0; border-bottom: 2px solid transparent; }
-.nav a[aria-current="page"] { color: var(--ink); border-color: var(--green); }
+.nav a[aria-current="page"] { color: var(--ink); border-color: var(--accent); }
+.palette-btn {
+  display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px 0 8px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
+  color: var(--muted); font-size: 12px; cursor: pointer;
+}
+.palette-btn:hover { border-color: var(--accent); color: var(--ink); }
+.palette-btn svg { width: 15px; height: 15px; }
+.palette-dots { display: flex; }
+.palette-dots i { width: 9px; height: 9px; border-radius: 50%; margin-left: -3px; border: 1px solid var(--surface); }
+.palette-dots i:nth-child(1) { background: var(--chart-1); margin-left: 0; }
+.palette-dots i:nth-child(2) { background: var(--chart-2); }
+.palette-dots i:nth-child(3) { background: var(--chart-3); }
 .avatar {
   width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--pill); color: var(--green); font: 13px var(--serif);
+  background: var(--pill); color: var(--accent); font: 13px var(--serif);
 }
 
 /* ---------- Hero ---------- */
@@ -101,10 +177,10 @@ button, input, select { font: inherit; color: inherit; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; min-width: 0; }
 .card-title { font-size: 18px; margin-bottom: 10px; }
 .card-foot { font-size: 11.5px; color: var(--muted); margin-top: 12px; }
-.card-total { background: var(--green); border-color: var(--green); color: #eef0e6; display: flex; flex-direction: column; }
+.card-total { background: var(--accent); border-color: var(--accent); color: var(--on-accent); display: flex; flex-direction: column; }
 .card-label { font-size: 12px; opacity: .85; }
 .total-number { font-size: 14px; display: flex; align-items: baseline; gap: 8px; margin: 14px 0 auto; }
-.total-number span { font: 64px/1 var(--serif); }
+.total-number span { font: 64px/1 var(--serif); color: var(--total-number); }
 .total-foot { border-top: 1px solid rgba(255,255,255,.18); padding-top: 10px; margin-top: 18px; font-size: 12px; opacity: .9; }
 
 .top-list { list-style: none; margin: 0; padding: 0; }
@@ -118,7 +194,7 @@ button, input, select { font: inherit; color: inherit; }
 
 .genre-body { display: flex; align-items: center; gap: 12px; }
 .pie {
-  --c1: var(--green); --c2: var(--tan); --c3: var(--sage);
+  --c1: var(--chart-1); --c2: var(--chart-2); --c3: var(--chart-3);
   flex: none; width: 80px; height: 80px; border-radius: 50%;
   background: conic-gradient(var(--c1) 0 var(--a), var(--c2) var(--a) var(--b), var(--c3) var(--b) 100%);
 }
@@ -128,7 +204,7 @@ button, input, select { font: inherit; color: inherit; }
 .legend-pct { margin-left: auto; font-weight: 500; white-space: nowrap; }
 .legend-count { font-weight: 400; color: var(--muted); font-size: 11px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; }
-.dot-1 { background: var(--green); } .dot-2 { background: var(--tan); } .dot-3 { background: var(--sage); }
+.dot-1 { background: var(--chart-1); } .dot-2 { background: var(--chart-2); } .dot-3 { background: var(--chart-3); }
 
 /* "All years": the Top 10 card spans two grid columns; its list fills
    two columns top-to-bottom (1–5 left, 6–10 right). */
@@ -145,15 +221,15 @@ button, input, select { font: inherit; color: inherit; }
 .cover-xs { width: 26px; height: 38px; }
 .cover-md { width: 72px; height: 106px; }
 .cover-lg { width: 110px; height: 162px; }
-.cover-empty { display: grid; place-items: center; background: #e7dfcc; border: 1px solid #d9cfb8; }
-.cover-empty svg { width: 55%; height: 55%; fill: var(--sage); }
+.cover-empty { display: grid; place-items: center; background: var(--cover-bg); border: 1px solid var(--cover-border); }
+.cover-empty svg { width: 55%; height: 55%; fill: var(--cover-icon); }
 .cover-xs.cover-empty svg { width: 70%; }
 
 .pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; background: var(--pill); white-space: nowrap; }
-.pill-fiction { background: #dfe6d9; color: var(--green-dark); }
-.pill-non-fiction { background: #efe2c9; color: #7a5a26; }
-.pill-tool { background: #e3e6dc; color: #55624a; }
-.pill-fast-food { background: #ece6dc; color: var(--muted); }
+.pill-fiction { background: var(--pill-fiction-bg); color: var(--pill-fiction-fg); }
+.pill-non-fiction { background: var(--pill-nonfiction-bg); color: var(--pill-nonfiction-fg); }
+.pill-tool { background: var(--pill-tool-bg); color: var(--pill-tool-fg); }
+.pill-fast-food { background: var(--pill-fastfood-bg); color: var(--pill-fastfood-fg); }
 
 /* ---------- Reading list ---------- */
 .library { margin-top: 44px; }
@@ -165,20 +241,20 @@ button, input, select { font: inherit; color: inherit; }
 }
 .search svg { width: 15px; height: 15px; color: var(--muted); flex: none; }
 .search input { border: 0; background: none; outline: none; width: 100%; padding: 8px 0; }
-.search:focus-within { border-color: var(--green); }
+.search:focus-within { border-color: var(--accent); }
 .select select { background-color: var(--surface); }
 .chip {
   border: 1px solid var(--line); background: var(--surface); border-radius: 999px;
   padding: 7px 14px; font-size: 12.5px; cursor: pointer; color: var(--muted); white-space: nowrap;
 }
-.chip:hover { border-color: var(--green); }
-.chip[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #eef0e6; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .view-toggle { margin-left: auto; display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
 .view-toggle button { display: flex; align-items: center; gap: 6px; border: 0; background: none; padding: 7px 12px; cursor: pointer; font-size: 12.5px; color: var(--muted); }
 .view-toggle button svg { width: 14px; height: 14px; }
 .view-toggle button[aria-pressed="true"] { background: var(--pill); color: var(--ink); }
 
-button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* List view — a CSS grid that looks like a table on wide screens */
 .book-table { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
@@ -188,7 +264,7 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
     2.2rem minmax(0, 1.5fr) minmax(0, 1.3fr) 4rem minmax(0, 1.1fr) 3.4rem 6.4rem minmax(0, 2.2fr) 7.6rem 3.6rem;
   gap: 14px; align-items: start; padding: 12px 16px;
 }
-.table-head { background: #efe8da; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-block: 10px; }
+.table-head { background: var(--table-head); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-block: 10px; }
 /* Every row has the same 1px top border, so all rows are exactly the same height. */
 .book-row { border-top: 1px solid var(--line-soft); font-size: 13px; }
 .row-title-wrap { display: flex; gap: 10px; align-items: flex-start; }
@@ -198,9 +274,9 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
 .m-label { display: none; }
 .more {
   border: 1px solid var(--line); background: var(--bg); border-radius: 6px; padding: 3px 9px;
-  font-size: 11.5px; cursor: pointer; color: var(--green-dark);
+  font-size: 11.5px; cursor: pointer; color: var(--accent-strong);
 }
-.more:hover { border-color: var(--green); }
+.more:hover { border-color: var(--accent); }
 
 /* Cards view */
 .card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
@@ -222,7 +298,7 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
 .about p:last-child { color: var(--muted); margin-top: 8px; }
 .site-footer { border-top: 1px solid var(--line); padding: 22px 0 32px; font-size: 12px; color: var(--muted); }
 .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: baseline; }
-.footer-quote { font: italic 18px var(--serif); color: var(--green); }
+.footer-quote { font: italic 18px var(--serif); color: var(--accent); }
 
 /* ---------- "More" pop-up ---------- */
 #book-modal {
@@ -279,7 +355,8 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
 @media (max-width: 640px) {
   .wrap { padding: 0 16px; }
   .nav { display: none; }
-  .header-inner { justify-content: space-between; }
+  .header-inner { justify-content: space-between; gap: 10px; }
+  .palette-btn { margin-left: auto; }
   .hero { flex-direction: column; align-items: stretch; padding-top: 28px; }
   .hero h1 { font-size: 36px; }
   .year-picker { justify-content: space-between; }

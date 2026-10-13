@@ -9,7 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="static/style.css">
+  <link rel="stylesheet" href="static/style.css?v={{ css_version }}">
+  {# Apply the visitor's saved colour palette before the page is drawn (no flash). #}
+  <script>
+    try {
+      var p = localStorage.getItem("maudes-library:palette");
+      if (p && p !== "current" && {{ palettes | tojson }}.indexOf(p) > -1) document.documentElement.dataset.palette = p;
+    } catch (e) {}
+  </script>
 </head>
 <body>
 
@@ -23,6 +30,12 @@
       <a href="#library" aria-current="page">My library</a>
       <a href="#about">About this shelf</a>
     </nav>
+    <button type="button" id="palette-shuffle" class="palette-btn"
+            data-palettes="{{ palettes | join(' ') }}"
+            aria-label="Shuffle colour palette" title="Shuffle colour palette">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h3.5c2 0 3.3 1 4.5 3l2 4c1.2 2 2.5 3 4.5 3H21M18 14l3 3-3 3M3 17h3.5c1.3 0 2.3-.4 3.1-1.2M13.9 8.2C14.7 7.4 15.7 7 17 7h4M18 4l3 3-3 3"/></svg>
+      <span class="palette-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
     <span class="avatar" aria-hidden="true">M</span>
   </div>
 </header>
@@ -283,6 +296,6 @@
 <template id="detail-{{ b.id }}">{{ details(b) }}</template>
 {% endfor %}
 
-<script src="static/app.js"></script>
+<script src="static/app.js?v={{ js_version }}"></script>
 </body>
 </html>
