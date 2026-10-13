@@ -41,6 +41,12 @@ STAT_GENRES = ["Fiction", "Non-fiction", "Tool"]
 # All genres, in the order they appear in the list filter.
 ALL_GENRES = STAT_GENRES + [FAST_FOOD]
 
+# Google Analytics (same property as the blog on this domain). Tracking only
+# runs on SITE_HOSTNAME, so local previews (localhost) never count as visits.
+# Set GA_MEASUREMENT_ID = None to turn analytics off.
+GA_MEASUREMENT_ID = "G-BHN5D0SF9L"
+SITE_HOSTNAME = "maudes.github.io"
+
 # Colour palettes visitors can shuffle between (the header button).
 # "current" is the default; each other name needs a matching
 # :root[data-palette="..."] block in static/style.css.
