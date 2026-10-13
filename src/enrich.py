@@ -28,7 +28,7 @@ log = logging.getLogger(__name__)
 ROOT = Path(__file__).resolve().parent.parent
 CACHE_FILE = ROOT / "data" / "cache" / "books.json"
 # Bump when the matching rules improve, so books without a cover are retried.
-CACHE_VERSION = 3
+CACHE_VERSION = 5
 COVERS_DIR = ROOT / "static" / "covers"
 
 _session = requests.Session()
@@ -82,7 +82,7 @@ def _author_tokens(text: str) -> set[str]:
     text = unicodedata.normalize("NFKC", text).replace("等", " ")
     ascii_text = "".join(c for c in unicodedata.normalize("NFKD", text.lower()) if not unicodedata.combining(c))
     words = {w for w in re.findall(r"[a-z]+", ascii_text) if len(w) > 1}
-    chars = set(re.findall(r"[\u3400-\u9fff\uac00-\ud7af]", text))
+    chars = set(re.findall(r"[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]", text))
     return words | chars
 
 
@@ -186,7 +186,7 @@ def search_plans(book: Book) -> list[str]:
     """Titles to search for, in order (always together with the author).
 
     The Main Title first (for Chinese titles this finds the edition you
-    actually read), then the second title if it's in English.
+    actually read), then the second title (English / Japanese original).
 
     A result must match BOTH title and author. Title-only matches were tried
     and rejected: common titles (e.g. "Never Let Me Go") collide with other
@@ -194,7 +194,9 @@ def search_plans(book: Book) -> list[str]:
     aren't found, fill in ISBN / Cover URL in Notion.
     """
     titles = [book.title]
-    if book.second_title and is_english(book.second_title) and book.second_title != book.title:
+    # Any different second title: the English original, or the Japanese /
+    # Korean original title (e.g. 砂の器 for 砂之器), which finds that edition.
+    if book.second_title and book.second_title != book.title:
         titles.append(book.second_title)
     return titles
 
@@ -211,29 +213,44 @@ def find_match(book: Book, api_key: str = "") -> dict | None:
     # author in another script, e.g. "石黑一雄(Kazuo Ishiguro)", so the English
     # edition can then be matched too.
     known_author = _aliases(book.author)
+    titles = search_plans(book)
     for search in (lambda t, a: search_google(t, a, api_key), search_open_library):
-        for title in search_plans(book):
-            try:
-                results = search(title, book.author)
-            except LookupError_ as exc:
-                log.info("Lookup failed for %r: %s", book.title, exc)
-                failed = True
+        source_down = False
+        for title in titles:
+            # Query with the author first. If that finds nothing usable, query
+            # the title alone: a Chinese author name in the query can bury the
+            # Japanese/English edition. Every result is still checked below.
+            for query_author in (book.author, ""):
+                try:
+                    results = search(title, query_author)
+                except LookupError_ as exc:
+                    log.info("Lookup failed for %r: %s", book.title, exc)
+                    failed = source_down = True
+                    break
+                found_here = False
+                for r in results:
+                    # The result may be any of the book's titles (e.g. searching
+                    # the English title can return the Chinese edition).
+                    if not (any(titles_match(t, r["title"]) for t in titles)
+                            and authors_match(known_author, r["authors"])):
+                        continue
+                    found_here = True
+                    known_author += " " + " ".join(r["authors"])
+                    if best is None:
+                        best = dict(r)
+                    if best.get("cover"):
+                        return best
+                    if r.get("cover"):
+                        # Compromise: the edition you read has no cover image, so use
+                        # the cover of another matching edition (usually the original).
+                        # Keep the first ISBN.
+                        best["cover"] = r["cover"]
+                        best["cover_from_other_edition"] = True
+                        return best
+                if found_here or not query_author:
+                    break
+            if source_down:
                 break  # this source is down; try the next source
-            for r in results:
-                if not (titles_match(title, r["title"]) and authors_match(known_author, r["authors"])):
-                    continue
-                known_author += " " + " ".join(r["authors"])
-                if best is None:
-                    best = dict(r)
-                if best.get("cover"):
-                    return best
-                if r.get("cover"):
-                    # Compromise: the edition you read has no cover image, so use
-                    # the cover of another matching edition (usually the English
-                    # original, found via the second title). Keep the first ISBN.
-                    best["cover"] = r["cover"]
-                    best["cover_from_other_edition"] = True
-                    return best
     if best is None and failed:
         raise LookupError_("one or more sources unavailable")
     return best

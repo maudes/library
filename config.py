@@ -61,6 +61,9 @@ HIGH_RATING = 80
 # reverse). Most are learned automatically; add the rest here.
 AUTHOR_ALIASES = {
     "伍綺詩": "Celeste Ng",
+    "愛蓮娜．厄克特": "Alaina Urquhart",
+    "譽田哲也": "Tetsuya Honda 誉田哲也",
+    "湊佳苗": "Kanae Minato 湊かなえ",   # Japanese editions write her name in kana
 }
 
 # "Not found" results are cached; retry them after this many days.

@@ -124,7 +124,8 @@ def test_old_entries_without_cover_are_retried_once(sandbox):
 def test_search_plans_try_main_title_first_then_english_second_title():
     assert enrich.search_plans(book()) == ["無聲告白", "Everything I Never Told You"]
     assert enrich.search_plans(book(title="Vanish", second_title="")) == ["Vanish"]
-    assert enrich.search_plans(book(second_title="鐵湖疑案")) == ["無聲告白"]   # non-English second title skipped
+    assert enrich.search_plans(book(title="砂之器", second_title="砂の器")) == ["砂之器", "砂の器"]
+    assert enrich.search_plans(book(title="落日", second_title="落日")) == ["落日"]   # same title: once
 
 
 def test_title_only_match_is_rejected(monkeypatch):
@@ -234,3 +235,34 @@ def test_offline_mode_never_looks_up(sandbox):
     mp.setattr(enrich, "find_match", fake_find(calls, None))
     enrich.enrich([book()], offline=True)
     assert calls["find"] == 0
+
+
+def test_kana_author_alias(monkeypatch):
+    monkeypatch.setattr(enrich.config, "AUTHOR_ALIASES", {"湊佳苗": "Kanae Minato 湊かなえ"})
+    assert enrich.authors_match(enrich._aliases("湊佳苗"), ["湊かなえ"])
+    assert not enrich.authors_match("湊佳苗", ["湊かなえ"])           # only one shared kanji without the alias
+
+
+def test_title_only_query_retry_still_checks_author(monkeypatch):
+    """Query without the author when the first query finds nothing; the
+    author is still verified, so a same-title book by someone else is rejected."""
+    queries = []
+    def fake_google(t, a, k=""):
+        queries.append((t, a))
+        if a:
+            return [{"title": "松本清張全集 第5巻", "authors": ["松本清張"], "isbn": "", "cover": "x", "source": "google"}]
+        return [{"title": "砂の器", "authors": ["Someone Else"], "isbn": "", "cover": "bad", "source": "google"},
+                {"title": "砂の器", "authors": ["松本清張"], "isbn": "9784101109169", "cover": "good", "source": "google"}]
+    monkeypatch.setattr(enrich, "search_google", fake_google)
+    monkeypatch.setattr(enrich, "search_open_library", lambda t, a: [])
+    m = enrich.find_match(book(title="砂之器", second_title="砂の器", author="松本清張"))
+    assert m["cover"] == "good"
+    assert any(author == "" for _, author in queries)        # a title-only query was made
+
+
+def test_result_may_match_the_other_title(monkeypatch):
+    zh = {"title": "法醫與殺人魔", "authors": ["愛蓮娜・厄克特"], "isbn": "9786263", "cover": "zh", "source": "google"}
+    monkeypatch.setattr(enrich, "search_google", lambda t, a, k="": [zh])
+    monkeypatch.setattr(enrich, "search_open_library", lambda t, a: [])
+    m = enrich.find_match(book(title="The Butcher And The Wren", second_title="法醫與殺人魔", author="愛蓮娜．厄克特"))
+    assert m["cover"] == "zh"
