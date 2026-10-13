@@ -1,19 +1,22 @@
 {
   "1f33d1f4-a99a-8000-b80c-e77d62c1eedf": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-8000-b80c-e77d62c1eedf.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789570530889",
     "signature": "尋找消失的女孩|Crash & Burn|Lisa Gardner||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8004-baae-d4059573a3b5": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-8004-baae-d4059573a3b5.jpg",
+    "isbn": "9781409107675",
     "signature": "黑色之書|The Black Book|Ian Rankin||",
     "source": "google",
-    "status": "not_found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8006-bb63-f35f7f00b374": {
     "checked": "2026-10-13",
@@ -29,7 +32,8 @@
     "isbn": "",
     "signature": "人皮手稿|Das Skript|Arno Strobl||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-8010-af71-eb3931278ca6": {
     "checked": "2026-10-13",
@@ -65,11 +69,13 @@
   },
   "1f33d1f4-a99a-801c-948f-e5cc2b0e26ad": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-801c-948f-e5cc2b0e26ad.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789573333890",
     "signature": "最後的女孩|Final Girls|Riley Sager||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-801c-b3ef-dee7791f0a64": {
     "checked": "2026-10-13",
@@ -81,19 +87,22 @@
   },
   "1f33d1f4-a99a-801d-a594-dcff889dfacd": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-801d-a594-dcff889dfacd.jpg",
+    "isbn": "9789571371290",
     "signature": "謊言：韓國世越號沉船事件潛水員的告白|거짓말이다|金琸桓||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-801e-86d9-c6f0bf23907c": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-801e-86d9-c6f0bf23907c.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789573323563",
     "signature": "地獄藍調|Killing Floor|Lee Child||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-801f-8743-d4c1728b2e8b": {
     "checked": "2026-10-13",
@@ -105,27 +114,31 @@
   },
   "1f33d1f4-a99a-801f-ac4a-cb0d2517e0f9": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-801f-ac4a-cb0d2517e0f9.jpg",
+    "isbn": "9780745340913",
     "signature": "Lost in Work: Escaping Capitalism||Amelia Horgan||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8027-ae50-e9735e41e046": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-8027-ae50-e9735e41e046.jpg",
+    "isbn": "9781101608067",
     "signature": "沉默的妻子|The Silent Wife|A.S.A Harrison||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-802b-8664-f7eac4f64294": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-802b-8664-f7eac4f64294.jpg",
+    "cover_from_other_edition": true,
     "isbn": "",
     "signature": "唯一生還者|Sole Survivor|Dean Koontz||",
     "source": "google",
-    "status": "not_found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-802b-b072-edfe3af508f2": {
     "checked": "2026-10-13",
@@ -133,15 +146,18 @@
     "isbn": "9789575454173",
     "signature": "少女復仇記|霧之旗|松本清張||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-802c-a3e1-f7d9be4c8584": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-802c-a3e1-f7d9be4c8584.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789868883383",
     "signature": "全都藏好了|Alles muss versteckt sein|Wiebke Lorenz||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-802d-97bc-d852d168ae28": {
     "checked": "2026-10-13",
@@ -162,10 +178,11 @@
   "1f33d1f4-a99a-8030-b142-e99535a08872": {
     "checked": "2026-10-13",
     "cover": "",
-    "isbn": "9789887030010",
+    "isbn": "",
     "signature": "最後的信仰；新聞倫理十二講||區家麟||",
-    "source": "google",
-    "status": "found"
+    "source": "",
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-8035-a25d-d3e7974168ef": {
     "checked": "2026-10-13",
@@ -189,7 +206,8 @@
     "isbn": "9789573330431",
     "signature": "斜屋犯罪|斜め屋敷の犯罪|島田莊司||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8039-a34a-c2080223d857": {
     "checked": "2026-10-13",
@@ -201,19 +219,22 @@
   },
   "1f33d1f4-a99a-803a-a2b9-e4a043b28563": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-803a-a2b9-e4a043b28563.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789576772306",
     "signature": "主教謀殺案|The Bishop Murder Case|S. S. Van Dine||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-803c-a96c-da44602e7625": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "9781444739251",
+    "cover": "covers/1f33d1f4-a99a-803c-a96c-da44602e7625.jpg",
+    "isbn": "9781444720990",
     "signature": "Broken Harbour|神秘海灣|Tana French||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-803d-b942-da208a28594e": {
     "checked": "2026-10-13",
@@ -241,11 +262,12 @@
   },
   "1f33d1f4-a99a-8045-a1cd-e188485b0e75": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "9784488013431",
+    "cover": "covers/1f33d1f4-a99a-8045-a1cd-e188485b0e75.jpg",
+    "isbn": "9781407052991",
     "signature": "血之罪|Jar City|Arnaldur Indridason||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8047-b5aa-ea5367ab6c4a": {
     "checked": "2026-10-13",
@@ -281,19 +303,23 @@
   },
   "1f33d1f4-a99a-804b-9b3f-cbf62689e265": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-804b-9b3f-cbf62689e265.jpg",
+    "cover_from_other_edition": true,
+    "isbn": "9789865797058",
     "signature": "莊家優勢|The House Advantage: Playing the Odds to Win Big in Business|Jeffrey Ma||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-804c-9542-c0e32a8291e5": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
-    "signature": "死亡手術室|A Case of Need|Michael Critchton||",
+    "cover": "covers/1f33d1f4-a99a-804c-9542-c0e32a8291e5.jpg",
+    "cover_from_other_edition": true,
+    "isbn": "9789573262961",
+    "signature": "死亡手術室|A Case of Need|Michael Crichton||",
     "source": "google",
-    "status": "not_found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-804d-8bdf-ea673fb9fb89": {
     "checked": "2026-10-12",
@@ -309,7 +335,8 @@
     "isbn": "",
     "signature": "願你安息||Wiebke Lorenz||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-804f-880b-fa5de8903c4e": {
     "checked": "2026-10-13",
@@ -317,7 +344,8 @@
     "isbn": "",
     "signature": "落日|落日|湊佳苗||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-8054-a14d-f696914995f5": {
     "checked": "2026-10-13",
@@ -337,19 +365,22 @@
   },
   "1f33d1f4-a99a-8055-b197-cf122a2330e0": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-8055-b197-cf122a2330e0.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789570529340",
     "signature": "殺戮時刻|The Killing Hour|Lisa Gardner||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8055-baf0-c612ddb11a7a": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "9785559608969",
+    "cover": "covers/1f33d1f4-a99a-8055-baf0-c612ddb11a7a.jpg",
+    "isbn": "9780345509437",
     "signature": "The Apprentice|Rizzoli & Isles series -2|Tess Gerritsen||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8058-b0ff-f65be7e22a35": {
     "checked": "2026-10-13",
@@ -381,7 +412,8 @@
     "isbn": "",
     "signature": "別讓我走|Never Let Me Go|石黑一雄||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-805d-84da-cde0326ff234": {
     "checked": "2026-10-13",
@@ -389,7 +421,8 @@
     "isbn": "",
     "signature": "失樂園|Lost Paradise|阿部定||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-805d-8d43-d3125fa2d6ac": {
     "checked": "2026-10-13",
@@ -401,11 +434,12 @@
   },
   "1f33d1f4-a99a-8060-8339-e1465e7933c5": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "9781543042177",
+    "cover": "covers/1f33d1f4-a99a-8060-8339-e1465e7933c5.jpg",
+    "isbn": "9786263151345",
     "signature": "父之罪|Sins of the Fathers|Lawrence Block||",
-    "source": "openlibrary",
-    "status": "found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8061-b0d8-f4ba4aff3f27": {
     "checked": "2026-10-13",
@@ -413,7 +447,8 @@
     "isbn": "",
     "signature": "從零開始的女性主義|上野先生、フェミニズムについてゼロから教えてください!|上野千鶴子||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-8064-8411-de8b3ad69803": {
     "checked": "2026-10-13",
@@ -437,7 +472,8 @@
     "isbn": "",
     "signature": "步履不停|歩いても 歩いても|是枝裕和||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-8066-a8d3-d8a4f2b560e8": {
     "checked": "2026-10-13",
@@ -448,12 +484,13 @@
     "status": "found"
   },
   "1f33d1f4-a99a-8067-a0fb-cd72d3763edf": {
-    "checked": "2026-10-12",
+    "checked": "2026-10-13",
     "cover": "",
     "isbn": "",
     "signature": "無聲告白|Everything I Never Told You|伍綺詩||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-8067-a524-e54e0eb4b136": {
     "checked": "2026-10-13",
@@ -461,7 +498,8 @@
     "isbn": "",
     "signature": "巷仔內的社會學||王宏仁等35人||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-8068-807d-e73b0545a8cd": {
     "checked": "2026-10-13",
@@ -481,11 +519,13 @@
   },
   "1f33d1f4-a99a-8069-ac15-c3372482c4ce": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-8069-ac15-c3372482c4ce.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789866272844",
     "signature": "雪人|Snømannen|Jo Nesbo||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-806d-92d4-e3e9f22f8d42": {
     "checked": "2026-10-13",
@@ -493,7 +533,8 @@
     "isbn": "",
     "signature": "我們沒有秘密||吳曉樂||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-806f-a139-f0321dfe5e7b": {
     "checked": "2026-10-13",
@@ -513,19 +554,22 @@
   },
   "1f33d1f4-a99a-8071-8251-f87ae97bc530": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-8071-8251-f87ae97bc530.jpg",
+    "isbn": "9780374721039",
     "signature": "性的正義|The Right to Sex: Feminism in the 21st Century|Amia Shrinivasan||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8072-bc14-f899bcbfb3d9": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-8072-bc14-f899bcbfb3d9.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789865956547",
     "signature": "獵頭遊戲|Hodejegerne|Jo Nesbo||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8074-a2e0-f7d1fddc6974": {
     "checked": "2026-10-13",
@@ -553,11 +597,13 @@
   },
   "1f33d1f4-a99a-8077-9226-c212cc39f05c": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-8077-9226-c212cc39f05c.jpg",
+    "cover_from_other_edition": true,
     "isbn": "",
     "signature": "鄰人|The Neighbor|Lisa Gardner||",
     "source": "google",
-    "status": "not_found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8078-a5c6-c3e9ff25581a": {
     "checked": "2026-10-13",
@@ -569,19 +615,23 @@
   },
   "1f33d1f4-a99a-8079-9cb8-f1ca0326e4c9": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-8079-9cb8-f1ca0326e4c9.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789861850689",
     "signature": "春日湖百年謀殺記事|On the Street Where You Live|Mary Higgins Clark||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-807a-85e7-f13403b2df17": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-807a-85e7-f13403b2df17.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789868900202",
     "signature": "寒顫|The Chill|Ross Macdonald||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-807e-af39-c09e8e015b5e": {
     "checked": "2026-10-13",
@@ -617,11 +667,13 @@
   },
   "1f33d1f4-a99a-8084-ac87-f741404adad0": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-8084-ac87-f741404adad0.jpg",
+    "cover_from_other_edition": true,
     "isbn": "",
     "signature": "希臘棺材之謎|The Greek Coffin Mystery|Ellery Queen||",
     "source": "google",
-    "status": "not_found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8085-9cf1-cfa3dd3995aa": {
     "checked": "2026-10-13",
@@ -653,15 +705,18 @@
     "isbn": "",
     "signature": "死亡祭儀|Last Ritual|Yrsa Sigurdardottir||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-808e-b09a-e1a584b05454": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-808e-b09a-e1a584b05454.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789570529067",
     "signature": "下一個意外|The Next Accident|Lisa Gardner||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-808e-bb51-c8d8e495ee9f": {
     "checked": "2026-10-13",
@@ -669,7 +724,8 @@
     "isbn": "",
     "signature": "點與線|点と線|松本清張||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-808f-ada4-c48d1325fdb7": {
     "checked": "2026-10-13",
@@ -689,11 +745,13 @@
   },
   "1f33d1f4-a99a-8091-9fb7-c575d884ff9e": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-8091-9fb7-c575d884ff9e.jpg",
+    "cover_from_other_edition": true,
     "isbn": "",
     "signature": "人月傳說|The Mythical Man-Month: Essays on Software Engineering|Fred Brooks||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-8092-8712-f038d4d6ad68": {
     "checked": "2026-10-13",
@@ -712,12 +770,13 @@
     "status": "found"
   },
   "1f33d1f4-a99a-8093-8864-c836539ee456": {
-    "checked": "2026-10-12",
+    "checked": "2026-10-13",
     "cover": "",
-    "isbn": "9789579609951",
+    "isbn": "",
     "signature": "長夜難明||紫金陳||",
-    "source": "google",
-    "status": "found"
+    "source": "",
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-8093-bfef-e8f4ac541d61": {
     "checked": "2026-10-13",
@@ -733,7 +792,8 @@
     "isbn": "",
     "signature": "砂之器|砂の器|松本清張||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-809b-ba60-d6132305bd3f": {
     "checked": "2026-10-13",
@@ -745,11 +805,12 @@
   },
   "1f33d1f4-a99a-809d-a8c0-f22f7aa8e640": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "9781408413531",
+    "cover": "covers/1f33d1f4-a99a-809d-a8c0-f22f7aa8e640.jpg",
+    "isbn": "9781440637537",
     "signature": "神秘化身|The Likeness|Tana French||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-809e-a7d6-d78bd17c4db6": {
     "checked": "2026-10-13",
@@ -757,7 +818,8 @@
     "isbn": "",
     "signature": "噓噓、嗯嗯、屁屁|Pipi Caca Popo──Histoire anecdotique de la scatologie|Jean Feixas||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-80a3-a78c-ed10181aa0fe": {
     "checked": "2026-10-13",
@@ -765,15 +827,18 @@
     "isbn": "",
     "signature": "運動博弈與彩券莊家不說的遊戲規則||劉建志||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-80a5-9049-d7504d9172ab": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80a5-9049-d7504d9172ab.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789869517164",
     "signature": "毒木聖經|The Poisonwood Bible|Barbara Kingsolver||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80a5-b6b7-c61fdfb367a3": {
     "checked": "2026-10-13",
@@ -813,7 +878,8 @@
     "isbn": "9789575454166",
     "signature": "寶藏疑雲|考える葉|松本清張||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80ac-b5db-ffd4920128f4": {
     "checked": "2026-10-13",
@@ -833,11 +899,12 @@
   },
   "1f33d1f4-a99a-80b1-b039-c94f72e6c290": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-80b1-b039-c94f72e6c290.jpg",
+    "isbn": "9781491913550",
     "signature": "資訊架構學|Information Architecture|Louis Rosenfeld/ Peter Morville/ Jorge Arango||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80b7-9209-f4ce81567303": {
     "checked": "2026-10-13",
@@ -849,11 +916,13 @@
   },
   "1f33d1f4-a99a-80b7-9344-e4b17d54397c": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80b7-9344-e4b17d54397c.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789574670314",
     "signature": "天生嫩骨|Tender At The Bone|Ruth Reichl||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80b7-a522-c99fc5971ca0": {
     "checked": "2026-10-13",
@@ -873,19 +942,22 @@
   },
   "1f33d1f4-a99a-80bd-9fe2-edeaf98dddb8": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-80bd-9fe2-edeaf98dddb8.jpg",
+    "isbn": "9789861336312",
     "signature": "斜槓青年|Slash|Susan Kuang||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80be-be64-ec319795cd4b": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80be-be64-ec319795cd4b.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789865880828",
     "signature": "貝爾曼的幽靈|Bellman & Black|Diane Setterfield||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80c0-a003-ca12686ba0d7": {
     "checked": "2026-10-13",
@@ -921,11 +993,13 @@
   },
   "1f33d1f4-a99a-80c9-b67c-d383f96e7519": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80c9-b67c-d383f96e7519.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789861851778",
     "signature": "夢遊|I Heard That Song Before|Mary Higgins Clark||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80cc-a900-e6b01656f6ef": {
     "checked": "2026-10-13",
@@ -945,11 +1019,13 @@
   },
   "1f33d1f4-a99a-80cf-8fe7-d5b507b17882": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80cf-8fe7-d5b507b17882.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789570527322",
     "signature": "亡命抉擇|Love You More|Lisa Gardner||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80cf-b4ea-cb541edd10bc": {
     "checked": "2026-10-13",
@@ -973,7 +1049,8 @@
     "isbn": "",
     "signature": "草莓殺人夜|Strawberry Night|譽田哲也||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-80d4-b568-dd605d66457c": {
     "checked": "2026-10-13",
@@ -985,11 +1062,12 @@
   },
   "1f33d1f4-a99a-80d6-b77d-fe7697308968": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-80d6-b77d-fe7697308968.jpg",
+    "isbn": "9780307489067",
     "signature": "One False Move|Myron Bolitar Series -5|Harlan Coben||",
     "source": "google",
-    "status": "not_found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80d7-bef7-dc378ec27d3d": {
     "checked": "2026-10-13",
@@ -1017,11 +1095,13 @@
   },
   "1f33d1f4-a99a-80dd-851b-c748202f5fb5": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80dd-851b-c748202f5fb5.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789570526264",
     "signature": "活著告訴你|Live to Tell|Lisa Gardner||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80dd-8db2-c879cac6da52": {
     "checked": "2026-10-13",
@@ -1041,27 +1121,33 @@
   },
   "1f33d1f4-a99a-80e0-a918-e7463a1a818f": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80e0-a918-e7463a1a818f.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789861856049",
     "signature": "第 13 個小時|The 13th Hour|Richard Doetsch||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80e1-bb5c-ef4fe9154ce4": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80e1-bb5c-ef4fe9154ce4.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789861850610",
     "signature": "消失的藍衣女孩|Two Little Girls in Blue|Mary Higgins Clark||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80e5-830a-cea3071d6a8d": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80e5-830a-cea3071d6a8d.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789862351260",
     "signature": "重返人間|Land of The Living|Nicci French||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80e7-b49b-c4a624a139ec": {
     "checked": "2026-10-13",
@@ -1069,7 +1155,8 @@
     "isbn": "",
     "signature": "始於極限|往復書簡 限界から始まる|上野千鶴子||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-80e8-8ad2-d1d128c1bda4": {
     "checked": "2026-10-13",
@@ -1089,11 +1176,12 @@
   },
   "1f33d1f4-a99a-80ec-ab1e-f98576c2f50c": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/1f33d1f4-a99a-80ec-ab1e-f98576c2f50c.jpg",
+    "isbn": "9786267600054",
     "signature": "舞姬|舞姬|川端康成||",
     "source": "google",
-    "status": "not_found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80f0-b4ff-de928084f1a9": {
     "checked": "2026-10-13",
@@ -1101,7 +1189,8 @@
     "isbn": "",
     "signature": "鱷魚手記||邱妙津||",
     "source": "google",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-80f2-8443-ecc7140ab411": {
     "checked": "2026-10-13",
@@ -1109,15 +1198,18 @@
     "isbn": "",
     "signature": "死亡綠皮書||內田康夫||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-80f3-800f-ff09d6f3ae94": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80f3-800f-ff09d6f3ae94.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789861208404",
     "signature": "室友|Until it’s over|Nicci French||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80f4-a177-ecc5852735ec": {
     "checked": "2026-10-13",
@@ -1137,19 +1229,23 @@
   },
   "1f33d1f4-a99a-80f8-9eaf-c8b2e80e094a": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80f8-9eaf-c8b2e80e094a.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789862270479",
     "signature": "影之車|影の車|松本清張||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80fa-a0ae-c4c1a06bee9f": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f33d1f4-a99a-80fa-a0ae-c4c1a06bee9f.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789861852546",
     "signature": "後會誰說無期|We'll Meet Again|Mary Higgins Clark||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f33d1f4-a99a-80fc-b1e7-f84979a0cc06": {
     "checked": "2026-10-13",
@@ -1157,7 +1253,8 @@
     "isbn": "",
     "signature": "折傘的女人|傘を折る女|島田莊司||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1f33d1f4-a99a-80fe-b0a4-eeccf5f8e00c": {
     "checked": "2026-10-13",
@@ -1181,15 +1278,18 @@
     "isbn": "9786269589333",
     "signature": "沒有媽媽的超市|Crying in H Mart, A Memoir|Michelle Zauner||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f63d1f4-a99a-8035-b3ce-d017df7b873b": {
     "checked": "2026-10-13",
-    "cover": "",
+    "cover": "covers/1f63d1f4-a99a-8035-b3ce-d017df7b873b.jpg",
+    "cover_from_other_edition": true,
     "isbn": "9789862358344",
     "signature": "那年夏天的謊言|The Last Time I Lied|Riley Sager||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "1f63d1f4-a99a-8082-a959-fa02e56317c2": {
     "checked": "2026-10-13",
@@ -1197,7 +1297,8 @@
     "isbn": "",
     "signature": "被迫成名的小說家||青青綠蘿裙||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "1fb3d1f4-a99a-804a-acae-d179611de7cf": {
     "checked": "2026-10-13",
@@ -1205,7 +1306,8 @@
     "isbn": "",
     "signature": "無限公路就業指南||居一木||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "2063d1f4-a99a-80cf-ad29-e2478ad10da8": {
     "checked": "2026-10-13",
@@ -1213,7 +1315,8 @@
     "isbn": "",
     "signature": "當反派是會上癮的！[無限]||孤隅||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "20b3d1f4-a99a-8062-bdef-f14382ec3581": {
     "checked": "2026-10-13",
@@ -1221,7 +1324,8 @@
     "isbn": "",
     "signature": "兇案現場直播||退戈||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "2123d1f4-a99a-8005-8bb1-e05f77ca4af3": {
     "checked": "2026-10-13",
@@ -1229,7 +1333,8 @@
     "isbn": "",
     "signature": "歧路||退戈||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "2293d1f4-a99a-8082-acf9-e9d9b9028d24": {
     "checked": "2026-10-13",
@@ -1241,11 +1346,12 @@
   },
   "2373d1f4-a99a-80d7-95c4-f32a5bf6b396": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/2373d1f4-a99a-80d7-95c4-f32a5bf6b396.jpg",
+    "isbn": "9780553900866",
     "signature": "Perfect Husband||Lisa Gardner||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "2763d1f4-a99a-80bc-9de2-e7161252d00f": {
     "checked": "2026-10-13",
@@ -1273,11 +1379,12 @@
   },
   "2c13d1f4-a99a-80eb-8208-e58962a7e983": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "9780593067864",
+    "cover": "covers/2c13d1f4-a99a-80eb-8208-e58962a7e983.jpg",
+    "isbn": "9780345502223",
     "signature": "The Bone Garden|骸骨花園|Tess Gerritsen||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "2c33d1f4-a99a-80f0-bb76-e5b9e2d8d043": {
     "checked": "2026-10-13",
@@ -1309,7 +1416,8 @@
     "isbn": "9780778311935",
     "signature": "The Overnight Guest|意外的訪客|Heather Gudenkauf||",
     "source": "openlibrary",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "2c93d1f4-a99a-80e5-9b7e-ee0d3cc52c3b": {
     "checked": "2026-10-13",
@@ -1341,7 +1449,8 @@
     "isbn": "",
     "signature": "Black Water|黑水|Robert Bryndza||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "2cf3d1f4-a99a-808d-9996-c951cf38a605": {
     "checked": "2026-10-13",
@@ -1357,7 +1466,8 @@
     "isbn": "",
     "signature": "成為怪物以前||蕭瑋萱||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "2d23d1f4-a99a-800b-8325-f3440ea47284": {
     "checked": "2026-10-13",
@@ -1385,11 +1495,12 @@
   },
   "2d73d1f4-a99a-80fc-b000-e80deaffacdf": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "9780709067559",
+    "cover": "covers/2d73d1f4-a99a-80fc-b000-e80deaffacdf.jpg",
+    "isbn": "9780451202475",
     "signature": "Bones|骸骨殺手|Jan Burke||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "2da3d1f4-a99a-8043-ab55-f26de2515969": {
     "checked": "2026-10-13",
@@ -1453,7 +1564,8 @@
     "isbn": "9786269973712",
     "signature": "小碎肉末||李佳穎||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "2f33d1f4-a99a-80c7-a75a-c1cfb356850e": {
     "checked": "2026-10-13",
@@ -1481,11 +1593,12 @@
   },
   "3323d1f4-a99a-8017-bc02-e230500223bd": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "",
+    "cover": "covers/3323d1f4-a99a-8017-bc02-e230500223bd.jpg",
+    "isbn": "9786267639009",
     "signature": "小梅，好想詛咒|お梅は呪いたい|藤崎翔||",
-    "source": "",
-    "status": "not_found"
+    "source": "google",
+    "status": "found",
+    "v": 2
   },
   "3473d1f4-a99a-8078-b505-c0d694d5b56f": {
     "checked": "2026-10-13",
@@ -1493,15 +1606,17 @@
     "isbn": "",
     "signature": "等到青蟬墜落||丁墨||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "36c3d1f4-a99a-802e-9bc9-ddb8a88c105c": {
     "checked": "2026-10-13",
-    "cover": "",
-    "isbn": "9781786497628",
+    "cover": "covers/36c3d1f4-a99a-802e-9bc9-ddb8a88c105c.jpg",
+    "isbn": "9780385544245",
     "signature": "My sister, the serial killer|我的妹妹是連續殺手|Oyinkan Braithwaite||",
     "source": "google",
-    "status": "found"
+    "status": "found",
+    "v": 2
   },
   "3753d1f4-a99a-80d4-858c-c8f2028be508": {
     "checked": "2026-10-13",
@@ -1517,7 +1632,8 @@
     "isbn": "",
     "signature": "The Butcher and the wren|法醫與殺人魔|愛蓮娜．厄克特||",
     "source": "",
-    "status": "not_found"
+    "status": "not_found",
+    "v": 2
   },
   "37e3d1f4-a99a-8053-86a7-c46419ec0e4e": {
     "checked": "2026-10-13",

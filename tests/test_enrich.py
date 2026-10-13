@@ -42,6 +42,50 @@ def test_titles_match_ignores_subtitles():
     assert not enrich.titles_match("Sapiens", "Summary of Sapiens: a Brief History of Humankind")
 
 
+def test_titles_match_ignores_leading_article():
+    assert enrich.titles_match("Black Book", "The Black Book")
+    assert enrich.titles_match("The Silent Wife", "The Silent Wife")
+    assert not enrich.titles_match("Black Book", "The Black Book Club")
+
+
+def test_other_edition_cover_used_when_read_edition_has_none(monkeypatch):
+    """Chinese edition found without a cover -> keep its ISBN, borrow the English cover."""
+    chinese = {"title": "尋找消失的女孩", "authors": ["Lisa Gardner"], "isbn": "9789570530889",
+               "cover": "", "source": "google"}
+    english = {"title": "Find Her", "authors": ["Lisa Gardner"], "isbn": "9780698404229",
+               "cover": "https://example.com/en.jpg", "source": "google"}
+    monkeypatch.setattr(enrich, "search_google",
+                        lambda t, a, k="": [chinese] if t == "尋找消失的女孩" else [english])
+    monkeypatch.setattr(enrich, "search_open_library", lambda t, a: [])
+    b = book(title="尋找消失的女孩", second_title="Find Her", author="Lisa Gardner")
+    m = enrich.find_match(b)
+    assert m["isbn"] == "9789570530889"
+    assert m["cover"] == "https://example.com/en.jpg"
+    assert m["cover_from_other_edition"] is True
+
+
+def test_read_edition_cover_preferred(monkeypatch):
+    chinese = {"title": "素食者", "authors": ["韓江"], "isbn": "9789864894529",
+               "cover": "https://example.com/zh.jpg", "source": "google"}
+    monkeypatch.setattr(enrich, "search_google", lambda t, a, k="": [chinese])
+    monkeypatch.setattr(enrich, "search_open_library", lambda t, a: [])
+    m = enrich.find_match(book(title="素食者", second_title="The Vegetarian", author="韓江"))
+    assert m["cover"] == "https://example.com/zh.jpg" and "cover_from_other_edition" not in m
+
+
+def test_old_entries_without_cover_are_retried_once(sandbox):
+    calls, mp = sandbox
+    b = book()
+    enrich.save_cache({"p1": {"signature": enrich._signature(b), "checked": "2026-10-01",
+                              "isbn": "9789570530889", "cover": "", "source": "google",
+                              "status": "found"}})          # v1 entry, no cover
+    mp.setattr(enrich, "find_match", fake_find(calls, {"isbn": "9789570530889", "cover": "x",
+                                                       "source": "google"}))
+    enrich.enrich([b], today=date(2026, 10, 2))
+    enrich.enrich([book()], today=date(2026, 10, 3))
+    assert calls["find"] == 1                               # retried once, then cached
+
+
 def test_search_plans_try_main_title_first_then_english_second_title():
     assert enrich.search_plans(book()) == ["無聲告白", "Everything I Never Told You"]
     assert enrich.search_plans(book(title="Vanish", second_title="")) == ["Vanish"]

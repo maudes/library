@@ -27,6 +27,8 @@ log = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
 CACHE_FILE = ROOT / "data" / "cache" / "books.json"
+# Bump when the matching rules improve, so books without a cover are retried.
+CACHE_VERSION = 2
 COVERS_DIR = ROOT / "static" / "covers"
 
 _session = requests.Session()
@@ -62,8 +64,10 @@ def _norm(text: str) -> str:
 
 
 def _title_core(text: str) -> str:
-    """Title without subtitle / series number: "Sapiens: A Brief…" -> "sapiens"."""
+    """Title without subtitle, series number or leading article:
+    "Sapiens: A Brief…" -> "sapiens", "The Black Book" -> "blackbook"."""
     text = re.split(r"[:：(（—–]| - ", text)[0]
+    text = re.sub(r"^\s*(the|a|an)\s+", "", text, flags=re.IGNORECASE)
     return _norm(text)
 
 
@@ -141,7 +145,7 @@ def search_google(title: str, author: str, api_key: str = "") -> list[dict]:
             # https, and a larger rendition than the default thumbnail
             image = image.replace("http://", "https://").replace("&edge=curl", "")
         results.append({
-            "title": " ".join(filter(None, [info.get("title", ""), info.get("subtitle", "")])),
+            "title": info.get("title", ""),   # main title only; "subtitle" is separate
             "authors": info.get("authors", []),
             "isbn": _pick_isbn13(isbns),
             "cover": image,
@@ -196,6 +200,7 @@ def find_match(book: Book, api_key: str = "") -> dict | None:
     caller can avoid caching a false "not found".
     """
     failed = False
+    best = None   # first match found: its ISBN is the edition you read
     for search in (lambda t, a: search_google(t, a, api_key), search_open_library):
         for title in search_plans(book):
             try:
@@ -205,11 +210,22 @@ def find_match(book: Book, api_key: str = "") -> dict | None:
                 failed = True
                 break  # this source is down; try the next source
             for r in results:
-                if titles_match(title, r["title"]) and authors_match(book.author, r["authors"]):
-                    return r
-    if failed:
+                if not (titles_match(title, r["title"]) and authors_match(book.author, r["authors"])):
+                    continue
+                if best is None:
+                    best = dict(r)
+                if best.get("cover"):
+                    return best
+                if r.get("cover"):
+                    # Compromise: the edition you read has no cover image, so use
+                    # the cover of another matching edition (usually the English
+                    # original, found via the second title). Keep the first ISBN.
+                    best["cover"] = r["cover"]
+                    best["cover_from_other_edition"] = True
+                    return best
+    if best is None and failed:
         raise LookupError_("one or more sources unavailable")
-    return None
+    return best
 
 
 # ---------------------------------------------------------------------------
@@ -286,6 +302,9 @@ def enrich(books: list[Book], api_key: str = "", today: date | None = None,
         fresh = (
             entry is not None
             and entry.get("signature") == sig
+            # Books without a cover are looked up once more after the v2
+            # matching fix (subtitles, leading "The", other-edition covers).
+            and (entry.get("cover") or entry.get("v", 1) >= CACHE_VERSION)
             and (entry.get("cover") == "" or _cover_exists(entry.get("cover", "")))
             and not (
                 entry.get("status") == "not_found"
@@ -325,7 +344,8 @@ def enrich(books: list[Book], api_key: str = "", today: date | None = None,
 def _lookup(book: Book, api_key: str, sig: str, today: date, stats: dict) -> dict | None:
     """Look one book up. Returns a cache entry, or None if we should retry next build."""
     stats["looked_up"] += 1
-    entry = {"signature": sig, "checked": today.isoformat(), "isbn": "", "cover": "", "source": ""}
+    entry = {"signature": sig, "checked": today.isoformat(), "isbn": "", "cover": "", "source": "",
+             "v": CACHE_VERSION}
 
     match = None
     # Only search when Notion didn't already give us both values.
@@ -350,6 +370,10 @@ def _lookup(book: Book, api_key: str, sig: str, today: date, stats: dict) -> dic
 
     entry.update(isbn=isbn if not book.isbn else "", cover=cover,
                  source=(match or {}).get("source", "notion" if book.isbn or book.cover_url else ""))
+    # Note covers taken from another edition (e.g. the English original), so
+    # they're easy to find later in the cache.
+    if cover and (match or {}).get("cover_from_other_edition") and not book.cover_url:
+        entry["cover_from_other_edition"] = True
     entry["status"] = "found" if (isbn or cover) else "not_found"
     stats["found" if entry["status"] == "found" else "not_found"] += 1
     return entry
