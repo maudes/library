@@ -785,11 +785,11 @@
   },
   "1f33d1f4-a99a-80a7-b101-e49b3c7a964a": {
     "checked": "2026-10-13",
-    "cover": "covers/1f33d1f4-a99a-80a7-b101-e49b3c7a964a.jpg",
+    "cover": "",
     "isbn": "",
-    "signature": "Y 的悲劇|The Tragedy of X|Ellery Queen||",
-    "source": "google",
-    "status": "found"
+    "signature": "Y 的悲劇|The Tragedy of Y|Ellery Queen||",
+    "source": "openlibrary",
+    "status": "not_found"
   },
   "1f33d1f4-a99a-80a8-bb69-c78d0bf8e466": {
     "checked": "2026-10-13",
