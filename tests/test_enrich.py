@@ -50,7 +50,7 @@ def test_mixed_script_author_names():
 
 
 def test_author_alias_from_config(monkeypatch):
-    monkeypatch.setattr(enrich.config, "AUTHOR_ALIASES", {"伍綺詩": "Celeste Ng"})
+    monkeypatch.setattr(enrich.config, "AUTHOR_ALIASES", {"伍綺詩": ["Celeste Ng"]})
     assert enrich.authors_match(enrich._aliases("伍綺詩"), ["Celeste Ng"])
 
 
@@ -238,7 +238,7 @@ def test_offline_mode_never_looks_up(sandbox):
 
 
 def test_kana_author_alias(monkeypatch):
-    monkeypatch.setattr(enrich.config, "AUTHOR_ALIASES", {"湊佳苗": "Kanae Minato 湊かなえ"})
+    monkeypatch.setattr(enrich.config, "AUTHOR_ALIASES", {"湊佳苗": ["湊かなえ", "Kanae Minato"]})
     assert enrich.authors_match(enrich._aliases("湊佳苗"), ["湊かなえ"])
     assert not enrich.authors_match("湊佳苗", ["湊かなえ"])           # only one shared kanji without the alias
 
@@ -266,3 +266,41 @@ def test_result_may_match_the_other_title(monkeypatch):
     monkeypatch.setattr(enrich, "search_open_library", lambda t, a: [])
     m = enrich.find_match(book(title="The Butcher And The Wren", second_title="法醫與殺人魔", author="愛蓮娜．厄克特"))
     assert m["cover"] == "zh"
+
+
+def test_cover_override_from_config_wins(sandbox, monkeypatch):
+    calls, mp = sandbox
+    mp.setattr(enrich.config, "COVER_OVERRIDES", {"無聲告白": "https://example.com/hand-picked.jpg"})
+    downloaded = []
+    real_download = enrich.download_cover
+    mp.setattr(enrich, "download_cover", lambda url, book_id: downloaded.append(url) or real_download(url, book_id))
+    mp.setattr(enrich, "find_match", fake_find(calls, {"isbn": "9789865617400", "cover": "https://example.com/auto.jpg",
+                                                       "source": "google"}))
+    b = book()
+    enrich.enrich([b], today=date(2026, 10, 14))
+    assert downloaded[0] == "https://example.com/hand-picked.jpg"
+    assert b.cover == "covers/p1.jpg"
+    assert b.isbn == "9789865617400"                    # ISBN still looked up
+
+
+def test_unknown_override_title_warns(sandbox, monkeypatch, caplog):
+    calls, mp = sandbox
+    mp.setattr(enrich.config, "COVER_OVERRIDES", {"不存在的書": "https://example.com/x.jpg"})
+    mp.setattr(enrich, "find_match", fake_find(calls, None))
+    with caplog.at_level("WARNING"):
+        enrich.enrich([book()], today=date(2026, 10, 14))
+    assert "不存在的書" in caplog.text
+
+
+def test_alias_names_are_used_in_queries(monkeypatch):
+    monkeypatch.setattr(enrich.config, "AUTHOR_ALIASES", {"湊佳苗": ["湊かなえ"]})
+    queries = []
+    def fake_google(t, a, k=""):
+        queries.append(a)
+        return [{"title": "落日", "authors": ["湊かなえ"], "isbn": "9784758414005",
+                 "cover": "jp", "source": "google"}] if a == "湊かなえ" else []
+    monkeypatch.setattr(enrich, "search_google", fake_google)
+    monkeypatch.setattr(enrich, "search_open_library", lambda t, a: [])
+    m = enrich.find_match(book(title="落日", second_title="落日", author="湊佳苗"))
+    assert m["cover"] == "jp"
+    assert queries[:2] == ["湊佳苗", "湊かなえ"]

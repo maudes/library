@@ -56,14 +56,26 @@ PALETTES = ["current", "lemons", "idea", "autumn"]
 HIGH_RATING = 80
 
 # --- Cover / ISBN lookup -----------------------------------------------------
-# Other names for an author, used when matching books. Needed when Notion has
-# the Chinese name but the found editions only list the English one (or the
-# reverse). Most are learned automatically; add the rest here.
+# Other names for an author: used both to SEARCH (e.g. "落日 湊かなえ" finds
+# the Japanese edition, "落日 湊佳苗" doesn't) and to accept matches. Needed
+# when Notion has the Chinese name but editions list the English/Japanese one.
 AUTHOR_ALIASES = {
-    "伍綺詩": "Celeste Ng",
-    "愛蓮娜．厄克特": "Alaina Urquhart",
-    "譽田哲也": "Tetsuya Honda 誉田哲也",
-    "湊佳苗": "Kanae Minato 湊かなえ",   # Japanese editions write her name in kana
+    "伍綺詩": ["Celeste Ng"],
+    "愛蓮娜．厄克特": ["Alaina Urquhart"],
+    "譽田哲也": ["誉田哲也", "Tetsuya Honda"],
+    "湊佳苗": ["湊かなえ", "Kanae Minato"],   # Japanese editions write her name in kana
+}
+
+# Hand-picked cover images, by Main Title exactly as in Notion. These win over
+# automatic lookup (like a "Cover URL" column in Notion would). The image is
+# downloaded once into static/covers/, so the link only needs to work once.
+COVER_OVERRIDES = {
+    "落日": "https://cdn.readmoo.com/cover/jg/nejjreo_460x580.jpg?v=1609989061",
+    "小碎肉末": "https://cdn.readmoo.com/cover/fg/8fckmf9_460x580.jpg?v=1750319278",
+    "噓噓、嗯嗯、屁屁": "https://cdn.readmoo.com/social/cover/bb/gi7ckgf_460x580.jpg",
+    "成為怪物以前": "https://cdn.readmoo.com/cover/in/ckgfpko_460x580.jpg?v=1698216809",
+    "最後的信仰；新聞倫理十二講": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1721398859i/216649178.jpg",
+    "死亡祭儀": "https://cdn.readmoo.com/social/cover/pt/highuth_460x580.jpg",
 }
 
 # "Not found" results are cached; retry them after this many days.
