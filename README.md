@@ -25,8 +25,11 @@ Notion ──► src/notion_source.py ──► src/enrich.py ──► src/stat
   shows/hides and re-orders what Python already prepared.
 - **Fast-food** books appear in the reading list but are left out of every
   statistic (totals, averages, Top 3, genre chart).
-- **Ranking** (Top 3 and the "Rating" sort): rating high → low, then finished date
-  early → late (only if `DATE_PROPERTY` is set in `config.py`), then title.
+- **Ranking** (Top 3 / Top 10 and the "Rating" sort): rating high → low, then
+  reading order (the `Date` column: read earlier ranks higher), then title.
+- **Reading order** comes from Notion's `Date` column (created time), set as
+  `DATE_PROPERTY` in `config.py`. Only the order is used; the date itself isn't
+  shown, because for books entered later its year differs from `Year`.
 - **Title order**: English titles A–Z first, then Chinese titles in
   ㄅㄆㄇㄈ (Zhuyin) order. Chinese readings come from the `pypinyin` library;
   a character with several pronunciations (破音字) is occasionally sorted by the
@@ -117,8 +120,9 @@ you rename a column in Notion.
 | /2nd Title | Text | | Original or English title |
 | 作者 \| Arthur | Text | ✅ | |
 | Rating | Number (percent) | | Blank = not rated; not in Top 3 or averages |
-| Genre | Select | ✅ | `Fiction` / `Non-fiction` / `Tool books` / `Fast-food type` |
-| Year | Number | ✅ | Year you finished the book |
+| Genre | Multi-select | ✅ | One of `Fiction` / `Non-fiction` / `Tool books` / `Fast-food type` |
+| Year | Text or Number | ✅ | Year you finished the book |
+| Date | Created time | | Reading order (automatic in Notion) |
 | Summary \| 朕．批閱 | Text | | **Public** |
 | ISBN | Text | | Optional — overrides automatic lookup |
 | Cover URL | URL | | Optional — overrides automatic lookup |

@@ -12,9 +12,9 @@ from src.stats import (
 )
 
 
-def book(title, rating=None, genre="Fiction", year=2026, finished=None, **kw):
+def book(title, rating=None, genre="Fiction", year=2026, read_at=None, **kw):
     return Book(id=title, title=title, author="A", genre=genre, year=year,
-                rating=rating, read_at=finished, **kw)
+                rating=rating, read_at=read_at, **kw)
 
 
 def titles(books):
@@ -25,17 +25,17 @@ def titles(books):
 
 def test_four_tied_ratings_keep_earliest_three():
     books = [
-        book("Delta", 90, finished=datetime(2026, 5, 1)),
-        book("Alpha", 90, finished=datetime(2026, 3, 1)),
-        book("Charlie", 90, finished=datetime(2026, 1, 1)),
-        book("Bravo", 90, finished=datetime(2026, 2, 1)),
+        book("Delta", 90, read_at=datetime(2026, 5, 1)),
+        book("Alpha", 90, read_at=datetime(2026, 3, 1)),
+        book("Charlie", 90, read_at=datetime(2026, 1, 1)),
+        book("Bravo", 90, read_at=datetime(2026, 2, 1)),
     ]
     assert titles(top3(books)) == ["Charlie", "Bravo", "Alpha"]
 
 
 def test_higher_rating_beats_earlier_date():
-    books = [book("Early", 80, finished=datetime(2026, 1, 1)),
-             book("Late", 95, finished=datetime(2026, 12, 1))]
+    books = [book("Early", 80, read_at=datetime(2026, 1, 1)),
+             book("Late", 95, read_at=datetime(2026, 12, 1))]
     assert titles(top3(books)) == ["Late", "Early"]
 
 
@@ -43,7 +43,7 @@ def test_missing_date_ranks_after_dated_then_by_title():
     books = [
         book("Zebra", 90),                                  # no date
         book("Apple", 90),                                  # no date
-        book("Mango", 90, finished=datetime(2026, 6, 1)),
+        book("Mango", 90, read_at=datetime(2026, 6, 1)),
     ]
     assert titles(top3(books)) == ["Mango", "Apple", "Zebra"]
 
@@ -176,18 +176,18 @@ def test_list_ranks_put_unrated_last():
 # --- Reading order (config.DATE_PROPERTY) -------------------------------------
 
 def test_same_day_entries_keep_their_time_order():
-    books = [book("Later", 90, finished=datetime(2025, 5, 14, 9, 30)),
-             book("Earlier", 90, finished=datetime(2025, 5, 14, 9, 5))]
+    books = [book("Later", 90, read_at=datetime(2025, 5, 14, 9, 30)),
+             book("Earlier", 90, read_at=datetime(2025, 5, 14, 9, 5))]
     assert titles(top3(books)) == ["Earlier", "Later"]
 
 
 def test_reading_order_ranks(monkeypatch):
     import config
     monkeypatch.setattr(config, "DATE_PROPERTY", "Date")
-    books = [book("Second", finished=datetime(2025, 6, 1)),
-             book("First", finished=datetime(2025, 5, 1)),
+    books = [book("Second", read_at=datetime(2025, 6, 1)),
+             book("First", read_at=datetime(2025, 5, 1)),
              book("No date"),
-             book("Third", finished=datetime(2025, 7, 1))]
+             book("Third", read_at=datetime(2025, 7, 1))]
     ranks = list_ranks(books)
     first_to_last = sorted(books, key=lambda b: ranks[b.id]["date"])
     latest_first = sorted(books, key=lambda b: ranks[b.id]["latest"])

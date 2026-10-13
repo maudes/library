@@ -71,7 +71,7 @@ def title_key(title: str) -> tuple:
 # ---------------------------------------------------------------------------
 
 def rank_key(book: Book) -> tuple:
-    """Rating high→low, then finished date early→late, then title A–Z.
+    """Rating high→low, then reading order (read earlier first), then title A–Z.
 
     Books without a date sort after books with one (when ratings tie).
     Unrated books sort after all rated books.
