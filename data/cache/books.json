@@ -1664,5 +1664,14 @@
     "signature": "Stay True|保持真誠|Hua Hsu||",
     "source": "openlibrary",
     "status": "found"
+  },
+  "3f93d1f4-a99a-80ea-88b2-d2bdcd97a5a0": {
+    "checked": "2026-10-14",
+    "cover": "covers/3f93d1f4-a99a-80ea-88b2-d2bdcd97a5a0.jpg",
+    "isbn": "9781443452571",
+    "signature": "Magpie Murders|喜鵲謀殺案|Anthony Horowitz||",
+    "source": "google",
+    "status": "found",
+    "v": 6
   }
 }
