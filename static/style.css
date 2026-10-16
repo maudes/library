@@ -295,7 +295,10 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
 
 /* ---------- About + footer ---------- */
 .about { margin: 64px 0 40px; max-width: 640px; }
-.about p:last-child { color: var(--muted); margin-top: 8px; }
+.about > p:not(.eyebrow) { color: var(--muted); margin-top: 8px; }
+.about-quote { margin: 20px 0 0; padding-left: 16px; border-left: 2px solid var(--accent); }
+.about-quote p { font: italic 20px/1.4 var(--serif); color: var(--ink); }
+.about-quote footer { margin-top: 6px; font-size: 13px; color: var(--muted); }
 .site-footer { border-top: 1px solid var(--line); padding: 22px 0 32px; font-size: 12px; color: var(--muted); }
 .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: baseline; }
 .footer-quote { font: italic 18px var(--serif); color: var(--accent); }

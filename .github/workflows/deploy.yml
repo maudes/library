@@ -2,7 +2,7 @@ name: Build and deploy
 
 on:
   schedule:
-    - cron: "0 20 * * *"     # every day at 20:00 UTC = 04:00 Taipei
+    - cron: "0 0 1 * *"      # 1st of every month, 00:00 UTC = 08:00 Taipei
   workflow_dispatch:          # "Run workflow" button on GitHub
   push:
     branches: [main]

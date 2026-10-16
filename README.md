@@ -1,7 +1,7 @@
 # Maude's Library
 
 A personal reading log. Books live in a Notion database; a Python script reads
-them every day, fills in missing covers and ISBNs, and publishes a static site to
+them once a month, fills in missing covers and ISBNs, and publishes a static site to
 GitHub Pages.
 
 **Site:** https://maudes.github.io/maudes-library/
@@ -46,7 +46,7 @@ Notion ──► src/notion_source.py ──► src/enrich.py ──► src/stat
 Use an **internal connection** (formerly called an "integration"), not a personal
 access token: it can only see the pages you share with it, can be read-only, and
 doesn't expire. A personal access token can read *and edit* your whole workspace
-and expires within a year, which would silently stop the daily build.
+and expires within a year, which would silently stop the monthly build.
 
 1. Open the Notion Developer portal (<https://www.notion.so/developers>) and create
    a new **internal connection** in your workspace (e.g. "Maude's Library").
@@ -103,13 +103,16 @@ pytest                               # run the tests
 2. **Settings → Pages → Source:** choose **GitHub Actions**.
 3. **Actions → Build and deploy → Run workflow** to publish right away.
 
-The site then rebuilds every day at 04:00 Taipei time, and on every push to `main`.
+The site then rebuilds on the 1st of every month at 08:00 Taipei time, and on every
+push to `main`. To publish Notion changes sooner: **Actions → Build and deploy → Run
+workflow**, or `gh workflow run deploy.yml`.
 When new covers or ISBNs are found, the workflow commits them back
 (`data/cache/books.json` and `static/covers/`) so they're never looked up twice.
 
 > GitHub pauses scheduled workflows in repositories with no activity for 60 days.
-> The cache commits usually keep it active; if it ever pauses, GitHub emails you
-> and you can re-enable it from the **Actions** tab.
+> A monthly run only commits when you've added books, so after ~2 quiet months the
+> schedule may pause. GitHub emails you when that happens; re-enable it from the
+> **Actions** tab (or just run the workflow manually once).
 
 ---
 
