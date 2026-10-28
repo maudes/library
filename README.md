@@ -4,7 +4,7 @@ A personal reading log. Books live in a Notion database; a Python script reads
 them once a month, fills in missing covers and ISBNs, and publishes a static site to
 GitHub Pages.
 
-**Site:** https://maudes.github.io/maudes-library/
+**Site:** https://maudes.github.io/library/
 
 > ⚠️ **Everything in the database is public.** The repository and the website are
 > both public, so every title, rating and **Summary** you write in Notion will be

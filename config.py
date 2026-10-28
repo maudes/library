@@ -88,4 +88,4 @@ COVER_OVERRIDES = {
 # "Not found" results are cached; retry them after this many days.
 RETRY_NOT_FOUND_DAYS = 30
 HTTP_TIMEOUT_SECONDS = 10
-USER_AGENT = "MaudesLibrary/1.0 (+https://github.com/maudes/maudes-library)"
+USER_AGENT = "MaudesLibrary/1.0 (+https://github.com/maudes/library)"
