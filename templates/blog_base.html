@@ -13,7 +13,7 @@
   {% include "_head_scripts.html" %}
 </head>
 <body>
-{% set current = "blog" %}
+{% set current = current_page|default("blog") %}
 {% include "_header.html" %}
 <main class="wrap blog">
 {% block content %}{% endblock %}

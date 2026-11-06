@@ -90,3 +90,12 @@ COVER_OVERRIDES = {
 RETRY_NOT_FOUND_DAYS = 30
 HTTP_TIMEOUT_SECONDS = 10
 USER_AGENT = "MaudesLibrary/1.0 (+https://github.com/maudes/library)"
+
+# --- Doodles -----------------------------------------------------------------
+# Each series is (folder, title, blurb, columns on wide screens) and a folder of images in static/doodles/<folder>/. Images show in
+# file-name order (day-08.jpg, day-09-1.jpg, day-09-2.jpg ...). A file named
+# day-<n>[-<k>] gets the caption "Day n"; any other name is the caption itself (hyphens become spaces).
+DOODLE_SERIES = [
+    ("30-days-challenge", "30 Days Challenge", "Sparkles of daily life", 4),
+    ("shaonu-momete", "少女摩門特", "Five doodles.", 5),
+]

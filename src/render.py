@@ -9,6 +9,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import config
 from src.book import Book
+from src.doodles import load_doodles
 from src.posts import Post
 from src.stats import is_highly_rated
 
@@ -95,6 +96,7 @@ def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = N
     (out_dir / "index.html").write_text(html, encoding="utf-8")
     shutil.copytree(ROOT / "static", out_dir / "static")
     render_blog(env, posts or [], out_dir, common)
+    render_doodles(env, out_dir, common)
     # Tell GitHub Pages not to run Jekyll on the output.
     (out_dir / ".nojekyll").write_text("")
 
@@ -111,3 +113,14 @@ def render_blog(env: Environment, posts: list[Post], out_dir: Path, common: dict
         (blog_dir / post.slug / "index.html").write_text(
             env.get_template("blog_post.html").render(**common, root="../../", post=post),
             encoding="utf-8")
+
+
+def render_doodles(env: Environment, out_dir: Path, common: dict) -> None:
+    """doodles/index.html: the pictures in static/doodles/<series>/."""
+    (out_dir / "doodles").mkdir()
+    (out_dir / "doodles" / "index.html").write_text(
+        env.get_template("doodles.html").render(
+            **common, root="../", current_page="doodles",
+            series=load_doodles(ROOT / "static", config.DOODLE_SERIES),
+            doodles_js_version=asset_version("doodles.js")),
+        encoding="utf-8")

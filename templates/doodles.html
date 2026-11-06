@@ -1,0 +1,42 @@
+{% extends "blog_base.html" %}
+{% block title %}Doodles · Maude's Library{% endblock %}
+{% block description %}Little drawings from between the books.{% endblock %}
+{% block content %}
+<section class="hero blog-hero">
+  <div>
+    <p class="eyebrow">Between the books</p>
+    <h1>Doodles</h1>
+    <p class="lede">Little drawings from my sketchbook.</p>
+  </div>
+</section>
+
+{% if not series %}
+  <p class="empty">No doodles yet.</p>
+{% endif %}
+{% for s in series %}
+<section class="doodle-series">
+  <h2>{{ s.title }}</h2>
+  <p class="doodle-blurb">{{ s.blurb }}</p>
+  <div class="doodle-grid">
+    {% for col in s.columns %}
+    <ul class="doodle-col" style="--per-row: {{ s.per_row }}">
+      {% for d in col %}
+      <li>
+        <a href="{{ root }}static/{{ d.src }}" class="doodle">
+          <img src="{{ root }}static/{{ d.src }}" alt="{{ s.title }}{% if d.caption %} — {{ d.caption }}{% endif %}">
+          {% if d.caption %}<span>{{ d.caption }}</span>{% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </div>
+</section>
+{% endfor %}
+
+<dialog id="doodle-lightbox" aria-label="Doodle">
+  <button type="button" class="lightbox-close" aria-label="Close">×</button>
+  <img alt="">
+</dialog>
+<script src="{{ root }}static/doodles.js?v={{ doodles_js_version }}"></script>
+{% endblock %}
