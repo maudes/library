@@ -5,7 +5,7 @@ import struct
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 _DAY = re.compile(r"^day[-_ ]?0*(\d+)", re.IGNORECASE)
@@ -139,6 +139,7 @@ def write_thumbnails(series: list[Series], static_dir: Path, out_static: Path) -
             dest = out_static / d.thumb
             dest.parent.mkdir(parents=True, exist_ok=True)
             with Image.open(static_dir / d.src) as im:
+                im = ImageOps.exif_transpose(im)   # phone photos: apply the rotate flag
                 im = im.convert("RGBA" if im.mode in ("RGBA", "LA", "P") else "RGB")
                 if im.width > THUMB_WIDTH:
                     im = im.resize((THUMB_WIDTH, round(im.height * THUMB_WIDTH / im.width)), Image.LANCZOS)
