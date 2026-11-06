@@ -83,7 +83,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }   /* in-page links stop below the sticky header */
 html.modal-open { overflow: hidden; }          /* lock page scroll while the pop-up is open */
 body {
   margin: 0;
@@ -132,7 +132,15 @@ button, input, select { font: inherit; color: inherit; }
 }
 
 /* ---------- Header ---------- */
-.site-header { border-bottom: 1px solid var(--line); }
+/* Sticky header, like maudes.github.io: stays at the top while scrolling, with a
+   translucent, blurred version of the page colour behind it. */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg);                                              /* fallback */
+  background: color-mix(in srgb, var(--bg) 75%, transparent);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
 .header-inner { display: flex; align-items: center; gap: 24px; height: 60px; }
 .brand { display: flex; align-items: center; gap: 8px; font: 20px var(--serif); text-decoration: none; }
 .brand svg { width: 20px; height: 20px; }
