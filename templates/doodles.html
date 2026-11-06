@@ -23,7 +23,7 @@
       {% for d in col %}
       <li>
         <a href="{{ root }}static/{{ d.src }}" class="doodle">
-          <img src="{{ root }}static/{{ d.src }}" alt="{{ s.title }}{% if d.caption %} — {{ d.caption }}{% endif %}">
+          <img src="{{ root }}static/{{ d.thumb }}" width="{{ thumb_width }}" height="{{ (thumb_width * d.ratio) | round | int }}" loading="lazy" decoding="async" alt="{{ s.title }}{% if d.caption %} — {{ d.caption }}{% endif %}">
           {% if d.caption %}<span>{{ d.caption }}</span>{% endif %}
         </a>
       </li>

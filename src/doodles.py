@@ -5,8 +5,11 @@ import struct
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from PIL import Image
+
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 _DAY = re.compile(r"^day[-_ ]?0*(\d+)", re.IGNORECASE)
+THUMB_WIDTH = 640       # px; about twice the widest column, for sharp screens
 CAPTION_HEIGHT = 0.08   # a caption line, as a fraction of the column width
 
 
@@ -15,6 +18,7 @@ class Doodle:
     src: str        # path under static/, e.g. "doodles/30-days-challenge/day-08.jpg"
     caption: str    # "Day 8" for day-<n> files, otherwise the file name (hyphens -> spaces)
     ratio: float = 1.0   # height / width
+    thumb: str = ""      # small copy shown on the page, e.g. "doodles/<folder>/thumbs/day-08.webp"
 
 
 @dataclass
@@ -122,6 +126,20 @@ def load_doodles(static_dir: Path, series_config: list[tuple[str, str, str, int]
         for p in files:
             size = image_size(p)
             doodles.append(Doodle(f"doodles/{folder}/{p.name}", caption_for(p.stem),
-                                  size[1] / size[0] if size else 1.0))
+                                  size[1] / size[0] if size else 1.0,
+                                  f"doodles/{folder}/thumbs/{p.stem}.webp"))
         result.append(Series(folder, title, blurb, per_row, doodles, balance(doodles, per_row)))
     return result
+
+
+def write_thumbnails(series: list[Series], static_dir: Path, out_static: Path) -> None:
+    """Write each picture's small WebP copy (THUMB_WIDTH wide) into out_static."""
+    for s in series:
+        for d in s.doodles:
+            dest = out_static / d.thumb
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            with Image.open(static_dir / d.src) as im:
+                im = im.convert("RGBA" if im.mode in ("RGBA", "LA", "P") else "RGB")
+                if im.width > THUMB_WIDTH:
+                    im = im.resize((THUMB_WIDTH, round(im.height * THUMB_WIDTH / im.width)), Image.LANCZOS)
+                im.save(dest, "WEBP", quality=80)

@@ -9,7 +9,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import config
 from src.book import Book
-from src.doodles import load_doodles
+from src.doodles import THUMB_WIDTH, load_doodles, write_thumbnails
 from src.posts import Post
 from src.stats import is_highly_rated
 
@@ -118,9 +118,10 @@ def render_blog(env: Environment, posts: list[Post], out_dir: Path, common: dict
 def render_doodles(env: Environment, out_dir: Path, common: dict) -> None:
     """doodles/index.html: the pictures in static/doodles/<series>/."""
     (out_dir / "doodles").mkdir()
+    series = load_doodles(ROOT / "static", config.DOODLE_SERIES)
+    write_thumbnails(series, ROOT / "static", out_dir / "static")
     (out_dir / "doodles" / "index.html").write_text(
         env.get_template("doodles.html").render(
-            **common, root="../", current_page="doodles",
-            series=load_doodles(ROOT / "static", config.DOODLE_SERIES),
+            **common, root="../", current_page="doodles", series=series, thumb_width=THUMB_WIDTH,
             doodles_js_version=asset_version("doodles.js")),
         encoding="utf-8")

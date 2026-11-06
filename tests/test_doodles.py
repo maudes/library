@@ -35,3 +35,15 @@ def test_image_size_reads_png_and_jpeg(tmp_path):
     jpg.write_bytes(b"\xff\xd8\xff\xc0\x00\x11\x08" + struct.pack(">HH", 20, 30) + b"\0" * 10)
     assert image_size(png) == (30, 20)
     assert image_size(jpg) == (30, 20)
+
+
+def test_write_thumbnails_makes_small_webp(tmp_path):
+    from PIL import Image
+    from src.doodles import THUMB_WIDTH, write_thumbnails
+    d = tmp_path / "static" / "doodles" / "a"
+    d.mkdir(parents=True)
+    Image.new("RGB", (2000, 1000), "red").save(d / "day-1.jpg")
+    series = load_doodles(tmp_path / "static", [("a", "A", "", 2)])
+    write_thumbnails(series, tmp_path / "static", tmp_path / "out")
+    with Image.open(tmp_path / "out" / series[0].doodles[0].thumb) as im:
+        assert im.size == (THUMB_WIDTH, THUMB_WIDTH // 2)
