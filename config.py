@@ -97,5 +97,5 @@ USER_AGENT = "MaudesLibrary/1.0 (+https://github.com/maudes/library)"
 # day-<n>[-<k>] gets the caption "Day n"; any other name is the caption itself (hyphens become spaces).
 DOODLE_SERIES = [
     ("30-days-challenge", "30 Days Challenge", "Sparkles of daily life", 4),
-    ("shaonu-momete", "少女摩門特", "Five doodles.", 5),
+    ("shaonu-momete", "少女摩門特", "Those moments we shared", 5),
 ]
