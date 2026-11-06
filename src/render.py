@@ -9,6 +9,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import config
 from src.book import Book
+from src.posts import Post
 from src.stats import is_highly_rated
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -38,7 +39,8 @@ def search_text(book: Book) -> str:
     return " ".join([book.title, book.second_title, book.author, book.isbn]).lower()
 
 
-def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = None) -> None:
+def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = None,
+           posts: list[Post] | None = None) -> None:
     env = Environment(
         loader=FileSystemLoader(ROOT / "templates"),
         autoescape=select_autoescape(["html"]),
@@ -62,23 +64,28 @@ def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = N
         periods.append({"key": str(y), "label": str(y), "in_label": f"in {y}",
                         "stats": stats["by_year"][y], "is_all": False})
 
-    html = env.get_template("index.html").render(
-        books=books,
-        stats=stats,
-        periods=periods,
-        default_period=str(stats["default_year"]),
-        high_rating=config.HIGH_RATING,
+    # Variables every page (library and blog) needs.
+    common = dict(
         palettes=config.PALETTES,
         ga_id=config.GA_MEASUREMENT_ID,
         site_hostname=config.SITE_HOSTNAME,
         css_version=asset_version("style.css"),
         js_version=asset_version("app.js"),
+        built_on=(today or date.today()).isoformat(),
+    )
+
+    html = env.get_template("index.html").render(
+        **common,
+        books=books,
+        stats=stats,
+        periods=periods,
+        default_period=str(stats["default_year"]),
+        high_rating=config.HIGH_RATING,
         is_high=is_highly_rated,
         genres=config.ALL_GENRES,
         stat_genres=config.STAT_GENRES,
         fast_food=config.FAST_FOOD,
         sort_options=sort_options,
-        built_on=(today or date.today()).isoformat(),
     )
 
     # Fresh output folder every build.
@@ -87,5 +94,20 @@ def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = N
     out_dir.mkdir(parents=True)
     (out_dir / "index.html").write_text(html, encoding="utf-8")
     shutil.copytree(ROOT / "static", out_dir / "static")
+    render_blog(env, posts or [], out_dir, common)
     # Tell GitHub Pages not to run Jekyll on the output.
     (out_dir / ".nojekyll").write_text("")
+
+
+def render_blog(env: Environment, posts: list[Post], out_dir: Path, common: dict) -> None:
+    """blog/index.html (the list) and blog/<slug>/index.html for each post."""
+    blog_dir = out_dir / "blog"
+    blog_dir.mkdir()
+    (blog_dir / "index.html").write_text(
+        env.get_template("blog_index.html").render(**common, root="../", posts=posts),
+        encoding="utf-8")
+    for post in posts:
+        (blog_dir / post.slug).mkdir()
+        (blog_dir / post.slug / "index.html").write_text(
+            env.get_template("blog_post.html").render(**common, root="../../", post=post),
+            encoding="utf-8")

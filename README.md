@@ -116,6 +116,30 @@ When new covers or ISBNs are found, the workflow commits them back
 
 ---
 
+## Reading notes (blog)
+
+Each post is one Markdown file in `posts/`, e.g. `posts/my-first-post.md`
+(the file name becomes the URL: `/blog/my-first-post/`):
+
+```
+---
+title: 書名 — 我的心得
+date: 2025-03-01
+book: 書名                       # optional
+medium_url: https://medium.com/...   # optional: adds "Originally published on Medium"
+summary: 列表頁顯示的一句話。          # optional; defaults to the first paragraph
+draft: true                      # optional: hidden until you remove this line
+---
+
+文章內容，用 Markdown 寫。
+```
+
+Posts are listed newest first at `/blog/`. To move a Medium article over, paste its
+text below the header and keep `medium_url` so readers can find the original.
+Posts are public, like everything else here.
+
+---
+
 ## Notion columns
 
 Column names are mapped in **`config.py`** — that's the only place to change if
@@ -170,8 +194,10 @@ config.py              Notion column names, genres, settings
 src/notion_source.py   read Notion / CSV, clean and validate rows
 src/enrich.py          cover + ISBN lookup (Google Books → Open Library), cache
 src/stats.py           all statistics and sort orders
+src/posts.py           reads posts/*.md (reading notes)
 src/render.py          writes site/ with Jinja2
 templates/             HTML templates
+posts/                 reading-note Markdown files
 static/                style.css, app.js, downloaded covers
 data/cache/books.json  lookup cache (committed)
 tests/                 pytest

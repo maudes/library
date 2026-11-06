@@ -1702,11 +1702,20 @@
     "v": 6
   },
   "40b3d1f4-a99a-8047-8a3d-c3ffa61824a7": {
-    "checked": "2026-11-01",
+    "checked": "2026-11-06",
     "cover": "covers/40b3d1f4-a99a-8047-8a3d-c3ffa61824a7.jpg",
-    "isbn": "9789577418791",
-    "signature": "The Last Girl to Die|馬爾島謀殺案|HS Chandler||",
+    "isbn": "9780008379377",
+    "signature": "The Last Girl to Die|馬爾島謀殺案|Helen Fields||",
     "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "40f3d1f4-a99a-809a-a8a9-f7c2587fc553": {
+    "checked": "2026-11-06",
+    "cover": "covers/40f3d1f4-a99a-809a-a8a9-f7c2587fc553.jpg",
+    "isbn": "",
+    "signature": "七層足印--李鄭屋徙置區口述歷史||林喜兒||https://nrapp-prd.oss-cn-hongkong.aliyuncs.com/prod/9789620441721/9789620441721_bc_01.jpg?x-oss-process=image/resize,w_1480/quality,Q_80",
+    "source": "notion",
     "status": "found",
     "v": 6
   }

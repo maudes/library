@@ -1,0 +1,14 @@
+{% extends "blog_base.html" %}
+{% block title %}{{ post.title }} · Maude's Library{% endblock %}
+{% block description %}{{ post.summary }}{% endblock %}
+{% block content %}
+<article class="post">
+  <p class="eyebrow"><a href="../">← Reading notes</a></p>
+  <h1>{{ post.title }}</h1>
+  <p class="post-meta"><time datetime="{{ post.date.isoformat() }}">{{ post.date.isoformat() }}</time></p>
+  <div class="post-body">{{ post.html | safe }}</div>
+  {% if post.medium_url %}
+  <p class="post-origin">Originally published on <a href="{{ post.medium_url }}" rel="noopener">Medium</a>.</p>
+  {% endif %}
+</article>
+{% endblock %}

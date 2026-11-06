@@ -82,6 +82,7 @@ COVER_OVERRIDES = {
     "運動博弈與彩券莊家不說的遊戲規則": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1525532987i/40041465.jpg",
     "巷仔口的社會學": "https://cdn.readmoo.com/cover/64/bbbcg41_460x580.jpg?v=0",
     "折傘的女人": "https://s2.eslite.com/unsafe/fit-in/x1200/filters:format(webp)/s.eslite.com/Upload/Product/201708/o/636390739856892500.jpg",
+    "七層足印--李鄭屋徙置區口述歷史": "https://nrapp-prd.oss-cn-hongkong.aliyuncs.com/prod/9789620441721/9789620441721_bc_01.jpg?x-oss-process=image/resize,w_1480/quality,Q_80",
     "橫山家之味": "https://s2.eslite.com/unsafe/fit-in/x1200/filters:format(webp)/s.eslite.com/upload/product/o/2680409905007/ec301404.jpg",
 }
 

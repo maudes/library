@@ -14,6 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from src.enrich import enrich
+from src.posts import load_posts
 from src.notion_source import capitalize_titles, load_from_csv, load_from_notion
 from src.render import render
 from src.stats import build_stats
@@ -53,7 +54,9 @@ def main() -> int:
            offline=args.offline, prune=not args.csv)
     capitalize_titles(books)  # display only; must run after enrich (see its docstring)
     stats = build_stats(books)
-    render(books, stats, Path(args.out))
+    posts = load_posts(ROOT / "posts")
+    log.info("Loaded %d posts", len(posts))
+    render(books, stats, Path(args.out), posts=posts)
     log.info("Site written to %s", args.out)
     return 0
 

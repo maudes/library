@@ -1,0 +1,28 @@
+{% extends "blog_base.html" %}
+{% block title %}Reading notes · Maude's Library{% endblock %}
+{% block description %}Longer thoughts on the books I've read.{% endblock %}
+{% block content %}
+<section class="hero blog-hero">
+  <div>
+    <p class="eyebrow">Thoughts on books</p>
+    <h1>Reading notes</h1>
+    <p class="lede">Longer thoughts on the books that stayed with me.</p>
+  </div>
+</section>
+
+{% if not posts %}
+  <p class="empty">No posts yet.</p>
+{% else %}
+<ul class="post-list">
+  {% for p in posts %}
+  <li>
+    <a class="post-link" href="{{ p.slug }}/">
+      <p class="post-meta"><time datetime="{{ p.date.isoformat() }}">{{ p.date.isoformat() }}</time>{% if p.book %} · {{ p.book }}{% endif %}</p>
+      <h2>{{ p.title }}</h2>
+      {% if p.summary %}<p class="post-summary">{{ p.summary }}</p>{% endif %}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

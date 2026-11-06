@@ -1,0 +1,22 @@
+{% if ga_id %}
+{# Google Analytics — only on the live site, never on localhost previews. #}
+<script>
+  if (location.hostname === {{ site_hostname | tojson }}) {
+    var ga = document.createElement("script");
+    ga.async = true;
+    ga.src = "https://www.googletagmanager.com/gtag/js?id=" + {{ ga_id | tojson }};
+    document.head.appendChild(ga);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("js", new Date());
+    gtag("config", {{ ga_id | tojson }});
+  }
+</script>
+{% endif %}
+{# Apply the visitor's saved colour palette before the page is drawn (no flash). #}
+<script>
+  try {
+    var p = localStorage.getItem("maudes-library:palette");
+    if (p && p !== "current" && {{ palettes | tojson }}.indexOf(p) > -1) document.documentElement.dataset.palette = p;
+  } catch (e) {}
+</script>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% endblock %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="icon" href="{{ root }}static/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="{{ root }}static/style.css?v={{ css_version }}">
+  {% include "_head_scripts.html" %}
+</head>
+<body>
+{% set current = "blog" %}
+{% include "_header.html" %}
+<main class="wrap blog">
+{% block content %}{% endblock %}
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-quote">A little record of worlds visited.</p>
+    <p><a href="{{ root }}">Maude's Library</a> · Updated {{ built_on }}</p>
+  </div>
+</footer>
+<script src="{{ root }}static/app.js?v={{ js_version }}"></script>
+</body>
+</html>
