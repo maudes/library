@@ -1,5 +1,5 @@
 {# Site header shared by every page. `root` is the path back to the site root
-   ("", "../" or "../../"); `current` is "library", "blog" or "doodles". #}
+   ("", "../" or "../../"); `current` is "library", "blog", "taste" or "doodles". #}
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="{{ root }}#top">
@@ -8,7 +8,8 @@
     </a>
     <nav class="nav" aria-label="Main">
       <a href="{{ root }}#library" {% if current == "library" %}aria-current="page"{% endif %}>My library</a>
-      <a href="{{ root }}blog/" {% if current == "blog" %}aria-current="page"{% endif %}>Reading notes</a>
+      <a href="{{ root }}taste/" {% if current == "taste" %}aria-current="page"{% endif %}>Taste</a>
+      <a href="{{ root }}blog/" {% if current == "blog" %}aria-current="page"{% endif %}>Notes</a>
       <a href="{{ root }}doodles/" {% if current == "doodles" %}aria-current="page"{% endif %}>Doodles</a>
     </nav>
     <button type="button" id="palette-shuffle" class="palette-btn"

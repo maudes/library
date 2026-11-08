@@ -140,6 +140,29 @@ Posts are public, like everything else here.
 
 ---
 
+## Reading taste page (`/taste/`)
+
+Three hand-edited files in `data/` feed it (edit them on github.com; the site
+redeploys about a minute after you save):
+
+| File | What | How to edit |
+|---|---|---|
+| `genres.yml` | Topic genre of each book (警探辦案, 心理驚悚, …), grouped by genre | Add the new book's title under a genre. A warning in the build log lists any book without one. |
+| `tbr.yml` | Your to-be-read list | One entry per book: `title`, `author`, optional `note`, `isbn`, `cover_url` |
+| `picks.yml` | Pool of acclaimed books that "接下來讀什麼" chooses from | Each entry has `genre` and `sources`. Refresh it once a year. |
+
+- **Genre ratio:** the top 5 genres by number of books (Fast-food excluded); the
+  rest are grouped as 其他. Genre names live in `TASTE_GENRES` in `config.py`.
+- **Read next:** one book per genre, ranked by how much you read the genre ×
+  how highly you rate it, plus a bonus per list the book is on. Books you've read
+  or put in `tbr.yml` are skipped. The code is `recommend()` in `src/taste.py`.
+- **Playlist:** set `PLAYLIST_ID` and `PLAYLIST_TITLE` in `config.py`. It only
+  loads when a visitor presses play.
+- Covers for `tbr.yml` and `picks.yml` books are looked up like the library's
+  (and saved in `data/cache/books.json` and `static/covers/`).
+
+---
+
 ## Notion columns
 
 Column names are mapped in **`config.py`** — that's the only place to change if
@@ -194,6 +217,7 @@ config.py              Notion column names, genres, settings
 src/notion_source.py   read Notion / CSV, clean and validate rows
 src/enrich.py          cover + ISBN lookup (Google Books → Open Library), cache
 src/stats.py           all statistics and sort orders
+src/taste.py           genre ratio, to-read list, "read next" (reading taste page)
 src/posts.py           reads posts/*.md (reading notes)
 src/render.py          writes site/ with Jinja2
 templates/             HTML templates

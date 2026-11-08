@@ -35,13 +35,18 @@ def asset_version(name: str) -> str:
     return hashlib.sha1((ROOT / "static" / name).read_bytes()).hexdigest()[:8]
 
 
+def cover_version(path: str) -> str:
+    """Fingerprint of a cover file, so a replaced cover isn't shown from the browser's cache."""
+    return hashlib.sha1((ROOT / "static" / path).read_bytes()).hexdigest()[:8]
+
+
 def search_text(book: Book) -> str:
     """Lower-case text the search box matches against (title, second title, author, ISBN)."""
     return " ".join([book.title, book.second_title, book.author, book.isbn]).lower()
 
 
 def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = None,
-           posts: list[Post] | None = None) -> None:
+           posts: list[Post] | None = None, taste: dict | None = None) -> None:
     env = Environment(
         loader=FileSystemLoader(ROOT / "templates"),
         autoescape=select_autoescape(["html"]),
@@ -51,6 +56,7 @@ def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = N
     env.filters["pct"] = pct
     env.filters["dash"] = dash
     env.filters["search_text"] = search_text
+    env.filters["cover_version"] = cover_version
 
     sort_options = [("title", "Title A–Z"), ("rating", "Rating")]
     if config.DATE_PROPERTY:
@@ -97,6 +103,8 @@ def render(books: list[Book], stats: dict, out_dir: Path, today: date | None = N
     shutil.copytree(ROOT / "static", out_dir / "static")
     render_blog(env, posts or [], out_dir, common)
     render_doodles(env, out_dir, common)
+    if taste:
+        render_taste(env, out_dir, common, taste)
     # Tell GitHub Pages not to run Jekyll on the output.
     (out_dir / ".nojekyll").write_text("")
 
@@ -124,4 +132,14 @@ def render_doodles(env: Environment, out_dir: Path, common: dict) -> None:
         env.get_template("doodles.html").render(
             **common, root="../", current_page="doodles", series=series, thumb_width=THUMB_WIDTH,
             doodles_js_version=asset_version("doodles.js")),
+        encoding="utf-8")
+
+
+def render_taste(env: Environment, out_dir: Path, common: dict, taste: dict) -> None:
+    """taste/index.html: genre ratio, favourites, what to read next, to-read list."""
+    (out_dir / "taste").mkdir()
+    (out_dir / "taste" / "index.html").write_text(
+        env.get_template("taste.html").render(
+            **common, root="../", current_page="taste", taste=taste,
+            taste_js_version=asset_version("taste.js")),
         encoding="utf-8")

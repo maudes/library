@@ -409,10 +409,10 @@
     "status": "found"
   },
   "1f33d1f4-a99a-805b-b78d-f91f4ccff642": {
-    "checked": "2026-11-06",
+    "checked": "2026-11-08",
     "cover": "covers/1f33d1f4-a99a-805b-b78d-f91f4ccff642.jpg",
-    "isbn": "9786264600514",
-    "signature": "別讓我走|Never Let Me Go|Kazuo Ishiguro||",
+    "isbn": "9781400044832",
+    "signature": "Never Let Me Go|別讓我走|Kazuo Ishiguro||",
     "source": "google",
     "status": "found",
     "v": 6
@@ -1716,6 +1716,277 @@
     "isbn": "",
     "signature": "七層足印--李鄭屋徙置區口述歷史||林喜兒||https://nrapp-prd.oss-cn-hongkong.aliyuncs.com/prod/9789620441721/9789620441721_bc_01.jpg?x-oss-process=image/resize,w_1480/quality,Q_80",
     "source": "notion",
+    "status": "found",
+    "v": 6
+  },
+  "pick-07986406523a75e3": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-07986406523a75e3.jpg",
+    "isbn": "9780552779777",
+    "signature": "The Girl on the Train||Paula Hawkins||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-0b50f4948c8620c2": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-0b50f4948c8620c2.jpg",
+    "isbn": "9781782838777",
+    "signature": "The Last Thing He Told Me||Laura Dave||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-2203f80d6ed2927e": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-2203f80d6ed2927e.jpg",
+    "isbn": "9780593129203",
+    "signature": "Djinn Patrol on the Purple Line||Deepa Anappara||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-272a221d3cbb8247": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-272a221d3cbb8247.jpg",
+    "isbn": "9781789096125",
+    "signature": "Five Decembers||James Kestrel||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-2c122391a897a60e": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-2c122391a897a60e.jpg",
+    "isbn": "9781455561803",
+    "signature": "Before the Fall||Noah Hawley||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-2e57acc7fe722964": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-2e57acc7fe722964.jpg",
+    "isbn": "9781644451007",
+    "signature": "Milkman||Anna Burns||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-486cec3316307ba6": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-486cec3316307ba6.jpg",
+    "isbn": "9780861545902",
+    "signature": "Prophet Song||Paul Lynch||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-55bd16fb495440be": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-55bd16fb495440be.jpg",
+    "isbn": "9786020351261",
+    "signature": "Mr. Mercedes||Stephen King||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-612481094a07d3a6": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-612481094a07d3a6.jpg",
+    "isbn": "9781451645859",
+    "signature": "Ordinary Grace||William Kent Krueger||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-64829123cb1b9a48": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-64829123cb1b9a48.jpg",
+    "isbn": "9784488028022",
+    "signature": "流浪の月||凪良ゆう||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-72ade181511410a9": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-72ade181511410a9.jpg",
+    "isbn": "9780349143675",
+    "signature": "Locking Up Our Own||James Forman Jr.||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-7754d31f36f905b4": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-7754d31f36f905b4.jpg",
+    "isbn": "9780593418925",
+    "signature": "The God of the Woods||Liz Moore||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-7e2a0737a10f4cb6": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-7e2a0737a10f4cb6.jpg",
+    "isbn": "9781473584464",
+    "signature": "The Promise||Damon Galgut||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-80882bd557c558b7": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-80882bd557c558b7.jpg",
+    "isbn": "9781004011452",
+    "signature": "The Guest List||Lucy Foley||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-8278ac69340a55ea": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-8278ac69340a55ea.jpg",
+    "isbn": "9781529922936",
+    "signature": "Orbital||Samantha Harvey||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-8765512e71fb453d": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-8765512e71fb453d.jpg",
+    "isbn": "9781529019308",
+    "signature": "Shuggie Bain||Douglas Stuart||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-97d292ba04e7106d": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-97d292ba04e7106d.jpg",
+    "isbn": "9781782833192",
+    "signature": "Bluebird, Bluebird||Attica Locke||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-ad0f808a0c3124ae": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-ad0f808a0c3124ae.jpg",
+    "isbn": "9780691255583",
+    "signature": "To the Success of Our Hopeless Cause||Benjamin Nathans||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-c08df430c0b4c04e": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-c08df430c0b4c04e.jpg",
+    "isbn": "9780812986969",
+    "signature": "Invisible Child||Andrea Elliott||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-c0a85b131a0cd4f6": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-c0a85b131a0cd4f6.jpg",
+    "isbn": "9781398715530",
+    "signature": "Flags on the Bayou||James Lee Burke||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-c53fa7c60c900a57": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-c53fa7c60c900a57.jpg",
+    "isbn": "9780316509657",
+    "signature": "Down the River Unto the Sea||Walter Mosley||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-c86dde03f52d4daf": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-c86dde03f52d4daf.jpg",
+    "isbn": "9780553447446",
+    "signature": "Evicted: Poverty and Profit in the American City||Matthew Desmond||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-ca72915710ef247d": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-ca72915710ef247d.jpg",
+    "isbn": "9781250854988",
+    "signature": "A Day in the Life of Abed Salama||Nathan Thrall||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-da4c6a7363bd50c0": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-da4c6a7363bd50c0.jpg",
+    "isbn": "9780802146489",
+    "signature": "Wilmington's Lie||David Zucchino||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-de40bc6519225485": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-de40bc6519225485.jpg",
+    "cover_from_other_edition": true,
+    "isbn": "9780241800904",
+    "signature": "Not Quite Dead Yet||Holly Jackson||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-ec1d818a884f2c77": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-ec1d818a884f2c77.jpg",
+    "isbn": "9781409181644",
+    "signature": "The Silent Patient||Alex Michaelides||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-f5afe690aa35366d": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-f5afe690aa35366d.jpg",
+    "isbn": "9784101061412",
+    "signature": "成瀬は天下を取りにいく||宮島未奈||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-f71af1d7e5d33668": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-f71af1d7e5d33668.jpg",
+    "isbn": "9780374713713",
+    "signature": "Amity and Prosperity||Eliza Griswold||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-f86c4c4b7217fe5b": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-f86c4c4b7217fe5b.jpg",
+    "isbn": "9780735241343",
+    "signature": "The Maid||Nita Prose||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "pick-fa3063a0d0d10500": {
+    "checked": "2026-11-08",
+    "cover": "covers/pick-fa3063a0d0d10500.jpg",
+    "isbn": "9781474625982",
+    "signature": "Notes on an Execution||Danya Kukafka||",
+    "source": "google",
     "status": "found",
     "v": 6
   }

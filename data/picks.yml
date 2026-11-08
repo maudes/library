@@ -1,0 +1,157 @@
+# Pool of acclaimed books that "Read next" on the taste page is chosen from.
+#
+# The page picks the books that best fit your reading (your most-read genres and
+# how highly you rate them) and skips anything you've read or put in tbr.yml.
+# Each entry: title, author, genre (one of TASTE_GENRES in config.py), sources
+# (the lists it appeared on). Optional: second_title, isbn, cover_url.
+# Refresh this pool once a year, e.g. after the Goodreads Choice and NYT lists.
+
+- title: "Ordinary Grace"
+  author: "William Kent Krueger"
+  genre: Police procedural
+  sources: ["Edgar Best Novel 2014"]
+
+- title: "Mr. Mercedes"
+  author: "Stephen King"
+  genre: Police procedural
+  sources: ["Edgar Best Novel 2015"]
+
+- title: "Bluebird, Bluebird"
+  author: "Attica Locke"
+  genre: Police procedural
+  sources: ["Edgar Best Novel 2018"]
+
+- title: "Flags on the Bayou"
+  author: "James Lee Burke"
+  genre: Police procedural
+  sources: ["Edgar Best Novel 2024"]
+
+- title: "Before the Fall"
+  author: "Noah Hawley"
+  genre: Psychological thriller
+  sources: ["Edgar Best Novel 2017"]
+
+- title: "Notes on an Execution"
+  author: "Danya Kukafka"
+  genre: Psychological thriller
+  sources: ["Edgar Best Novel 2023"]
+
+- title: "The Silent Patient"
+  author: "Alex Michaelides"
+  genre: Psychological thriller
+  sources: ["Goodreads Choice Mystery & Thriller 2019"]
+
+- title: "The Guest List"
+  author: "Lucy Foley"
+  genre: Psychological thriller
+  sources: ["Goodreads Choice Mystery & Thriller 2020"]
+
+- title: "The Last Thing He Told Me"
+  author: "Laura Dave"
+  genre: Psychological thriller
+  sources: ["Goodreads Choice Mystery & Thriller 2021"]
+
+- title: "The God of the Woods"
+  author: "Liz Moore"
+  genre: Psychological thriller
+  sources: ["Goodreads Choice Mystery & Thriller 2024"]
+
+- title: "The Girl on the Train"
+  author: "Paula Hawkins"
+  genre: Psychological thriller
+  sources: ["Goodreads Choice Mystery & Thriller 2015"]
+
+- title: "Five Decembers"
+  author: "James Kestrel"
+  genre: Classic mystery
+  sources: ["Edgar Best Novel 2022"]
+
+- title: "Down the River Unto the Sea"
+  author: "Walter Mosley"
+  genre: Classic mystery
+  sources: ["Edgar Best Novel 2019"]
+
+- title: "The Maid"
+  author: "Nita Prose"
+  genre: Classic mystery
+  sources: ["Goodreads Choice Mystery & Thriller 2022"]
+
+- title: "Not Quite Dead Yet"
+  author: "Holly Jackson"
+  genre: Classic mystery
+  sources: ["Goodreads Choice Mystery & Thriller 2025"]
+
+- title: "Shuggie Bain"
+  author: "Douglas Stuart"
+  genre: Literary fiction
+  sources: ["Booker 2020"]
+
+- title: "Orbital"
+  author: "Samantha Harvey"
+  genre: Literary fiction
+  sources: ["Booker 2024"]
+
+- title: "Prophet Song"
+  author: "Paul Lynch"
+  genre: Literary fiction
+  sources: ["Booker 2023"]
+
+- title: "Milkman"
+  author: "Anna Burns"
+  genre: Literary fiction
+  sources: ["Booker 2018"]
+
+- title: "The Promise"
+  author: "Damon Galgut"
+  genre: Literary fiction
+  sources: ["Booker 2021"]
+
+- title: "Djinn Patrol on the Purple Line"
+  author: "Deepa Anappara"
+  genre: Literary fiction
+  sources: ["Edgar Best Novel 2021"]
+
+- title: "流浪の月"
+  author: "凪良ゆう"
+  genre: Literary fiction
+  sources: ["Japan Booksellers' Award 2020"]
+
+- title: "成瀬は天下を取りにいく"
+  author: "宮島未奈"
+  genre: Literary fiction
+  sources: ["Japan Booksellers' Award 2024"]
+
+- title: "Evicted: Poverty and Profit in the American City"
+  author: "Matthew Desmond"
+  genre: Society & politics
+  sources: ["Pulitzer General Nonfiction 2017"]
+
+- title: "Invisible Child"
+  author: "Andrea Elliott"
+  genre: Society & politics
+  sources: ["Pulitzer General Nonfiction 2022"]
+
+- title: "Amity and Prosperity"
+  author: "Eliza Griswold"
+  genre: Society & politics
+  sources: ["Pulitzer General Nonfiction 2019"]
+
+- title: "A Day in the Life of Abed Salama"
+  author: "Nathan Thrall"
+  genre: Society & politics
+  sources: ["Pulitzer General Nonfiction 2024"]
+
+- title: "Locking Up Our Own"
+  author: "James Forman Jr."
+  genre: Society & politics
+  sources: ["Pulitzer General Nonfiction 2018"]
+
+- title: "To the Success of Our Hopeless Cause"
+  author: "Benjamin Nathans"
+  genre: History & anthropology
+  sources: ["Pulitzer General Nonfiction 2025"]
+
+- title: "Wilmington's Lie"
+  author: "David Zucchino"
+  genre: History & anthropology
+  sources: ["Pulitzer General Nonfiction 2021"]

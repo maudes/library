@@ -99,3 +99,20 @@ DOODLE_SERIES = [
     ("30-days-challenge", "30 Days Challenge", "Sparkles of daily life", 4),
     ("shaonu-momete", "少女摩門特", "Those moments we shared", 5),
 ]
+
+# --- Reading taste page (/taste/) ---------------------------------------------
+# Topic genres, in the order they're listed in data/genres.yml. This is a
+# different thing from the Notion "Genre" column (Fiction / Non-fiction / ...).
+TASTE_GENRES = [
+    "Police procedural", "Psychological thriller", "Classic mystery", "Literary fiction", "Fantasy & sci-fi", "Gender studies",
+    "Society & politics", "History & anthropology", "Psychology & philosophy", "Memoir & biography", "Science & tools",
+]
+TASTE_TOP_GENRES = 5     # genres in the ratio chart; the rest become "其他"
+TASTE_TOP_BOOKS = 10     # favourites shown
+TASTE_PICKS = 6          # "read next" suggestions
+TASTE_MIN_RATED = 3      # a genre needs this many rated books to be called "highest rated"
+
+# Playlist on the taste page. It only loads when a visitor presses play.
+# To change it, paste the id after "list=" in the YouTube Music link.
+PLAYLIST_ID = "PLKYsdNlEmtUQ"
+PLAYLIST_TITLE = "Recent Loop_Oct'26"

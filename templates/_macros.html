@@ -1,9 +1,9 @@
 {# Small reusable pieces of HTML. #}
 
 {# Book cover, or the beige/green placeholder when there's no cover. #}
-{% macro cover(book, size="md") %}
+{% macro cover(book, size="md", root="") %}
   {% if book.cover %}
-    <img class="cover cover-{{ size }}" src="static/{{ book.cover }}" alt="Cover of {{ book.title }}" loading="lazy">
+    <img class="cover cover-{{ size }}" src="{{ root }}static/{{ book.cover }}?v={{ book.cover | cover_version }}" alt="Cover of {{ book.title }}" loading="lazy">
   {% else %}
     <span class="cover cover-{{ size }} cover-empty" role="img" aria-label="No cover available">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v15H5.5A1.5 1.5 0 0 1 4 17.5v-12Z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v15h5.5c.8 0 1.5-.7 1.5-1.5v-12Z"/></svg>

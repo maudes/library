@@ -1,0 +1,125 @@
+{% extends "blog_base.html" %}
+{% from "_macros.html" import cover %}
+{% set s = taste.summary %}
+{% block title %}My reading taste · Maude's Library{% endblock %}
+{% block description %}What I read, what I rate highest, and what's next on the shelf.{% endblock %}
+{% block content %}
+<section class="hero blog-hero taste-hero">
+  <div>
+    <p class="eyebrow">Reading taste</p>
+    {% if s.top_genre %}
+    <h1>{{ taste.total }} books, mostly {{ s.top_genre }}.</h1>
+    {% else %}
+    <h1>Reading taste</h1>
+    {% endif %}
+  </div>
+</section>
+
+<div class="taste-overview">
+<div class="taste-metrics">
+  <div class="taste-metric taste-metric-main"><span>Books read</span><strong>{{ taste.total }}</strong></div>
+  <div class="taste-metric"><span>Average rating</span><strong>{{ taste.avg_rating | pct }}</strong></div>
+  <div class="taste-metric"><span>Highest-rated genre</span><strong>{{ s.best_genre | default("—") }}</strong></div>
+</div>
+
+{% if s.chart %}
+<section class="taste-genres-wrap">
+  <div class="card taste-genres">
+    <div class="taste-donut" role="img" aria-label="Genre ratio chart"
+         style="background: conic-gradient(
+         {%- for r in s.chart %}{% if not loop.first %},{% endif %} var(--taste-{{ 'other' if r.other else loop.index }}) {{ r.start }}% {{ r.end }}%{% endfor %})"></div>
+    <div class="taste-bars-wrap">
+    <h2 class="taste-card-title">Most-read genres</h2>
+    <ul class="taste-bars">
+      {% for r in s.chart %}
+      <li>
+        <span class="taste-name">{{ r.genre }}</span>
+        <span class="taste-track"><i style="width: {{ (r.pct * 100 / s.chart[0].pct) | round(1) }}%; background: var(--taste-{{ 'other' if r.other else loop.index }})"></i></span>
+        <span class="taste-pct">{{ r.pct }}%</span>
+        <span class="taste-sub">{{ r.count }} books{% if r.avg is not none %} · avg {{ r.avg }}%{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    </div>
+  </div>
+</section>
+{% endif %}
+</div>
+
+{% if taste.top_books %}
+<section class="taste-section">
+  <div class="taste-head"><h2>Top 10 favourites</h2><span>By rating</span></div>
+  <ol class="taste-top">
+    {% for b in taste.top_books %}
+    <li>
+      <span class="taste-rank">{{ loop.index }}</span>
+      {{ cover(b, "fluid", root) }}
+      <p class="taste-title clamp clamp-2">{{ b.title }}</p>
+      <p class="taste-meta clamp-1">{{ b.author }}</p>
+      <p class="taste-meta"><b>{{ b.rating | pct }}</b></p>
+      {% if taste.genre_of.get(b.id) %}<p class="taste-meta">{{ taste.genre_of[b.id] }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endif %}
+
+{% if taste.picks %}
+<section class="taste-section">
+  <div class="taste-head">
+    <h2>What to read next</h2>
+    <button type="button" class="taste-shuffle" id="picks-shuffle">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h3.5c2 0 3.3 1 4.5 3l2 4c1.2 2 2.5 3 4.5 3H21M18 14l3 3-3 3M3 17h3.5c1.3 0 2.3-.4 3.1-1.2M13.9 8.2C14.7 7.4 15.7 7 17 7h4M18 4l3 3-3 3"/></svg>
+      Shuffle
+    </button>
+  </div>
+  <p class="taste-sub-head">Matched to my genres and ratings, from award lists</p>
+  <ul class="taste-picks" id="taste-picks" data-count="{{ taste.picks_count }}">
+    {% for p in taste.picks %}
+    <li class="card" data-genre="{{ p.genre }}"{% if not p.shown %} hidden{% endif %}>
+      {{ cover(p.book, "md", root) }}
+      <div>
+        <h3 class="clamp clamp-2">{{ p.book.title }}</h3>
+        <p class="taste-meta clamp-1">{{ p.book.author }}</p>
+        <p class="taste-reason">{{ p.reason }}</p>
+        {% for src in p.sources %}<span class="taste-tag">{{ src }}</span>{% endfor %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="taste-section">
+  <div class="taste-head"><h2>To be read</h2>{% if taste.tbr %}<span>{{ taste.tbr | length }} books</span>{% endif %}</div>
+  {% if taste.tbr %}
+  <ul class="taste-shelf">
+    {% for t in taste.tbr %}
+    <li{% if t.note %} title="{{ t.note }}"{% endif %}>
+      {{ cover(t.book, "fluid", root) }}
+      <p class="taste-title clamp clamp-2">{{ t.book.title }}</p>
+      <p class="taste-meta clamp-1">{{ t.book.author }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="empty">Nothing on the list yet.</p>
+  {% endif %}
+</section>
+
+{% if taste.playlist_id %}
+<section class="taste-section">
+  <div class="taste-music" id="taste-music" data-playlist="{{ taste.playlist_id }}">
+    <button type="button" class="taste-play" id="taste-play" aria-label="Load and play the playlist: {{ taste.playlist_title }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+    </button>
+    <div class="taste-music-text">
+      <h3>{{ taste.playlist_title }}</h3>
+      <p>Reading playlist · YouTube Music · loads only when you press play, shuffled</p>
+    </div>
+    <div class="taste-embed" id="taste-embed" hidden></div>
+  </div>
+</section>
+{% endif %}
+<script src="{{ root }}static/taste.js?v={{ taste_js_version }}"></script>
+{% endblock %}

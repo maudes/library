@@ -18,6 +18,7 @@ from src.posts import load_posts
 from src.notion_source import capitalize_titles, load_from_csv, load_from_notion
 from src.render import render
 from src.stats import build_stats
+from src.taste import build_taste, load_genres, load_pool, load_tbr
 
 ROOT = Path(__file__).resolve().parent
 
@@ -48,15 +49,23 @@ def main() -> int:
         books = load_from_notion(token, database_id)
     log.info("Loaded %d books", len(books))
 
+    # Books for the taste page (to-read, recommendations) get covers through the
+    # same lookup, so they must be in the same enrich() call (it prunes the cache).
+    tbr = load_tbr(ROOT / "data" / "tbr.yml")
+    pool = load_pool(ROOT / "data" / "picks.yml")
+    shelf_books = [s.book for s in tbr + pool]
+
     # CSV rows have different ids from Notion pages, so never prune the
     # (Notion-keyed) cache during a CSV build.
-    enrich(books, api_key=os.environ.get("GOOGLE_BOOKS_API_KEY", ""),
+    enrich(books + shelf_books, api_key=os.environ.get("GOOGLE_BOOKS_API_KEY", ""),
            offline=args.offline, prune=not args.csv)
     capitalize_titles(books)  # display only; must run after enrich (see its docstring)
     stats = build_stats(books)
+    taste = build_taste(books, stats["all_time"],
+                        load_genres(ROOT / "data" / "genres.yml", books), tbr, pool)
     posts = load_posts(ROOT / "posts")
     log.info("Loaded %d posts", len(posts))
-    render(books, stats, Path(args.out), posts=posts)
+    render(books, stats, Path(args.out), posts=posts, taste=taste)
     log.info("Site written to %s", args.out)
     return 0
 
