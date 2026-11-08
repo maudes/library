@@ -3,16 +3,16 @@
 # after you save. Only title and author are required. Covers are found
 # automatically; add `isbn:` or `cover_url:` if a cover is wrong or missing.
 #
-# - title: 百年孤寂
-#   author: 賈西亞·馬奎斯
-#   note: 朋友推薦
+#
 
- - title: 恰克與女孩
-   author: YUSUKE SAITOH
-   note: 台漫基地
- - title: 跳舞的熊
-   author: Witold Szabłowski
-   note: 推薦  
- - title: 台灣地方政治讀本
-   author: 嚴婉玲
-   note: 少年兄推薦  
+- title: 恰克與女孩
+  author: YUSUKE SAITOH
+  note: 台漫基地
+
+- title: 跳舞的熊
+  author: Witold Szabłowski
+  note: 推薦
+
+- title: 台灣地方政治讀本
+  author: 嚴婉玲
+  note: 少年兄推薦
