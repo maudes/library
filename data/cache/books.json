@@ -1989,5 +1989,32 @@
     "source": "google",
     "status": "found",
     "v": 6
+  },
+  "tbr-6251679a3fb1a121": {
+    "checked": "2026-11-08",
+    "cover": "",
+    "isbn": "",
+    "signature": "台灣地方政治讀本||嚴婉玲||",
+    "source": "",
+    "status": "not_found",
+    "v": 6
+  },
+  "tbr-cef1efe05e2cdf25": {
+    "checked": "2026-11-08",
+    "cover": "",
+    "isbn": "",
+    "signature": "跳舞的熊||Witold Szabłowski||",
+    "source": "",
+    "status": "not_found",
+    "v": 6
+  },
+  "tbr-f6748051b617e658": {
+    "checked": "2026-11-08",
+    "cover": "covers/tbr-f6748051b617e658.jpg",
+    "isbn": "9786269316380",
+    "signature": "恰克與女孩||YUSUKE SAITOH||",
+    "source": "google",
+    "status": "found",
+    "v": 6
   }
 }
