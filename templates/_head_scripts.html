@@ -20,3 +20,12 @@
     if (p && p !== "current" && {{ palettes | tojson }}.indexOf(p) > -1) document.documentElement.dataset.palette = p;
   } catch (e) {}
 </script>
+{# The browser colours the iPhone notch / status bar from this tag; app.js keeps it in step with the palette. #}
+<meta name="theme-color" content="#f4efe5">
+<script>
+  try {
+    var m = document.querySelector('meta[name="theme-color"]');
+    var c = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+    if (m && c) m.content = c;
+  } catch (e) {}
+</script>

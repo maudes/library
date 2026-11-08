@@ -32,6 +32,10 @@
       if (next === "current") delete document.documentElement.dataset.palette;
       else document.documentElement.dataset.palette = next;
       try { localStorage.setItem(PALETTE_KEY, next); } catch (e) { /* ignore */ }
+      // The iPhone notch / status bar takes its colour from the theme-color tag.
+      const meta = $('meta[name="theme-color"]');
+      const bg = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+      if (meta && bg) meta.content = bg;
     });
   }
 

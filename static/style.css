@@ -365,8 +365,11 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
 
 @media (max-width: 640px) {
   .wrap { padding: 0 16px; }
-  .nav { display: none; }
-  .header-inner { justify-content: space-between; gap: 10px; }
+  /* The menu moves to its own row under the logo instead of disappearing. */
+  html { scroll-padding-top: 104px; }
+  .header-inner { flex-wrap: wrap; height: auto; gap: 0 10px; padding-top: 10px; }
+  .nav { order: 3; flex: 0 0 100%; margin: 8px 0 0; gap: 12px; justify-content: space-between; border-top: 1px solid var(--line-soft); }
+  .nav a { padding: 10px 2px; }
   .palette-btn { margin-left: auto; }
   .hero { flex-direction: column; align-items: stretch; padding-top: 28px; }
   .hero h1 { font-size: 36px; }
@@ -508,7 +511,7 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
   .taste-top { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 12px; }
   .taste-metric { padding: 12px; }
   .taste-metric strong { font-size: 22px; }
-  .taste-metric:last-child strong { font-size: 18px; line-height: 2; }
+  .taste-metric:last-child strong { font-size: 18px; line-height: 1.35; }
   .taste-genres { grid-template-columns: minmax(0, 1fr); padding: 16px 18px; }
   .taste-donut { display: none; }
   .taste-bars li { grid-template-columns: 120px minmax(0, 1fr) 40px; }
