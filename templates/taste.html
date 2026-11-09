@@ -33,10 +33,10 @@
     <ul class="taste-bars">
       {% for r in s.chart %}
       <li>
-        <span class="taste-name">{{ r.genre }}</span>
+        <span class="taste-name"{% if r.other %} title="{{ r.genres | join(', ') }}"{% endif %}>{{ r.genre }}</span>
         <span class="taste-track"><i style="width: {{ (r.pct * 100 / s.chart[0].pct) | round(1) }}%; background: var(--taste-{{ 'other' if r.other else loop.index }})"></i></span>
         <span class="taste-pct">{{ r.pct }}%</span>
-        <span class="taste-sub">{{ r.count }} books{% if r.avg is not none %} · avg {{ r.avg }}%{% endif %}</span>
+        <span class="taste-sub">{{ r.count }} books{% if r.avg is not none %} · avg {{ r.avg }}%{% endif %}{% if r.other %} · {{ r.genres | join(', ') }}{% endif %}</span>
       </li>
       {% endfor %}
     </ul>

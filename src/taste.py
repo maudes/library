@@ -95,7 +95,8 @@ def genre_summary(books: list[Book], genre_of: dict[str, str]) -> dict:
     rest = rows[config.TASTE_TOP_GENRES:]
     chart = [dict(r) for r in top]
     if rest:
-        chart.append({"genre": "Other", "count": sum(r["count"] for r in rest), "avg": None, "other": True})
+        chart.append({"genre": "Other", "count": sum(r["count"] for r in rest), "avg": None, "other": True,
+                      "genres": [r["genre"] for r in rest]})
     start = 0
     for r, pct in zip(chart, _round_shares([r["count"] for r in chart])):
         r["pct"], r["start"], r["end"] = pct, start, start + pct
