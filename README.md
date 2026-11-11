@@ -6,14 +6,6 @@ GitHub Pages.
 
 **Site:** https://maudes.github.io/library/
 
-> ⚠️ **Everything in the database is public.** The repository and the website are
-> both public, so every title, rating and **Summary** you write in Notion will be
-> visible to anyone. Don't put private notes in the Summary column.
-
-> 📊 **Analytics:** the live site loads Google Analytics (`GA_MEASUREMENT_ID` in
-> `config.py`, the same property as the blog on this domain). It only runs on
-> `maudes.github.io`, not on local previews. Set it to `None` to turn it off.
-
 ---
 
 ## How it works
