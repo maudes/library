@@ -4,10 +4,19 @@ A personal reading log, published as a static website: **https://maudes.github.i
 
 ## Why
 
-I read a lot and wanted one place to keep it all: what I've read, how I rated it,
-what my taste looks like, and what to read next. Notion is where I already log
-books, so it stays the single source of truth. This project turns that database
-into a public website that updates itself.
+I've wanted a personal library for years: somewhere to see what I've read and what
+my taste looks like, the way an old library card shows every book its owner
+borrowed. This is that card: my books, ratings, taste, reading notes and drawings
+in one place. Notion stays the single source of truth, and the site rebuilds itself
+every month.
+
+The longer-term idea is **passive social**: no feeds, likes or push notifications.
+Curious people can flip through my card, and I can flip through theirs.
+
+- **v1:** my own records only. No accounts, no social features.
+- **Built with AI:** my first project built fully with AI. I designed it and set
+  the rules; Claude wrote the code and tests.
+- **Next:** shareable library cards, the start of the passive social layer.
 
 ## Site structure
 
