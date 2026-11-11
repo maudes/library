@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Blocks `git push` if the PII scan or tests fail. Enable once per clone:
+#   git config core.hooksPath .githooks
+exec "$(git rev-parse --show-toplevel)/scripts/check.sh"

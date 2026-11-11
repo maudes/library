@@ -1,220 +1,128 @@
 # Maude's Library
 
-A personal reading log. Books live in a Notion database; a Python script reads
-them once a month, fills in missing covers and ISBNs, and publishes a static site to
-GitHub Pages.
+A personal reading log, published as a static website: **https://maudes.github.io/library/**
 
-**Site:** https://maudes.github.io/library/
+## Why
 
----
+I read a lot and wanted one place to keep it all: what I've read, how I rated it,
+what my taste looks like, and what to read next. Notion is where I already log
+books, so it stays the single source of truth. This project turns that database
+into a public website that updates itself.
+
+## Site structure
+
+| Page | What it is |
+|---|---|
+| **Library** (`/`) | Every book I've read, with covers, ratings, summaries and stats. Browse as a list or cards; sort and filter. |
+| **Taste** (`/taste/`) | Genre breakdown, top picks, a to-be-read list and "what to read next" suggestions. |
+| **Blog** (`/blog/`) | Longer reading notes, written in Markdown. |
+| **Doodles** (`/doodles/`) | Drawings, grouped in series (30 Days Challenge, 少女摩門特), with a lightbox viewer. |
 
 ## How it works
 
-```
-Notion ──► src/notion_source.py ──► src/enrich.py ──► src/stats.py ──► src/render.py ──► site/
-           read + clean rows        covers & ISBNs     all numbers &     HTML via Jinja2
-                                    (cached)           sort orders
-```
+Two views of the same system: the **stack** (what it is built from) and the
+**flow** (how a change reaches the live site).
 
-- **All logic is Python.** `src/stats.py` computes every count, average, Top 3,
-  genre share and sort order. The browser JavaScript (`static/app.js`) only
-  shows/hides and re-orders what Python already prepared.
-- **Fast-food** books appear in the reading list but are left out of every
-  statistic (totals, averages, Top 3, genre chart).
-- **Ranking** (Top 3 / Top 10 and the "Rating" sort): rating high → low, then
-  reading order (the `Date` column: read earlier ranks higher), then title.
-- **Reading order** comes from Notion's `Date` column (created time), set as
-  `DATE_PROPERTY` in `config.py`. Only the order is used; the date itself isn't
-  shown, because for books entered later its year differs from `Year`.
-- **Title order**: English titles A–Z first, then Chinese titles in
-  ㄅㄆㄇㄈ (Zhuyin) order. Chinese readings come from the `pypinyin` library;
-  a character with several pronunciations (破音字) is occasionally sorted by the
-  wrong one.
+### Stack
 
----
-
-## 1. Create a Notion internal connection
-
-Use an **internal connection** (formerly called an "integration"), not a personal
-access token: it can only see the pages you share with it, can be read-only, and
-doesn't expire. A personal access token can read *and edit* your whole workspace
-and expires within a year, which would silently stop the monthly build.
-
-1. Open the Notion Developer portal (<https://www.notion.so/developers>) and create
-   a new **internal connection** in your workspace (e.g. "Maude's Library").
-2. Under **Capabilities**, only **Read content** is needed.
-3. Save, then copy its secret. This is your `NOTION_TOKEN`.
-   Treat it like a password.
-
-## 2. Connect the database to the internal connection
-
-1. Open the reading-list database in Notion as a full page.
-2. Click **•••** (top right) → **Connections** → find your connection → **Confirm**.
-3. Copy the database id from the page URL:
-   `https://www.notion.so/<workspace>/`**`1f33d1f4a99a80c2b396e2e1adc75cf0`**`?v=…`
-   This is your `NOTION_DATABASE_ID`.
-
-## 3. (Recommended) Get a Google Books API key
-
-Without a key, Google Books often refuses requests and only Open Library is used,
-which has few Chinese editions.
-
-1. Open <https://console.cloud.google.com/>, create a project.
-2. **APIs & Services → Library →** enable **Books API**.
-3. **APIs & Services → Credentials → Create credentials → API key**.
-4. Optionally restrict the key to the Books API.
-
-The key is free for this level of use.
-
-## 4. Run it on your computer
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env          # then open .env and fill in the values
-python build.py
-python -m http.server 8765 --directory site
+```mermaid
+flowchart TB
+    subgraph L1["Design"]
+        F["Figma + Figma MCP<br/>design guideline"]
+    end
+    subgraph L2["Build · local project folder"]
+        C["Claude<br/>writes Python, Jinja2 templates, JS, tests"]
+    end
+    subgraph L3["Data & services"]
+        N[("Notion database<br/>books")]
+        Y["YAML + Markdown<br/>genres · to-read · posts"]
+        G["Google Books · Open Library<br/>covers & ISBNs"]
+    end
+    subgraph L4["Quality gate (3 layers)"]
+        T["1 CLAUDE.md rules<br/>2 pre-push hook: PII scan + pytest<br/>3 GitHub Actions: PII scan + pytest again"]
+    end
+    subgraph L5["Deploy"]
+        A["GitHub Actions<br/>monthly + every push"]
+        P["GitHub Pages<br/>static site"]
+    end
+    subgraph L6["In the browser"]
+        R["Google Analytics · YouTube playlist<br/>loaded by the live page"]
+    end
+    L1 --> L2 --> L3 --> L4 --> L5 --> L6
 ```
 
-Open <http://localhost:8765>.
+### Flow
 
-Other options:
-
-```bash
-python build.py --offline            # skip cover lookups, use only the cache
-python build.py --csv export.csv     # use a Notion "Export → CSV" file instead of the API
-pytest                               # run the tests
+```mermaid
+flowchart LR
+    D["Design<br/>Figma MCP"] --> W["Claude edits code<br/>in local folder<br/>(rules: CLAUDE.md)"]
+    W --> LT{"pre-push hook<br/>PII scan + pytest"}
+    LT -- fail --> W
+    LT -- pass --> PU["git push"]
+    PU --> CT{"GitHub Actions<br/>PII scan + pytest"}
+    CT -- fail --> X["stop, no deploy"]
+    CT -- pass --> B["build.py"]
+    N[("Notion")] -- read --> B
+    G["Google Books<br/>Open Library"] -- covers & ISBNs --> B
+    Y["YAML + posts"] -- read --> B
+    B --> CA["commit new covers<br/>back to repo"]
+    B --> S["GitHub Pages<br/>live site"]
+    S --> R["Browser: Analytics,<br/>YouTube on play"]
+    M["Monthly schedule"] --> CT
 ```
 
-## 5. Publish on GitHub Pages
+- **Design:** layout and style are designed in Figma and handed to Claude through
+  the **Figma MCP** server.
+- **Build:** Claude writes the **Python** site generator. `build.py` reads the
+  **Notion database**, computes stats and rankings, and renders plain HTML with
+  **Jinja2**. Browser JavaScript only handles sorting, filtering, the lightbox and
+  the playlist.
+- **Third-party services:** Notion (book data), Google Books and Open Library
+  (covers and ISBNs, cached in the repo), Google Analytics and a YouTube playlist
+  (loaded in the visitor's browser).
+- **Guardrails:** three layers, each stricter than the last.
+  1. `CLAUDE.md` tells Claude the project rules in every new chat.
+  2. A **pre-push hook** runs `scripts/check.sh` (PII/secret scan, then `pytest`)
+     and blocks the push if anything fails.
+  3. **GitHub Actions** runs the same scan and tests again before every deploy.
+  If any layer fails, nothing is published.
+- **Deploy:** **GitHub Actions** rebuilds on the 1st of every month and on every
+  push, then publishes to **GitHub Pages**. API keys live in GitHub Secrets.
 
-1. In the repository on GitHub: **Settings → Secrets and variables → Actions →
-   New repository secret**, and add `NOTION_TOKEN`, `NOTION_DATABASE_ID`, and
-   (optional) `GOOGLE_BOOKS_API_KEY`.
-2. **Settings → Pages → Source:** choose **GitHub Actions**.
-3. **Actions → Build and deploy → Run workflow** to publish right away.
+## How I work with Claude
 
-The site then rebuilds on the 1st of every month at 08:00 Taipei time, and on every
-push to `main`. To publish Notion changes sooner: **Actions → Build and deploy → Run
-workflow**, or `gh workflow run deploy.yml`.
-When new covers or ISBNs are found, the workflow commits them back
-(`data/cache/books.json` and `static/covers/`) so they're never looked up twice.
+I keep one local project folder as the parent. Claude works in it one area at a
+time, and each area maps to a part of the site.
 
-> GitHub pauses scheduled workflows in repositories with no activity for 60 days.
-> A monthly run only commits when you've added books, so after ~2 quiet months the
-> schedule may pause. GitHub emails you when that happens; re-enable it from the
-> **Actions** tab (or just run the workflow manually once).
+| Workstream | What happens |
+|---|---|
+| **Design** | Finalize the look in Figma and release it as a design guideline via Figma MCP. Every later step follows it. |
+| **Main page** | Library page: list/card views, stats, sorting. |
+| **Taste** | Genre chart, to-be-read list, read-next suggestions. |
+| **Blog** | Reading notes in Markdown. |
+| **Doodles** | Drawing series and lightbox. |
+| **Maintenance** | Monthly refresh from Notion, cover/ISBN fixes, updates to the YAML files. |
 
----
+## Technical structure
 
-## Reading notes (blog)
+Which file does what, and which page it serves.
 
-Each post is one Markdown file in `posts/`, e.g. `posts/my-first-post.md`
-(the file name becomes the URL: `/blog/my-first-post/`):
-
-```
----
-title: 書名 — 我的心得
-date: 2025-03-01
-book: 書名                       # optional
-medium_url: https://medium.com/...   # optional: adds "Originally published on Medium"
-summary: 列表頁顯示的一句話。          # optional; defaults to the first paragraph
-draft: true                      # optional: hidden until you remove this line
----
-
-文章內容，用 Markdown 寫。
-```
-
-Posts are listed newest first at `/blog/`. To move a Medium article over, paste its
-text below the header and keep `medium_url` so readers can find the original.
-Posts are public, like everything else here.
-
----
-
-## Reading taste page (`/taste/`)
-
-Three hand-edited files in `data/` feed it (edit them on github.com; the site
-redeploys about a minute after you save):
-
-| File | What | How to edit |
+| Path | Role | Serves |
 |---|---|---|
-| `genres.yml` | Topic genre of each book (警探辦案, 心理驚悚, …), grouped by genre | Add the new book's title under a genre. A warning in the build log lists any book without one. |
-| `tbr.yml` | Your to-be-read list | One entry per book: `title`, `author`, optional `note`, `isbn`, `cover_url` |
-| `picks.yml` | Pool of acclaimed books that "接下來讀什麼" chooses from | Each entry has `genre` and `sources`. Refresh it once a year. |
-
-- **Genre ratio:** the top 5 genres by number of books (Fast-food excluded); the
-  rest are grouped as 其他. Genre names live in `TASTE_GENRES` in `config.py`.
-- **Read next:** one book per genre, ranked by how much you read the genre ×
-  how highly you rate it, plus a bonus per list the book is on. Books you've read
-  or put in `tbr.yml` are skipped. The code is `recommend()` in `src/taste.py`.
-- **Playlist:** set `PLAYLIST_ID` and `PLAYLIST_TITLE` in `config.py`. It only
-  loads when a visitor presses play.
-- Covers for `tbr.yml` and `picks.yml` books are looked up like the library's
-  (and saved in `data/cache/books.json` and `static/covers/`).
-
----
-
-## Notion columns
-
-Column names are mapped in **`config.py`** — that's the only place to change if
-you rename a column in Notion.
-
-| Notion column | Type | Required | Notes |
-|---|---|---|---|
-| Main Title | Title | ✅ | |
-| /2nd Title | Text | | Original or English title |
-| 作者 \| Arthur | Text | ✅ | |
-| Rating | Number (percent) | | Blank = not rated; not in Top 3 or averages |
-| Genre | Multi-select | ✅ | One of `Fiction` / `Non-fiction` / `Tool books` / `Fast-food type` |
-| Year | Text or Number | ✅ | Year you finished the book |
-| Date | Created time | | Reading order (automatic in Notion) |
-| Summary \| 朕．批閱 | Text | | **Public** |
-| ISBN | Text | | Optional — overrides automatic lookup |
-| Cover URL | URL | | Optional — overrides automatic lookup |
-
-Rows missing a required value are skipped with a warning in the build log; the
-build itself doesn't fail.
-
-### Fixing a wrong cover or ISBN
-
-A lookup only counts when **both** the title and the author match, so a book
-whose author is written differently (e.g. 石黑一雄 in Notion, "Kazuo Ishiguro"
-in the English edition) may not be found and shows the placeholder. Automatic
-matches can also occasionally be a different edition. In either case, fill in
-**ISBN** and/or **Cover URL** in Notion for that book; those always win.
-
-### Adding a new column
-
-1. Add the column in Notion.
-2. Add a line to `PROPERTIES` in `config.py`, e.g. `"pages": "Pages"`.
-3. Add the field to the `Book` class in `src/book.py` and pass it in `make_book`
-   in `src/notion_source.py`.
-4. Show it in `templates/index.html` (list row, card) and in the pop-up in
-   `templates/_macros.html`.
-
-### Adding a new genre
-
-Add it to `GENRE_MAP` in `config.py` (Notion value → label on the site). Add it to
-`STAT_GENRES` too if it should count in the statistics and the genre chart; then
-add a slice colour in `static/style.css` (`.pie`).
-
----
-
-## Project layout
-
-```
-build.py               entry point
-config.py              Notion column names, genres, settings
-src/notion_source.py   read Notion / CSV, clean and validate rows
-src/enrich.py          cover + ISBN lookup (Google Books → Open Library), cache
-src/stats.py           all statistics and sort orders
-src/taste.py           genre ratio, to-read list, "read next" (reading taste page)
-src/posts.py           reads posts/*.md (reading notes)
-src/render.py          writes site/ with Jinja2
-templates/             HTML templates
-posts/                 reading-note Markdown files
-static/                style.css, app.js, downloaded covers
-data/cache/books.json  lookup cache (committed)
-tests/                 pytest
-```
+| `build.py` | Entry point: runs the whole pipeline | All |
+| `config.py` | Notion column names, genres, settings | All |
+| `src/notion_source.py` | Reads Notion (or CSV), cleans and validates rows | Library |
+| `src/enrich.py` | Cover and ISBN lookup (Google Books → Open Library), cached | Library, Taste |
+| `src/stats.py` | All counts, averages, rankings and sort orders | Library |
+| `src/taste.py` | Genre ratio, to-read list, "read next" | Taste |
+| `src/posts.py` | Reads `posts/*.md` | Blog |
+| `src/doodles.py` | Turns `static/doodles/<series>/` images into series, makes thumbnails | Doodles |
+| `src/render.py` | Writes `site/` with Jinja2 | All |
+| `templates/` | HTML templates | All |
+| `static/` | `style.css`, JavaScript, covers, doodle images | All |
+| `posts/` | Reading-note Markdown files | Blog |
+| `data/` | Hand-edited YAML (genres, to-be-read, picks) and the cover/ISBN cache | Taste, Library |
+| `scripts/` | PII/secret scan and the pre-push check | All |
+| `.githooks/` | Git pre-push hook that runs those checks | All |
+| `CLAUDE.md` | Project rules Claude loads in every new chat | — |
+| `tests/` | `pytest` suite, run before every deploy | — |

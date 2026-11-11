@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: PII / secret scan
+        run: python scripts/pii_check.py
+
       - name: Run tests
         run: pytest -q
 
