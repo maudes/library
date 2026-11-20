@@ -8,9 +8,11 @@ hand-edited files feed it:
 """
 
 import hashlib
+import json
 import logging
 import re
 import unicodedata
+from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -53,10 +55,79 @@ def load_genres(path: Path, books: list[Book]) -> dict[str, str]:
                 log.warning("genres.yml: %r is listed twice", title)
             else:
                 result[book.id] = genre
-    for b in books:
-        if counts_in_stats(b) and b.id not in result:
-            log.warning("genres.yml: %r has no genre yet (not counted on the taste page)", b.title)
+    for gap in genre_gaps(books, result):
+        hint = (f" Suggested: {gap['suggested']} ({gap['reason']})." if gap["suggested"]
+                else " No suggestion: pick one from TASTE_GENRES in config.py.")
+        log.warning("genres.yml: %r has no genre yet (not counted on the taste page).%s", gap["title"], hint)
     return result
+
+
+# ---------------------------------------------------------------------------
+# Books with no genre yet: find them and suggest one
+# ---------------------------------------------------------------------------
+
+def _author_parts(author: str) -> set[str]:
+    """"Louis Rosenfeld/ Peter Morville" -> {"louis rosenfeld", "peter morville"}."""
+    return {title_id(p) for p in re.split(r"[/、,&]", author) if p.strip()}
+
+
+def suggest_genre(book: Book, books: list[Book], genre_of: dict[str, str]) -> tuple[str, str] | None:
+    """Best guess of a taste genre for `book`, as (genre, why). None if there's nothing to go on.
+
+    In order of trust:
+      1. the same author's other books that already have a genre,
+      2. words in the title / second title / summary (config.TASTE_GENRE_HINTS),
+      3. a Notion genre that points at one taste genre (config.TASTE_GENRE_FOR_NOTION),
+      4. the genre most of your other books of the same Notion genre have.
+    """
+    order = config.TASTE_GENRES.index   # ties go to the genre listed first
+
+    mine = _author_parts(book.author)
+    votes: Counter = Counter()
+    example: dict[str, str] = {}
+    for other in books:
+        if other.id != book.id and other.id in genre_of and mine & _author_parts(other.author):
+            votes[genre_of[other.id]] += 1
+            example.setdefault(genre_of[other.id], other.title)
+    if votes:
+        best = max(votes, key=lambda g: (votes[g], -order(g)))
+        return best, f"same author as '{example[best]}'"
+
+    text = title_id(" ".join([book.title, book.second_title, book.summary]))
+    hits = {g: [k for k in words if title_id(k) in text] for g, words in config.TASTE_GENRE_HINTS.items()}
+    hits = {g: found for g, found in hits.items() if found}
+    if hits:
+        best = max(hits, key=lambda g: (len(hits[g]), -order(g)))
+        return best, f"mentions '{hits[best][0]}'"
+
+    direct = config.TASTE_GENRE_FOR_NOTION.get(book.genre)
+    if direct:
+        return direct, f"marked {book.genre} in Notion"
+
+    same = Counter(genre_of[o.id] for o in books
+                   if o.id != book.id and o.id in genre_of and o.genre == book.genre)
+    if same:
+        best = max(same, key=lambda g: (same[g], -order(g)))
+        return best, f"low confidence: your most common {book.genre} genre"
+    return None
+
+
+def genre_gaps(books: list[Book], genre_of: dict[str, str]) -> list[dict]:
+    """Counted books with no genre yet, each with a suggestion (Fast-food needs none)."""
+    gaps = []
+    for b in books:
+        if counts_in_stats(b) and b.id not in genre_of:
+            guess = suggest_genre(b, books, genre_of)
+            gaps.append({"title": b.title, "author": b.author,
+                         "suggested": guess[0] if guess else None, "reason": guess[1] if guess else ""})
+    return gaps
+
+
+def write_genre_gaps(path: Path, gaps: list[dict]) -> None:
+    """Save the gaps for scripts/check_genres.py (a build output, like the cover cache)."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    gaps = sorted(gaps, key=lambda g: title_id(g["title"]))
+    path.write_text(json.dumps(gaps, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def _round_shares(counts: list[int]) -> list[int]:

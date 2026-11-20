@@ -114,6 +114,25 @@ TASTE_GENRES = [
     "Police procedural", "Psychological thriller", "Classic mystery", "Literary fiction", "Fantasy & sci-fi", "Gender studies",
     "Society & politics", "History & anthropology", "Psychology & philosophy", "Memoir & biography", "Science & tools",
 ]
+# Used only to SUGGEST a genre for a book that has none yet (a best-effort guess;
+# you still add the title to data/genres.yml yourself). A book's title, second
+# title and summary are searched for these words; the genre with most hits wins.
+TASTE_GENRE_HINTS = {
+    "Police procedural": ["警探", "刑警", "警察", "警局", "探員", "法醫", "側寫", "FBI", "detective", "profiler"],
+    "Psychological thriller": ["心理懸疑", "心理驚悚", "催眠", "精神科", "失憶", "妄想", "psychological"],
+    "Classic mystery": ["推理", "本格", "密室", "名偵探", "古典", "locked room", "whodunit"],
+    "Literary fiction": ["文學獎", "文學", "literary"],
+    "Fantasy & sci-fi": ["奇幻", "科幻", "魔法", "fantasy", "sci-fi"],
+    "Gender studies": ["女性主義", "性別", "feminis", "gender"],
+    "Society & politics": ["政治", "民主", "社會學", "politic"],
+    "History & anthropology": ["歷史", "人類學", "anthropolog", "history"],
+    "Psychology & philosophy": ["哲學", "心理學", "philosoph"],
+    "Memoir & biography": ["回憶錄", "傳記", "自傳", "memoir", "biography"],
+    "Science & tools": ["工具", "方法", "科學", "tool"],
+}
+# The Notion "Genre" values that point straight at one taste genre.
+TASTE_GENRE_FOR_NOTION = {"Tool": "Science & tools"}
+
 TASTE_TOP_GENRES = 5     # genres in the ratio chart; the rest become "其他"
 TASTE_TOP_BOOKS = 10     # favourites shown
 TASTE_PICKS = 6          # "read next" suggestions

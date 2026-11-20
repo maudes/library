@@ -33,6 +33,11 @@ jobs:
       - name: PII / secret scan
         run: python scripts/pii_check.py
 
+      # Warning only here: a new book in Notion must never stop the monthly build.
+      # The same check blocks `git push` locally (scripts/check.sh).
+      - name: Genre coverage (warning only)
+        run: python scripts/check_genres.py --warn-only
+
       - name: Run tests
         run: pytest -q
 

@@ -22,7 +22,7 @@ Curious people can flip through my card, and I can flip through theirs.
 
 | Page | What it is |
 |---|---|
-| **Library** (`/`) | Every book I've read, with covers, ratings, summaries and stats. Browse as a list or cards; sort and filter. |
+| **Library** (`/`) | Every book I've finished (marked Done in Notion), with covers, ratings, summaries and stats. Browse as a list or cards; sort and filter. |
 | **Taste** (`/taste/`) | Genre breakdown, top picks, a to-be-read list and "what to read next" suggestions. |
 | **Blog** (`/blog/`) | Longer reading notes, written in Markdown. |
 | **Doodles** (`/doodles/`) | Drawings, grouped in series (30 Days Challenge, 少女摩門特), with a lightbox viewer. |
@@ -48,7 +48,7 @@ flowchart TB
         G["Google Books · Open Library<br/>covers & ISBNs"]
     end
     subgraph L4["Quality gate (3 layers)"]
-        T["1 CLAUDE.md rules<br/>2 pre-push hook: PII scan + pytest<br/>3 GitHub Actions: PII scan + pytest again"]
+        T["1 CLAUDE.md rules<br/>2 pre-push hook: PII scan + genre check + pytest<br/>3 GitHub Actions: PII scan + pytest again"]
     end
     subgraph L5["Deploy"]
         A["GitHub Actions<br/>monthly + every push"]
@@ -65,7 +65,7 @@ flowchart TB
 ```mermaid
 flowchart LR
     D["Design<br/>Figma MCP"] --> W["Claude edits code<br/>in local folder<br/>(rules: CLAUDE.md)"]
-    W --> LT{"pre-push hook<br/>PII scan + pytest"}
+    W --> LT{"pre-push hook<br/>PII scan + genre check + pytest"}
     LT -- fail --> W
     LT -- pass --> PU["git push"]
     PU --> CT{"GitHub Actions<br/>PII scan + pytest"}
@@ -91,9 +91,11 @@ flowchart LR
   (loaded in the visitor's browser).
 - **Guardrails:** three layers, each stricter than the last.
   1. `CLAUDE.md` tells Claude the project rules in every new chat.
-  2. A **pre-push hook** runs `scripts/check.sh` (PII/secret scan, then `pytest`)
-     and blocks the push if anything fails.
-  3. **GitHub Actions** runs the same scan and tests again before every deploy.
+  2. A **pre-push hook** runs `scripts/check.sh` (PII/secret scan, genre check,
+     then `pytest`) and blocks the push if anything fails. The genre check finds
+     books with no genre and suggests one.
+  3. **GitHub Actions** runs the same scan and tests again before every deploy
+     (the genre check only warns there, so the monthly build never stalls).
   If any layer fails, nothing is published.
 - **Deploy:** **GitHub Actions** rebuilds on the 1st of every month and on every
   push, then publishes to **GitHub Pages**. API keys live in GitHub Secrets.
@@ -131,7 +133,7 @@ Which file does what, and which page it serves.
 | `static/` | `style.css`, JavaScript, covers, doodle images | All |
 | `posts/` | Reading-note Markdown files | Blog |
 | `data/` | Hand-edited YAML (genres, to-be-read, picks) and the cover/ISBN cache | Taste, Library |
-| `scripts/` | PII/secret scan and the pre-push check | All |
+| `scripts/` | PII/secret scan, genre check and the pre-push check | All |
 | `.githooks/` | Git pre-push hook that runs those checks | All |
 | `CLAUDE.md` | Project rules Claude loads in every new chat | — |
 | `tests/` | `pytest` suite, run before every deploy | — |

@@ -18,7 +18,7 @@ from src.posts import load_posts
 from src.notion_source import capitalize_titles, load_from_csv, load_from_notion
 from src.render import render
 from src.stats import build_stats
-from src.taste import build_taste, load_genres, load_pool, load_tbr
+from src.taste import build_taste, genre_gaps, load_genres, load_pool, load_tbr, write_genre_gaps
 
 ROOT = Path(__file__).resolve().parent
 
@@ -61,8 +61,10 @@ def main() -> int:
            offline=args.offline, prune=not args.csv)
     capitalize_titles(books)  # display only; must run after enrich (see its docstring)
     stats = build_stats(books)
-    taste = build_taste(books, stats["all_time"],
-                        load_genres(ROOT / "data" / "genres.yml", books), tbr, pool)
+    genre_of = load_genres(ROOT / "data" / "genres.yml", books)
+    if not args.csv:  # a CSV preview has different books; don't overwrite the real report
+        write_genre_gaps(ROOT / "data" / "cache" / "genre_gaps.json", genre_gaps(books, genre_of))
+    taste = build_taste(books, stats["all_time"], genre_of, tbr, pool)
     posts = load_posts(ROOT / "posts")
     log.info("Loaded %d posts", len(posts))
     render(books, stats, Path(args.out), posts=posts, taste=taste)
