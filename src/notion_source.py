@@ -58,6 +58,14 @@ def make_book(page_id: str, raw: dict) -> Book | None:
     title = _clean_text(raw.get("title"))
     label = title or f"(untitled row {page_id})"
 
+    # Only finished books are listed. Checked first: a "to read" entry usually
+    # has no genre or year yet, so it shouldn't trigger the warnings below.
+    # status is None when the column doesn't exist, in which case we don't filter.
+    status = raw.get("status")
+    if status is not None and config.STATUS_DONE and _clean_text(status) not in config.STATUS_DONE:
+        log.info("Not listed yet: %r (status: %s)", label, _clean_text(status) or "none")
+        return None
+
     # Genre may come from a multi-select column: a book should have exactly one.
     genre_value = raw.get("genre")
     if isinstance(genre_value, list):
@@ -156,6 +164,9 @@ def _property_value(prop: dict, percent: bool = False):
         return value
     if kind == "select":
         return prop["select"]["name"] if prop["select"] else None
+    if kind == "status":
+        # "" (not None) when empty, so an unset status differs from a missing column.
+        return prop["status"]["name"] if prop["status"] else ""
     if kind == "multi_select":
         # Returned as a list; make_book decides what to do with several values.
         return [o["name"] for o in prop["multi_select"]]

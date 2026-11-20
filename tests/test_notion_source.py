@@ -105,3 +105,50 @@ def test_notion_created_time_keeps_time_of_day():
     assert _to_datetime(value) == datetime(2025, 5, 14, 9, 5)
     assert _to_datetime("2025-05-14") == datetime(2025, 5, 14)
     assert _to_datetime("") is None
+
+
+# --- Reading status: only finished books are listed ---------------------------
+
+@pytest.mark.parametrize("status", ["預計讀", "正在讀", "", "Abandoned"])
+def test_unfinished_books_are_not_listed(status):
+    assert make_book("1", raw(status=status)) is None
+
+
+def test_done_books_are_listed():
+    assert make_book("1", raw(status="Done")).title == "Book"
+
+
+def test_missing_status_column_lists_everything():
+    # status is absent (API: column not in the database) or None (CSV: no such column)
+    assert make_book("1", raw()) is not None
+    assert make_book("1", raw(status=None)) is not None
+
+
+def test_unfinished_entry_without_genre_or_year_is_skipped_quietly(caplog):
+    """A to-read entry often has only a title; that must not produce warnings."""
+    with caplog.at_level(logging.INFO):
+        assert make_book("1", {"title": "Into the Black Nowhere", "status": "預計讀"}) is None
+    assert not [r for r in caplog.records if r.levelno >= logging.WARNING]
+    assert "Not listed yet" in caplog.text and "預計讀" in caplog.text
+
+
+def test_status_rule_can_be_turned_off(monkeypatch):
+    monkeypatch.setattr("config.STATUS_DONE", [])
+    assert make_book("1", raw(status="預計讀")) is not None
+
+
+def test_notion_status_value():
+    assert _property_value({"type": "status", "status": {"name": "Done"}}) == "Done"
+    assert _property_value({"type": "status", "status": None}) == ""
+
+
+def test_csv_skips_unfinished_rows(tmp_path):
+    path = tmp_path / "export.csv"
+    path.write_text(
+        "Main Title,/2nd Title,朕已閱,Rating,作者 | Arthur,Year,Genre,Summary | 朕．批閱\n"
+        "Finished,,Done,80%,Someone,2025,Fiction,\n"
+        "Reading now,,正在讀,,Someone,2026,Fiction,\n"
+        "Want to read,,預計讀,,Someone,2026,Fiction,\n",
+        encoding="utf-8",
+    )
+    assert [b.title for b in load_from_csv(str(path))] == ["Finished"]

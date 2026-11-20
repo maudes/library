@@ -16,7 +16,14 @@ PROPERTIES = {
     "summary": "Summary | 朕．批閱",
     "isbn": "ISBN",                      # optional; overrides automatic lookup
     "cover_url": "Cover URL",            # optional; overrides automatic lookup
+    "status": "朕已閱",                   # reading status; only STATUS_DONE books are listed
 }
+
+# Only books whose status is one of these appear on the site. Books marked
+# 預計讀 (to read), 正在讀 (reading), or with no status are left out until you
+# mark them Done. If the status column doesn't exist in Notion at all, every
+# book is listed (with a build warning). Set to [] to turn the rule off.
+STATUS_DONE = ["Done"]
 
 # Column giving the order you read the books in (a Date or "Created time"
 # column). Used to break rating ties (read earlier ranks higher) and for the
