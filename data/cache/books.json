@@ -774,12 +774,12 @@
     "status": "found"
   },
   "1f33d1f4-a99a-8093-8864-c836539ee456": {
-    "checked": "2026-10-14",
+    "checked": "2026-11-20",
     "cover": "",
-    "isbn": "",
+    "isbn": "9789579609951",
     "signature": "長夜難明||紫金陳||",
-    "source": "",
-    "status": "not_found",
+    "source": "google",
+    "status": "found",
     "v": 6
   },
   "1f33d1f4-a99a-8093-bfef-e8f4ac541d61": {
@@ -1298,7 +1298,7 @@
     "v": 2
   },
   "1f63d1f4-a99a-8082-a959-fa02e56317c2": {
-    "checked": "2026-10-14",
+    "checked": "2026-11-20",
     "cover": "",
     "isbn": "",
     "signature": "被迫成名的小說家||青青綠蘿裙||",
@@ -1307,7 +1307,7 @@
     "v": 6
   },
   "1fb3d1f4-a99a-804a-acae-d179611de7cf": {
-    "checked": "2026-10-14",
+    "checked": "2026-11-20",
     "cover": "",
     "isbn": "",
     "signature": "無限公路就業指南||居一木||",
@@ -1316,7 +1316,7 @@
     "v": 6
   },
   "2063d1f4-a99a-80cf-ad29-e2478ad10da8": {
-    "checked": "2026-10-14",
+    "checked": "2026-11-20",
     "cover": "",
     "isbn": "",
     "signature": "當反派是會上癮的！[無限]||孤隅||",
@@ -1325,7 +1325,7 @@
     "v": 6
   },
   "20b3d1f4-a99a-8062-bdef-f14382ec3581": {
-    "checked": "2026-10-14",
+    "checked": "2026-11-20",
     "cover": "",
     "isbn": "",
     "signature": "兇案現場直播||退戈||",
@@ -1334,7 +1334,7 @@
     "v": 6
   },
   "2123d1f4-a99a-8005-8bb1-e05f77ca4af3": {
-    "checked": "2026-10-14",
+    "checked": "2026-11-20",
     "cover": "",
     "isbn": "",
     "signature": "歧路||退戈||",
@@ -1607,7 +1607,7 @@
     "v": 2
   },
   "3473d1f4-a99a-8078-b505-c0d694d5b56f": {
-    "checked": "2026-10-14",
+    "checked": "2026-11-20",
     "cover": "",
     "isbn": "",
     "signature": "等到青蟬墜落||丁墨||",
@@ -1716,6 +1716,33 @@
     "isbn": "",
     "signature": "七層足印--李鄭屋徙置區口述歷史||林喜兒||https://nrapp-prd.oss-cn-hongkong.aliyuncs.com/prod/9789620441721/9789620441721_bc_01.jpg?x-oss-process=image/resize,w_1480/quality,Q_80",
     "source": "notion",
+    "status": "found",
+    "v": 6
+  },
+  "4193d1f4-a99a-80ac-9bb0-d6a76a99768b": {
+    "checked": "2026-11-20",
+    "cover": "covers/4193d1f4-a99a-80ac-9bb0-d6a76a99768b.jpg",
+    "isbn": "9780385698382",
+    "signature": "A Noise Downstairs|沒有人聽見|Linwood Barclay||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "4193d1f4-a99a-80b8-b52d-d1bee3a61056": {
+    "checked": "2026-11-20",
+    "cover": "covers/4193d1f4-a99a-80b8-b52d-d1bee3a61056.jpg",
+    "isbn": "9781405952613",
+    "signature": "The Fury|奧拉島謀殺案|Alex Michaelides||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "41a3d1f4-a99a-80ab-9d14-e108e5d7395f": {
+    "checked": "2026-11-20",
+    "cover": "covers/41a3d1f4-a99a-80ab-9d14-e108e5d7395f.jpg",
+    "isbn": "9781101985564",
+    "signature": "Into the Black Nowhere|雙面殺手|Meg Gardiner||",
+    "source": "google",
     "status": "found",
     "v": 6
   },
