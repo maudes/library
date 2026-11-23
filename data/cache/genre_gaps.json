@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "title": "Harpiks",
+    "author": "Ane Riel",
+    "suggested": "Police procedural",
+    "reason": "low confidence: your most common Fiction genre"
+  },
+  {
+    "title": "Into The Black Nowhere",
+    "author": "Meg Gardiner",
+    "suggested": "Psychology & philosophy",
+    "reason": "mentions '心理學'"
+  },
+  {
+    "title": "Suspect",
+    "author": "Robert Crais",
+    "suggested": "Police procedural",
+    "reason": "low confidence: your most common Fiction genre"
+  }
+]

@@ -1737,6 +1737,34 @@
     "status": "found",
     "v": 6
   },
+  "41a3d1f4-a99a-80ab-9d14-e108e5d7395f": {
+    "checked": "2026-11-23",
+    "cover": "covers/41a3d1f4-a99a-80ab-9d14-e108e5d7395f.jpg",
+    "isbn": "9781101985564",
+    "signature": "Into the Black Nowhere|雙面殺手|Meg Gardiner||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "41f3d1f4-a99a-8061-9578-cd4a11aeffaf": {
+    "checked": "2026-11-23",
+    "cover": "covers/41f3d1f4-a99a-8061-9578-cd4a11aeffaf.jpg",
+    "cover_from_other_edition": true,
+    "isbn": "9788702224139",
+    "signature": "Harpiks|樹脂的秘密|Ane Riel||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
+  "41f3d1f4-a99a-8083-a579-c36cc46fe6e5": {
+    "checked": "2026-11-23",
+    "cover": "covers/41f3d1f4-a99a-8083-a579-c36cc46fe6e5.jpg",
+    "isbn": "9781101609163",
+    "signature": "Suspect|嫌疑犯|Robert Crais||",
+    "source": "google",
+    "status": "found",
+    "v": 6
+  },
   "pick-07986406523a75e3": {
     "checked": "2026-11-08",
     "cover": "covers/pick-07986406523a75e3.jpg",
